@@ -1,4 +1,4 @@
-import { Button, Col, Collapse, Image, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
+import { Button, Col, Collapse, Dropdown, Image, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
 import img from '../assets/images.jpeg'
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
@@ -12,22 +12,11 @@ const MyHome = () => {
         <ListGroup className="mb-1">
           <ListGroup.Item className="text-center">
             <div className="rounded-top position-absolute start-0 top-0 overflow-hidden imgContainer">
-              <Image
-                src={img}
-                className="imgBackground"
-                alt="profile-img-background"
-                // style={{ height: '56.25px', width: '100%', objectFit: 'cover' }}
-              />
-              {/* <Image
-                src={img}
-                className="rounded-top position-absolute start-0 top-0 z-0 imgBackground"
-                alt="profile-img-background"
-                // style={{ height: '56.25px', width: 225, objectFit: 'cover' }}
-              /> */}
+              <Image src={img} className="imgBackground" alt="profile-img-background" />
             </div>
             <Image
               src={img}
-              className="rounded-circle z-3 border border-white mb-4"
+              className="rounded-circle border border-2 border-white mb-4 position-relative mt-2"
               alt="profile-img"
               style={{ width: 72, height: 72 }}
             />
@@ -104,20 +93,54 @@ const MyHome = () => {
       <Col xs={12} className="p-0 second-column mt-md-0 mt-4 ">
         <ListGroup>
           <ListGroupItem>
-            <Image
-              src={img}
-              className="rounded-circle z-3 border border-white "
-              alt="profile-img"
-              style={{ width: 48, height: 48 }}
-            />
-            <Button className="w-75" variant="outline-secondary">
-              Seconda colonna
-            </Button>
+            <Row className="align-items-center justify-content-center gx-2">
+              <Col xs="auto">
+                <Image
+                  src={img}
+                  className="rounded-circle z-3 border border-white "
+                  alt="profile-img"
+                  style={{ width: 48, height: 48 }}
+                />
+              </Col>
+              <Col>
+                <Button
+                  className="w-100 py-2 rounded-5 text-start fw-semibold border border-dark-subtle btnPost"
+                  variant="transparent"
+                >
+                  Avvia un post
+                </Button>
+              </Col>
+            </Row>
+            <Row className="justify-content-between  mt-3">
+              <Col md="auto">
+                <i className="bi bi-image text-primary"></i> Contenuti multimediali
+              </Col>
+              <Col md="auto">
+                <i className="bi bi-calendar3 text-warning"></i> Evento
+              </Col>
+              <Col md="auto">
+                <i className="bi bi-layout-text-window-reverse text-warning-emphasis"></i> Scrivi un articolo
+              </Col>
+            </Row>
           </ListGroupItem>
-          {/* <ListGroup.Item action variant="light">
-            Seconda Colonna
-          </ListGroup.Item> */}
         </ListGroup>
+        <div className="d-flex align-items-center">
+          <div className="my-3 bg-dark-subtle me-2 flex-grow-1" style={{ height: '2px' }}></div>
+          <small className="d-inline-block">Seleziona la visualizzazione del feed:</small>
+          <Dropdown data-bs-theme="light" className="">
+            <Dropdown.Toggle id="dropdown-button-dark-example1" variant="transparent" className="">
+              <small>Dropdown Button</small>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1" active>
+                <small>Più rilevanti per primi</small>
+              </Dropdown.Item>
+              <Dropdown.Item href="#/action-2">
+                <small>Più recenti per primi</small>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
       </Col>
       {/*  */}
 
@@ -125,9 +148,53 @@ const MyHome = () => {
       {/* Terza Colonna */}
       <Col xs={12} className="p-0 third-column d-none d-lg-block" style={{ width: '300px' }}>
         <ListGroup>
-          <ListGroup.Item action variant="light">
-            Terza Colonna
+          <ListGroup.Item variant="light">
+            <h5>Linkedin notizie</h5>
+            <p>Storie principali</p>
           </ListGroup.Item>
+          <ListGroup.Item action variant="light">
+            <p className="m-0 fw-semibold">prova</p>
+            <small>9 ore fa · 133 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light">
+            <p className="m-0 fw-semibold">prova</p>
+            <small>9 ore fa · 133 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light">
+            <p className="m-0 fw-semibold">prova</p>
+            <small>9 ore fa · 133 lettori</small>
+          </ListGroup.Item>
+
+          <div className="d-flex flex-wrap justify-content-center column-gap-4 mt-3">
+            <small>
+              <p>informazioni</p>
+            </small>
+            <small>
+              <p>Accessibilità</p>
+            </small>
+            <small>
+              <p>Centro assistenza</p>
+            </small>
+            <small>
+              <p>Privacy e condizioni</p>
+            </small>
+            <small>
+              <p>Opzioni per gli annunci pubblicitari</p>
+            </small>
+            <small>
+              <p>Pubblicità</p>
+            </small>
+            <small>
+              <p>Servizi alle aziende</p>
+            </small>
+            <small>
+              <p>Scarica l'app LinkedIn</p>
+            </small>
+            <small>
+              <p>Altro</p>
+            </small>
+          </div>
+          <small className="text-center fw-semibold">Linkedin Corporation © 2024</small>
         </ListGroup>
       </Col>
     </Row>

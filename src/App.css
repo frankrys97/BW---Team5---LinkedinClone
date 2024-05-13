@@ -70,3 +70,7 @@ a:hover {
     max-width: 555px;
   }
 }
+
+.btnPost:hover {
+  background-color: rgb(231, 231, 231);
+}
