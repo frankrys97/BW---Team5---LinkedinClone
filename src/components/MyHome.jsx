@@ -1,4 +1,4 @@
-import { Button, Col, Collapse, Image, ListGroup, Row } from 'react-bootstrap'
+import { Button, Col, Collapse, Image, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
 import img from '../assets/images.jpeg'
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
@@ -98,26 +98,29 @@ const MyHome = () => {
         </Button>
       </Col>
       {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
+
       {/*  */}
       {/* Seconda colonna */}
       <Col xs={12} className="p-0 second-column mt-md-0 mt-4 ">
         <ListGroup>
-          <ListGroup.Item action variant="light">
+          <ListGroupItem>
+            <Image
+              src={img}
+              className="rounded-circle z-3 border border-white "
+              alt="profile-img"
+              style={{ width: 48, height: 48 }}
+            />
+            <Button className="w-75" variant="outline-secondary">
+              Seconda colonna
+            </Button>
+          </ListGroupItem>
+          {/* <ListGroup.Item action variant="light">
             Seconda Colonna
-          </ListGroup.Item>
+          </ListGroup.Item> */}
         </ListGroup>
       </Col>
       {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
+
       {/*  */}
       {/* Terza Colonna */}
       <Col xs={12} className="p-0 third-column d-none d-lg-block" style={{ width: '300px' }}>
