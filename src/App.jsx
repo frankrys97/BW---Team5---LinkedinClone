@@ -1,20 +1,17 @@
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-    
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-      
-      </div>
-    
-    </>
+    <BrowserRouter>
+      {/* <MyNavbar  /> */}
+      <Routes>
+        {/* <Route path='/' element={}/>
+      <Route path='/profile_my'element={} /> 
+      <Route path='/profile/:userId' element={} /> */}
+      </Routes>
+    </BrowserRouter>
   )
 }
 
