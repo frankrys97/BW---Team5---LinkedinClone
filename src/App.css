@@ -1,0 +1,10 @@
+.profileImg {
+  max-width: 20%;
+  transform: translateY(-140px) translateX(20px);
+}
+.infoBox {
+  background-color: #dde7f1;
+}
+.name {
+  margin-top: -130px;
+}

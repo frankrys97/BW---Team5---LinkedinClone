@@ -1,23 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MyProfile from "../src/components/MyProfile";
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0);
 
   return (
-    <>
-      <div>
-    
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-      
-      </div>
-    
-    </>
-  )
+    <div className="App">
+      <BrowserRouter>
+        {/* <MyNavbar  /> */}
+        <Routes>
+          {/* <Route path="/" element={} /> */}
+          <Route path="/profile_my" element={<MyProfile />} />
+          {/* <Route path='/profile/:userId' element={} /> */}
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
-export default App
+export default App;
