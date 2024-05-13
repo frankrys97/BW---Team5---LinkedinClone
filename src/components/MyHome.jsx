@@ -1,8 +1,10 @@
-import { Col, Image, ListGroup, Row } from 'react-bootstrap'
+import { Button, Col, Collapse, Image, ListGroup, Row } from 'react-bootstrap'
 import img from '../assets/images.jpeg'
 import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
 
 const MyHome = () => {
+  const [open, setOpen] = useState(false)
   return (
     <Row className="pt-4 justify-content-center">
       {/* Prima Colonna */}
@@ -35,47 +37,65 @@ const MyHome = () => {
             <small className="text-body-secondary">descrizione</small>
           </ListGroup.Item>
 
-          <ListGroup.Item action variant="light" className="d-flex justify-content-between align-items-start py-3">
-            <small>
-              <div className=" me-auto">
-                Collegamenti
-                <div className="fw-bold">Espandi la tua rete</div>
-              </div>
-            </small>
-            <small className="text-primary">10</small>
-          </ListGroup.Item>
-          <ListGroup.Item action variant="light">
-            <small>
-              Accedi a strumenti esclusivi e informazioni in esclusiva
-              <p className="fw-bold">Prova Premium</p>
-            </small>
-          </ListGroup.Item>
-          <ListGroup.Item action variant="light">
-            <small className="fw-bold">
-              <i className="bi bi-bookmark-fill"></i> Elementi salvati
-            </small>
-          </ListGroup.Item>
-        </ListGroup>
-        {/*  */}
-        <ListGroup>
-          <ListGroup.Item>
-            <NavLink to="#" className="d-block mb-1">
-              <small>Gruppi</small>
-            </NavLink>
-            <div className="d-flex justify-content-between">
-              <NavLink to="#" className="d-block">
-                <small>eventi</small>
-              </NavLink>
-              <i className="bi bi-plus-lg"></i>
+          <Collapse in={open}>
+            <div id="example-collapse-text" className="d-md-block" style={{ marginBlockStart: -1 }}>
+              <ListGroup.Item action variant="light" className="d-flex justify-content-between align-items-start py-3">
+                <small>
+                  <div className=" me-auto">
+                    Collegamenti
+                    <div className="fw-bold">Espandi la tua rete</div>
+                  </div>
+                </small>
+                <small className="text-primary">10</small>
+              </ListGroup.Item>
+              <ListGroup.Item action variant="light">
+                <small>
+                  Accedi a strumenti esclusivi e informazioni in esclusiva
+                  <p className="fw-bold">Prova Premium</p>
+                </small>
+              </ListGroup.Item>
+              <ListGroup.Item action variant="light">
+                <small className="fw-bold">
+                  <i className="bi bi-bookmark-fill"></i> Elementi salvati
+                </small>
+              </ListGroup.Item>
             </div>
-            <NavLink to="#" className="d-block mt-1">
-              <small>Hastag seguiti</small>
-            </NavLink>
-          </ListGroup.Item>
-          <ListGroup.Item action variant="light" className="text-center fw-semibold">
-            Scopri di più
-          </ListGroup.Item>
+          </Collapse>
         </ListGroup>
+
+        <Collapse in={open}>
+          <div id="example-collapse-text" className="d-md-block mt-2">
+            <ListGroup>
+              <ListGroup.Item>
+                <NavLink to="#" className="d-block mb-1">
+                  <small>Gruppi</small>
+                </NavLink>
+                <div className="d-flex justify-content-between">
+                  <NavLink to="#" className="d-block">
+                    <small>eventi</small>
+                  </NavLink>
+                  <i className="bi bi-plus-lg"></i>
+                </div>
+                <NavLink to="#" className="d-block mt-1">
+                  <small>Hastag seguiti</small>
+                </NavLink>
+              </ListGroup.Item>
+              <ListGroup.Item action variant="light" className="text-center fw-semibold">
+                Scopri di più
+              </ListGroup.Item>
+            </ListGroup>
+          </div>
+        </Collapse>
+
+        <Button
+          variant="light"
+          onClick={() => setOpen(!open)}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}
+          className="d-md-none w-100 mt-1"
+        >
+          Vedi altro
+        </Button>
       </Col>
       {/*  */}
       {/*  */}
