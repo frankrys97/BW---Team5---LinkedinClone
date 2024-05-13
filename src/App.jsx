@@ -1,18 +1,21 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import { BrowserRouter, Routes } from "react-router-dom";
+import MyNavbar from "./components/MyNavbar";
 
 function App() {
   return (
-    <BrowserRouter>
-      {/* <MyNavbar  /> */}
-      <Routes>
-        {/* <Route path='/' element={}/>
+    <div className="App">
+      <BrowserRouter>
+        <MyNavbar />
+        <Routes>
+          {/* <Route path='/' element={}/>
       <Route path='/profile_my'element={} /> 
       <Route path='/profile/:userId' element={} /> */}
-      </Routes>
-    </BrowserRouter>
-  )
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
-export default App
+export default App;
