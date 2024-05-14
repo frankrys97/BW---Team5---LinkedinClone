@@ -5,7 +5,7 @@ import { Dropdown, DropdownMenu } from "react-bootstrap";
 
 function MyFooter() {
   return (
-    <Container fluid="md d-flex flex-wrap mt-5">
+    <Container className=" d-flex flex-wrap mt-5">
       <Row>
         <Col xs={2}>
           <div>
@@ -48,7 +48,7 @@ function MyFooter() {
             <p style={{ fontSize: "0.7rem" }}>Mobile</p>
           </div>
         </Col>
-        <Col>
+        <Col xs={4}>
           <div className="d-flex my-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -104,10 +104,10 @@ function MyFooter() {
             </div>
           </div>
         </Col>
-        <Col xs={4}>
+        <Col xs={2}>
           <div>
             <p>Seleziona lingua</p>
-            <Dropdown className=" w-100">
+            <Dropdown className=" w-100 ">
               <Dropdown.Toggle
                 className="border "
                 style={{ backgroundColor: "white" }}
