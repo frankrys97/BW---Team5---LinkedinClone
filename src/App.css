@@ -5,6 +5,7 @@
 .navbar-container {
   max-width: 1120px;
   margin: 0 auto;
+  z-index: 999;
 }
 
 .custom-placeholder {
@@ -85,9 +86,11 @@
 .name {
   margin-top: -15%;
 }
-body {
-  background-color: #f4f2ee;
+.contBody {
   max-width: 1128px;
   margin-inline: auto;
+}
+body {
+  background-color: #f4f2ee;
 }
 /* FINE CSS GIOVANNI */

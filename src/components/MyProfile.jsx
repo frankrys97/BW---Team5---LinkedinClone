@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { CardText, Col, Container, Nav, Row } from "react-bootstrap";
+import { CardText, Col, Nav, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import MyFooter from "./components/MyFooter";
+import MyFooter from "./MyFooter";
 
 const MyProfile = () => {
   //   const [profiles, setProfiles] = useState([]);
@@ -36,7 +36,7 @@ const MyProfile = () => {
   };
   return (
     <>
-      <Container>
+      <div className="contBody ">
         <Row>
           <Col xs={12} lg={9}>
             {/* CARD PROFILO */}
@@ -599,7 +599,7 @@ const MyProfile = () => {
           {/* INIZIO SECONDA COLONNA */}
           <Col xs={12} lg={3}>
             {/* INIZIO CARD LINGUA E URL */}
-            <Card className="mb-2 w-100">
+            <Card className="mb-2  w-100">
               <Card.Body>
                 <div className="d-flex justify-content-between">
                   <Card.Title>Lingua del profilo </Card.Title>
@@ -917,7 +917,7 @@ const MyProfile = () => {
           </Col>
           {/* FINE SECONDA COLONNA */}
         </Row>
-      </Container>
+      </div>
       <MyFooter />
     </>
   );

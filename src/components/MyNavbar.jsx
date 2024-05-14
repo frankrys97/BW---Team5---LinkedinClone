@@ -1,13 +1,4 @@
-import {
-  Container,
-  Nav,
-  NavDropdown,
-  Navbar,
-  Form,
-  Button,
-  Col,
-  Badge,
-} from "react-bootstrap";
+import { Container, Nav, NavDropdown, Navbar, Form, Button, Col, Badge } from "react-bootstrap";
 import logo from "../assets/linkedIn-logo.png";
 import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -31,7 +22,7 @@ const MyNavbar = () => {
   return (
     <>
       {myProfile && (
-        <Container fluid className="header p-0 position-fixed w-100">
+        <Container fluid className="header z-3 p-0 position-fixed w-100">
           <Navbar
             expand="md"
             className="bg-body-tertiary border-bottom border-0 p-0
@@ -197,30 +188,13 @@ const MyNavbar = () => {
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0 
                border border-bottom-0 border-top-0 border-start-0"
                   >
-                    <img
-                      src={logo}
-                      alt="logo"
-                      className="rounded-circle"
-                      width={25}
-                      height={25}
-                    />
+                    <img src={logo} alt="logo" className="rounded-circle" width={25} height={25} />
 
-                    <NavDropdown
-                      title="Tu"
-                      id="basic-nav-dropdown"
-                      align={"end"}
-                      className="m-0"
-                    >
+                    <NavDropdown title="Tu" id="basic-nav-dropdown" align={"end"} className="m-0">
                       <NavDropdown.Item onClick={() => navigate("/profile_my")}>
                         <div className="d-flex gap-2">
                           <Col>
-                            <img
-                              src={myProfile.image}
-                              alt="  logo"
-                              width={40}
-                              height={40}
-                              className="rounded-circle"
-                            />
+                            <img src={myProfile.image} alt="  logo" width={40} height={40} className="rounded-circle" />
                           </Col>
                           <Col>
                             <div>
@@ -238,8 +212,8 @@ const MyNavbar = () => {
                                   whiteSpace: "initial",
                                 }}
                               >
-                                Junior Full-Stack Developer 💻 I Web Marketing
-                                🚀 I Local Marketing 🗣 I Business Management 📈
+                                Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business
+                                Management 📈
                               </p>
                             </div>
                           </Col>
@@ -257,28 +231,17 @@ const MyNavbar = () => {
                       <NavDropdown.Item href="#action/3.4">
                         <div className="d-flex align-items-center">
                           <img src={premium} alt="" width={15} height={15} />
-                          <p
-                            className="mb-0 ms-2 fw-semibold"
-                            style={{ color: "gray", fontSize: "16px" }}
-                          >
+                          <p className="mb-0 ms-2 fw-semibold" style={{ color: "gray", fontSize: "16px" }}>
                             Passa a Premium con 0 EUR
                           </p>
                         </div>
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.4">
-                        Impostazioni e privacy{" "}
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.4">
-                        Guida{" "}
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.4">
-                        Lingua{" "}
-                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Impostazioni e privacy </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Guida </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Lingua </NavDropdown.Item>
                       <NavDropdown.Divider />
                       <h5 className="ms-3">Gestisci</h5>
-                      <NavDropdown.Item href="#action/3.4">
-                        Post e attività{" "}
-                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Post e attività </NavDropdown.Item>
                       <NavDropdown.Item
                         href="#action/3.4"
                         style={{
@@ -288,13 +251,10 @@ const MyNavbar = () => {
                           textOverflow: "ellipsis",
                         }}
                       >
-                        Account per la pubblicazione di contenuti ufficiali per
-                        la tua sezione profilo{" "}
+                        Account per la pubblicazione di contenuti ufficiali per la tua sezione profilo{" "}
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item href="#action/3.4">
-                        Esci{" "}
-                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Esci </NavDropdown.Item>
                     </NavDropdown>
                   </div>
                   <MyOffcanvas />
