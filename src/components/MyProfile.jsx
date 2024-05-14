@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CardText, Col, Container, Nav, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import MyFooter from "./components/MyFooter";
 
 const MyProfile = () => {
   //   const [profiles, setProfiles] = useState([]);
@@ -917,6 +918,7 @@ const MyProfile = () => {
           {/* FINE SECONDA COLONNA */}
         </Row>
       </Container>
+      <MyFooter />
     </>
   );
 };

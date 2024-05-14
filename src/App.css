@@ -73,6 +73,8 @@
   background-color: rgba(0, 0, 0, 0.5); 
   z-index: 999; 
 } */
+/* FINE CSS FRANCESCO */
+/* INIZIO CSS GIOVANNI */
 .profileImg {
   max-width: 22%;
   transform: translateY(-86%) translateX(20px);
@@ -88,3 +90,4 @@ body {
   max-width: 1128px;
   margin-inline: auto;
 }
+/* FINE CSS GIOVANNI */
