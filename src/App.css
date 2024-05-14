@@ -10,5 +10,6 @@
 }
 body {
   background-color: #f4f2ee;
-  padding: 10%;
+  max-width: 1128px;
+  margin-inline: auto;
 }
