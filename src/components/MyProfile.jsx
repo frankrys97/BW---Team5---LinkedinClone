@@ -542,475 +542,476 @@ const MyProfile = () => {
                     </div>
                   </div>
 
-                <div className="px-3 border-bottom">
-                  <p className="my-0">HTML 5</p>
-                  <div className="d-flex">
-                    <div className="d-flex ">
-                      <img
-                        width="48"
-                        src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
-                        loading="lazy"
-                        height="48"
-                        alt="Logo di EPICODE"
-                        id="ember1798"
-                        className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
-                      />
-                      <p className="my-2 ">EPICODE</p>
+                  <div className="px-3 border-bottom">
+                    <p className="my-0">HTML 5</p>
+                    <div className="d-flex">
+                      <div className="d-flex ">
+                        <img
+                          width="48"
+                          src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
+                          loading="lazy"
+                          height="48"
+                          alt="Logo di EPICODE"
+                          id="ember1798"
+                          className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
+                        />
+                        <p className="my-2 ">EPICODE</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="px-3 border-bottom">
-                  <p className="my-0">CSS</p>
-                  <div className="d-flex">
-                    <div className="d-flex ">
-                      <img
-                        width="48"
-                        src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
-                        loading="lazy"
-                        height="48"
-                        alt="Logo di EPICODE"
-                        id="ember1798"
-                        className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
-                      />
-                      <p className="my-2 ">EPICODE</p>
+                  <div className="px-3 border-bottom">
+                    <p className="my-0">CSS</p>
+                    <div className="d-flex">
+                      <div className="d-flex ">
+                        <img
+                          width="48"
+                          src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
+                          loading="lazy"
+                          height="48"
+                          alt="Logo di EPICODE"
+                          id="ember1798"
+                          className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
+                        />
+                        <p className="my-2 ">EPICODE</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Card.Body>
-              <p className="border-top p-2 mb-0 text-center">
-                Mostra tutte le competenze (8)
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  fill="currentColor"
-                  className="bi bi-arrow-right-short"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                </svg>
-              </p>
-            </Card>
-            {/* FINE CARD COMPETENZE */}
-            {/* INIZIO CARD INTERESSI  */}
-            <Card>
-              <Card.Header>
-                <Nav defaultActiveKey="#first">
-                  <Nav.Item>
-                    <Nav.Link
-                      className={isClicked ? 'text-success border-bottom border-success' : 'text-secondary'}
-                      onClick={handleClick}
-                      href="#aziende"
-                    >
-                      Aziende
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link
-                      className={isClicked2 ? 'text-success border-bottom border-success' : 'text-secondary'}
-                      onClick={handleClick2}
-                      href="#gruppi"
-                    >
-                      Gruppi
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link
-                      className={isClicked3 ? 'text-success border-bottom border-success' : 'text-secondary'}
-                      onClick={handleClick3}
-                      href="#Scuole"
-                    >
-                      Scuole o università
-                    </Nav.Link>
-                  </Nav.Item>
-                </Nav>
-              </Card.Header>
-              <Card.Body className="d-flex gap-5">
-                <div className="d-flex mx-1">
-                  <img
-                    width="48"
-                    src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
-                    loading="lazy"
-                    height="48"
-                    alt="Logo di EPICODE"
-                    id="ember1798"
-                    className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
-                  />
-                  <div>
-                    <div className="my-0 fw-bold">Epicode</div>
-                    <div className="my-0 text-secondary">15.000 follower </div>
-                    <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        fill="currentColor"
-                        className="bi bi-check2"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0" />
-                      </svg>
-                      <span className="mx-1">Già segui</span>
-                    </Button>
-                  </div>
-                </div>
-                <div className="d-flex mx-1">
-                  <img
-                    width="48"
-                    src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
-                    loading="lazy"
-                    height="48"
-                    alt="Logo di EPICODE"
-                    id="ember1798"
-                    className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
-                  />
-                  <div>
-                    <div className="my-0 fw-bold">Epicode</div>
-                    <div className="my-0 text-secondary">15.000 follower </div>
-                    <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        fill="currentColor"
-                        className="bi bi-check2"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0" />
-                      </svg>
-                      <span className="mx-1">Già segui</span>
-                    </Button>
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
-            {/* FINE CARD INTERESSI  */}
-          </Col>
-          {/* INIZIO SECONDA COLONNA */}
-          <Col xs={12} lg={3}>
-            {/* INIZIO CARD LINGUA E URL */}
-            <Card className="mb-2  w-100">
-              <Card.Body>
-                <div className="d-flex justify-content-between">
-                  <Card.Title>Lingua del profilo </Card.Title>
+                </Card.Body>
+                <p className="border-top p-2 mb-0 text-center">
+                  Mostra tutte le competenze (8)
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
+                    width="25"
+                    height="25"
                     fill="currentColor"
-                    className="bi bi-eyedropper"
+                    className="bi bi-arrow-right-short"
                     viewBox="0 0 16 16"
                   >
-                    <path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708zM2 12.707l7-7L10.293 7l-7 7H2z" />
+                    <path d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
                   </svg>
-                </div>
-                <p>Italiano</p>
-                <div className="d-flex justify-content-between">
-                  <Card.Title>Profilo pubblico e URL </Card.Title>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-eyedropper"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708zM2 12.707l7-7L10.293 7l-7 7H2z" />
-                  </svg>
-                </div>
-                <p>link</p>
-              </Card.Body>
-            </Card>
-            {/* FINE CARD LINGUA E URL */}
-            {/* INIZIO CARD PROFILI SIMILI */}
-            <Card className="mb-2">
-              <Card.Body>
-                <Card.Subtitle className="mb-2 ">Altri profili simili</Card.Subtitle>
-                <div className="d-flex mt-2 border-bottom">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
+                </p>
+              </Card>
+              {/* FINE CARD COMPETENZE */}
+              {/* INIZIO CARD INTERESSI  */}
+              <Card>
+                <Card.Header>
+                  <Nav defaultActiveKey="#first">
+                    <Nav.Item>
+                      <Nav.Link
+                        className={isClicked ? "text-success border-bottom border-success" : "text-secondary"}
+                        onClick={handleClick}
+                        href="#aziende"
+                      >
+                        Aziende
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link
+                        className={isClicked2 ? "text-success border-bottom border-success" : "text-secondary"}
+                        onClick={handleClick2}
+                        href="#gruppi"
+                      >
+                        Gruppi
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link
+                        className={isClicked3 ? "text-success border-bottom border-success" : "text-secondary"}
+                        onClick={handleClick3}
+                        href="#Scuole"
+                      >
+                        Scuole o università
+                      </Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </Card.Header>
+                <Card.Body className="d-flex gap-5">
                   <div className="d-flex mx-1">
+                    <img
+                      width="48"
+                      src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
+                      loading="lazy"
+                      height="48"
+                      alt="Logo di EPICODE"
+                      id="ember1798"
+                      className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
+                    />
                     <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
+                      <div className="my-0 fw-bold">Epicode</div>
+                      <div className="my-0 text-secondary">15.000 follower </div>
                       <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
+                          width="20"
+                          height="20"
                           fill="currentColor"
-                          className="bi bi-send-fill"
+                          className="bi bi-check2"
                           viewBox="0 0 16 16"
                         >
-                          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                          <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0" />
                         </svg>
-                        <span className="mx-1">Messaggio</span>
+                        <span className="mx-1">Già segui</span>
                       </Button>
                     </div>
                   </div>
-                </div>
-                <div className="d-flex mt-2 border-bottom">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
                   <div className="d-flex mx-1">
+                    <img
+                      width="48"
+                      src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
+                      loading="lazy"
+                      height="48"
+                      alt="Logo di EPICODE"
+                      id="ember1798"
+                      className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
+                    />
                     <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
+                      <div className="my-0 fw-bold">Epicode</div>
+                      <div className="my-0 text-secondary">15.000 follower </div>
                       <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
+                          width="20"
+                          height="20"
                           fill="currentColor"
-                          className="bi bi-send-fill"
+                          className="bi bi-check2"
                           viewBox="0 0 16 16"
                         >
-                          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                          <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0" />
                         </svg>
-                        <span className="mx-1">Messaggio</span>
+                        <span className="mx-1">Già segui</span>
                       </Button>
                     </div>
                   </div>
-                </div>
-                <div className="d-flex mt-2 border-bottom">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
-                  <div className="d-flex mx-1">
-                    <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-send-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                        </svg>
-                        <span className="mx-1">Messaggio</span>
-                      </Button>
+                </Card.Body>
+              </Card>
+              {/* FINE CARD INTERESSI  */}
+            </Col>
+            {/* INIZIO SECONDA COLONNA */}
+            <Col xs={12} lg={3}>
+              {/* INIZIO CARD LINGUA E URL */}
+              <Card className="mb-2  w-100">
+                <Card.Body>
+                  <div className="d-flex justify-content-between">
+                    <Card.Title>Lingua del profilo </Card.Title>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-eyedropper"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708zM2 12.707l7-7L10.293 7l-7 7H2z" />
+                    </svg>
+                  </div>
+                  <p>Italiano</p>
+                  <div className="d-flex justify-content-between">
+                    <Card.Title>Profilo pubblico e URL </Card.Title>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-eyedropper"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708zM2 12.707l7-7L10.293 7l-7 7H2z" />
+                    </svg>
+                  </div>
+                  <p>link</p>
+                </Card.Body>
+              </Card>
+              {/* FINE CARD LINGUA E URL */}
+              {/* INIZIO CARD PROFILI SIMILI */}
+              <Card className="mb-2">
+                <Card.Body>
+                  <Card.Subtitle className="mb-2 ">Altri profili simili</Card.Subtitle>
+                  <div className="d-flex mt-2 border-bottom">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-send-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                          </svg>
+                          <span className="mx-1">Messaggio</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="d-flex mt-2 border-bottom">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
-                  <div className="d-flex mx-1">
-                    <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-send-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                        </svg>
-                        <span className="mx-1">Messaggio</span>
-                      </Button>
+                  <div className="d-flex mt-2 border-bottom">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-send-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                          </svg>
+                          <span className="mx-1">Messaggio</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="d-flex mt-2">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
-                  <div className="d-flex mx-1">
-                    <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-send-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                        </svg>
-                        <span className="mx-1">Messaggio</span>
-                      </Button>
+                  <div className="d-flex mt-2 border-bottom">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-send-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                          </svg>
+                          <span className="mx-1">Messaggio</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Card.Body>
-              <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
-            </Card>
-            {/* FINE CARD PROFILI SIMILI */}
-            {/* INIZIO PERSONE CHE POTRESTI CONOSCERE */}
-            <Card className="mb-2">
-              <Card.Body>
-                <Card.Subtitle className="mb-2 ">Persone che potresti conoscere</Card.Subtitle>
-                <span className="text-muted">Del tuo settore</span>
-                <div className="d-flex mt-2 border-bottom">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
-                  <div className="d-flex mx-1">
-                    <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-person-plus-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                          <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                        </svg>
-                        <span className="mx-1">Collegati</span>
-                      </Button>
+                  <div className="d-flex mt-2 border-bottom">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-send-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                          </svg>
+                          <span className="mx-1">Messaggio</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="d-flex mt-2 border-bottom">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
-                  <div className="d-flex mx-1">
-                    <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-person-plus-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                          <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                        </svg>
-                        <span className="mx-1">Collegati</span>
-                      </Button>
+                  <div className="d-flex mt-2">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-send-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                          </svg>
+                          <span className="mx-1">Messaggio</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="d-flex mt-2 border-bottom">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
-                  <div className="d-flex mx-1">
-                    <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-person-plus-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                          <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                        </svg>
-                        <span className="mx-1">Collegati</span>
-                      </Button>
+                </Card.Body>
+                <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
+              </Card>
+              {/* FINE CARD PROFILI SIMILI */}
+              {/* INIZIO PERSONE CHE POTRESTI CONOSCERE */}
+              <Card className="mb-2">
+                <Card.Body>
+                  <Card.Subtitle className="mb-2 ">Persone che potresti conoscere</Card.Subtitle>
+                  <span className="text-muted">Del tuo settore</span>
+                  <div className="d-flex mt-2 border-bottom">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-person-plus-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                          </svg>
+                          <span className="mx-1">Collegati</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="d-flex mt-2 border-bottom">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
-                  <div className="d-flex mx-1">
-                    <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-person-plus-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                          <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                        </svg>
-                        <span className="mx-1">Collegati</span>
-                      </Button>
+                  <div className="d-flex mt-2 border-bottom">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-person-plus-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                          </svg>
+                          <span className="mx-1">Collegati</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="d-flex mt-2">
-                  <Card.Img
-                    className="rounded-circle w-25 h-25 border border-light border-5"
-                    variant="top"
-                    src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                  />
-                  <div className="d-flex mx-1">
-                    <div>
-                      <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                      <p className="my-0">Junior full stack </p>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-person-plus-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                          <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                        </svg>
-                        <span className="mx-1">Collegati</span>
-                      </Button>
+                  <div className="d-flex mt-2 border-bottom">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-person-plus-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                          </svg>
+                          <span className="mx-1">Collegati</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Card.Body>
-              <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
-            </Card>
-            {/* FINE PERSONE CHE POTRESTI CONOSCERE */}
-          </Col>
-          {/* FINE SECONDA COLONNA */}
-        </Row>
-      <MyFooter />
-      </div>
-    </>
-  )
-}
+                  <div className="d-flex mt-2 border-bottom">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-person-plus-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                          </svg>
+                          <span className="mx-1">Collegati</span>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="d-flex mt-2">
+                    <Card.Img
+                      className="rounded-circle w-25 h-25 border border-light border-5"
+                      variant="top"
+                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
+                    />
+                    <div className="d-flex mx-1">
+                      <div>
+                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
+                        <p className="my-0">Junior full stack </p>
+                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-person-plus-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                          </svg>
+                          <span className="mx-1">Collegati</span>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </Card.Body>
+                <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
+              </Card>
+              {/* FINE PERSONE CHE POTRESTI CONOSCERE */}
+            </Col>
+            {/* FINE SECONDA COLONNA */}
+          </Row>
+          <MyFooter />
+        </div>
+      </>
+    )
+  );
+};
 
-export default MyProfile
+export default MyProfile;
