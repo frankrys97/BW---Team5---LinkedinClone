@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { CardText, Col, Nav, Row } from "react-bootstrap";
+import {
+  CardText,
+  Col,
+  Dropdown,
+  Form,
+  Modal,
+  Nav,
+  Row,
+} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import MyFooter from "./MyFooter";
@@ -7,6 +15,10 @@ import { useSelector } from "react-redux";
 
 const MyProfile = () => {
   const myProfile = useSelector((state) => state.myProfile.content);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
 
   const myKey =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o";
@@ -74,9 +86,15 @@ const MyProfile = () => {
                     <p className="name fs-4">
                       {myProfile.name} {myProfile.surname}
                     </p>
-                    {myProfile.bio ? <p className="name fs-4">{myProfile.bio}</p> : "qui dentro ci va la bio"}
+                    {myProfile.bio ? (
+                      <p className="name fs-4">{myProfile.bio}</p>
+                    ) : (
+                      "qui dentro ci va la bio"
+                    )}
                     <p className="my-0">
-                      <span className="text-secondary">{myProfile.area} &middot;</span>{" "}
+                      <span className="text-secondary">
+                        {myProfile.area} &middot;
+                      </span>{" "}
                       <a href="">Informazioni di contatto</a>
                     </p>
                     <p style={{ fontSize: "0.8rem" }} className="text-primary ">
@@ -87,10 +105,16 @@ const MyProfile = () => {
                     <Button className="mx-1 rounded-pill" variant="primary">
                       Disponibile per
                     </Button>
-                    <Button className="mx-1 text-primary border border-primary rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 text-primary border border-primary rounded-pill"
+                      variant="ligth"
+                    >
                       Aggiungi sezione del profilo
                     </Button>
-                    <Button className="mx-1 border border-black rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 border border-black rounded-pill"
+                      variant="ligth"
+                    >
                       Altro
                     </Button>
                   </div>
@@ -148,9 +172,11 @@ const MyProfile = () => {
                         focusable="false"
                       >
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
-                      </svg>{" "}
+                      </svg>
                       <span>28 Visualizzazioni del profilo</span>
-                      <p className="text-muted">Scopri chi ha visitato il tuo profilo</p>
+                      <p className="text-muted">
+                        Scopri chi ha visitato il tuo profilo
+                      </p>
                     </div>
                     <div className="ms-5">
                       <svg
@@ -166,8 +192,12 @@ const MyProfile = () => {
                         <path d="M23 20v1H1v-1zM8 9H2v10h6zm7-6H9v16h6zm7 11h-6v5h6z"></path>
                       </svg>
                       <span>113 Impressioni del post</span>
-                      <p className="text-muted">Scopri chi sta interagendo con i tuoi post</p>
-                      <span className="text-secondary my-0">Ultimi 7 giorni</span>
+                      <p className="text-muted">
+                        Scopri chi sta interagendo con i tuoi post
+                      </p>
+                      <span className="text-secondary my-0">
+                        Ultimi 7 giorni
+                      </span>
                     </div>
                   </div>
                 </Card.Body>
@@ -222,7 +252,9 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>La mia rete</span>
-                      <p className="text-muted">Salva e gestisci i tuoi collegamenti e interessi</p>
+                      <p className="text-muted">
+                        Salva e gestisci i tuoi collegamenti e interessi
+                      </p>
                     </div>
                     <div className="">
                       <svg
@@ -238,7 +270,10 @@ const MyProfile = () => {
                         <path d="M19 5a3 3 0 00-3-3H5v20l7-6.29L19 22z"></path>
                       </svg>
                       <span>Elementi salvati</span>
-                      <p className="text-muted">Monitora le tue offerte di lavoro, i corsi e gli articoli</p>
+                      <p className="text-muted">
+                        Monitora le tue offerte di lavoro, i corsi e gli
+                        articoli
+                      </p>
                     </div>
                   </div>
                 </Card.Body>
@@ -265,17 +300,97 @@ const MyProfile = () => {
                   <div className="d-flex justify-content-between p-2">
                     <Card.Title>Esperienza</Card.Title>
 
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="27"
-                        height="27"
-                        fill="currentColor"
-                        className="bi bi-plus-lg me-3"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                      </svg>
+                    <div className="d-flex">
+                      <Dropdown data-bs-theme="light" className="">
+                        <Dropdown.Toggle
+                          variant="transparent"
+                          className="noToggle border-0"
+                          align={"end"}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="27"
+                            height="27"
+                            fill="currentColor"
+                            className="bi bi-plus-lg me-3"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                          </svg>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item
+                            href="#/action-1"
+                            onClick={handleShowModal}
+                          >
+                            <small>Aggiungi posizione lavorativa</small>
+                          </Dropdown.Item>
+                          <Dropdown.Item href="#/action-2">
+                            <small>Aggiungi pausa lavorativa</small>
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+
+                      {/* MODALE PER AGGIUNTA ESPERIENZE */}
+
+                      <Form>
+                        <Modal
+                          show={showModal}
+                          onHide={handleClose}
+                          backdrop="static"
+                          keyboard={false}
+                        >
+                          <Modal.Header closeButton>
+                            <Modal.Title>
+                              Aggiungi posizione lavorativa
+                            </Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            <Form.Group className="mb-3">
+                              <Form.Label>Qualifica</Form.Label>
+                              <Form.Control
+                                type="text"
+                                placeholder="Qualifica"
+                              />
+                            </Form.Group>
+                            <Form.Group required className="mb-3">
+                              <Form.Label>Nome Azienda</Form.Label>
+                              <Form.Control
+                                type="text"
+                                placeholder="Nome azienda"
+                              />
+                            </Form.Group>
+                            <Form.Group required className="mb-3">
+                              <Form.Label>Località</Form.Label>
+                              <Form.Control
+                                type="text"
+                                placeholder="Località"
+                              />
+                            </Form.Group>
+                            <Form.Group required className="mb-3">
+                              <Form.Label>Data inizio</Form.Label>
+                              <Form.Control type="month" />
+                            </Form.Group>
+                            <Form.Group requiredclassName="mb-3">
+                              <Form.Label>Data fine</Form.Label>
+                              <Form.Control type="month" />
+                            </Form.Group>
+                            <Form.Group required className="mb-3">
+                              <Form.Label>Descrizione</Form.Label>
+                              <Form.Control as="textarea" rows={4}/>
+                            </Form.Group>
+
+
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                              Chiudi
+                            </Button>
+                            <Button variant="primary">Salva</Button>
+                          </Modal.Footer>
+                        </Modal>
+                      </Form>
+
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="23"
@@ -288,6 +403,7 @@ const MyProfile = () => {
                       </svg>
                     </div>
                   </div>
+
                   {exp.length > 0
                     ? exp.map((experience) => (
                         <div key={experience._id} className="px-3 my-2 ">
@@ -303,7 +419,10 @@ const MyProfile = () => {
                                 className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
                               />
                               <div className="ms-2">
-                                <p className="my-0 fw-bold"> {experience.role}</p>
+                                <p className="my-0 fw-bold">
+                                  {" "}
+                                  {experience.role}
+                                </p>
                                 <p className="my-0 ">{experience.company}</p>
                                 <p className="my-0 mb-1 text-secondary">
                                   {experience.startDate}-{experience.endDate}
@@ -348,7 +467,9 @@ const MyProfile = () => {
                     </svg>
                   </div>
 
-                  <div className="px-3">qui dentro ci va la bio utente che prenderemo da data.bio</div>
+                  <div className="px-3">
+                    qui dentro ci va la bio utente che prenderemo da data.bio
+                  </div>
                 </Card.Body>
               </Card>
 
@@ -361,20 +482,32 @@ const MyProfile = () => {
                       <Card.Title>Attività</Card.Title>
                       <p className="text-primary">17 follower</p>
                       <div>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Post</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Commenti</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Immagini</span>
                         </Button>
                       </div>
                     </div>
 
                     <div>
-                      <Button className="border mb-3 border-primary p-0 px-3  rounded-pill" variant="ligth">
+                      <Button
+                        className="border mb-3 border-primary p-0 px-3  rounded-pill"
+                        variant="ligth"
+                      >
                         <span className="mx-1 text-primary">Crea un post</span>
                       </Button>
                       <svg
@@ -392,13 +525,17 @@ const MyProfile = () => {
 
                   <div className="px-3">
                     <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
+                      <p>
+                        {myProfile.name} ha pubblicato questo post &middot; 3s
+                      </p>
                       <img
                         className="rounded"
                         src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
                         alt=""
                       />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
+                      <span className="mx-3">
+                        qui dentro ci va le descrizione del post
+                      </span>
                     </div>
                     <img
                       className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
@@ -411,13 +548,17 @@ const MyProfile = () => {
                   </div>
                   <div className="px-3">
                     <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
+                      <p>
+                        {myProfile.name} ha pubblicato questo post &middot; 3s
+                      </p>
                       <img
                         className="rounded"
                         src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
                         alt=""
                       />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
+                      <span className="mx-3">
+                        qui dentro ci va le descrizione del post
+                      </span>
                     </div>
                     <img
                       className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
@@ -430,13 +571,17 @@ const MyProfile = () => {
                   </div>
                   <div className="px-3">
                     <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
+                      <p>
+                        {myProfile.name} ha pubblicato questo post &middot; 3s
+                      </p>
                       <img
                         className="rounded"
                         src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
                         alt=""
                       />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
+                      <span className="mx-3">
+                        qui dentro ci va le descrizione del post
+                      </span>
                     </div>
                     <img
                       className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
@@ -495,7 +640,9 @@ const MyProfile = () => {
                       </div>
                       <div>
                         <p className="my-0">EPICODE</p>
-                        <p className="text-secondary mt-0">feb 2024 - ago 2024</p>
+                        <p className="text-secondary mt-0">
+                          feb 2024 - ago 2024
+                        </p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -598,7 +745,11 @@ const MyProfile = () => {
                   <Nav defaultActiveKey="#first">
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={
+                          isClicked
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick}
                         href="#aziende"
                       >
@@ -607,7 +758,11 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked2 ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={
+                          isClicked2
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick2}
                         href="#gruppi"
                       >
@@ -616,7 +771,11 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked3 ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={
+                          isClicked3
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick3}
                         href="#Scuole"
                       >
@@ -638,8 +797,13 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">15.000 follower </div>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                      <div className="my-0 text-secondary">
+                        15.000 follower{" "}
+                      </div>
+                      <Button
+                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                        variant="ligth"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -666,8 +830,13 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">15.000 follower </div>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                      <div className="my-0 text-secondary">
+                        15.000 follower{" "}
+                      </div>
+                      <Button
+                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                        variant="ligth"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -725,7 +894,9 @@ const MyProfile = () => {
               {/* INIZIO CARD PROFILI SIMILI */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Altri profili simili</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Altri profili simili
+                  </Card.Subtitle>
                   <div className="d-flex mt-2 border-bottom">
                     <Card.Img
                       className="rounded-circle w-25 h-25 border border-light border-5"
@@ -736,7 +907,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -762,7 +936,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -788,7 +965,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -814,7 +994,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -840,7 +1023,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -863,7 +1049,9 @@ const MyProfile = () => {
               {/* INIZIO PERSONE CHE POTRESTI CONOSCERE */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Persone che potresti conoscere</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Persone che potresti conoscere
+                  </Card.Subtitle>
                   <span className="text-muted">Del tuo settore</span>
                   <div className="d-flex mt-2 border-bottom">
                     <Card.Img
@@ -875,7 +1063,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -902,7 +1093,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -929,7 +1123,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -956,7 +1153,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -983,7 +1183,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
