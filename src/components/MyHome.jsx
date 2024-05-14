@@ -1,20 +1,34 @@
-import { Button, Col, Collapse, Container, Dropdown, Image, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
-import img from '../assets/images.jpeg'
-import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
-import '../style/myHome.css'
+import {
+  Button,
+  Col,
+  Collapse,
+  Container,
+  Dropdown,
+  Image,
+  ListGroup,
+  ListGroupItem,
+  Row,
+} from "react-bootstrap";
+import img from "../assets/images.jpeg";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import "../style/myHome.css";
 
 const MyHome = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   return (
-    <Container style={{ paddingTop: '65px' }}>
+    <Container style={{ paddingTop: "65px" }}>
       <Row className="justify-content-center">
         {/* Prima Colonna */}
         <Col xs={12} className="p-0 first-column ">
           <ListGroup className="mb-1">
             <ListGroup.Item className="text-center">
               <div className="rounded-top position-absolute start-0 top-0 overflow-hidden imgContainer">
-                <Image src={img} className="imgBackground" alt="profile-img-background" />
+                <Image
+                  src={img}
+                  className="imgBackground"
+                  alt="profile-img-background"
+                />
               </div>
               <Image
                 src={img}
@@ -29,7 +43,11 @@ const MyHome = () => {
             </ListGroup.Item>
 
             <Collapse in={open}>
-              <div id="example-collapse-text" className="d-md-block" style={{ marginBlockStart: -1 }}>
+              <div
+                id="example-collapse-text"
+                className="d-md-block"
+                style={{ marginBlockStart: -1 }}
+              >
                 <ListGroup.Item
                   action
                   variant="light"
@@ -75,7 +93,11 @@ const MyHome = () => {
                     <small>Hastag seguiti</small>
                   </NavLink>
                 </ListGroup.Item>
-                <ListGroup.Item action variant="light" className="text-center fw-semibold">
+                <ListGroup.Item
+                  action
+                  variant="light"
+                  className="text-center fw-semibold"
+                >
                   Scopri di più
                 </ListGroup.Item>
               </ListGroup>
@@ -119,22 +141,33 @@ const MyHome = () => {
               </Row>
               <Row className="justify-content-between  mt-3">
                 <Col md="auto">
-                  <i className="bi bi-image text-primary"></i> Contenuti multimediali
+                  <i className="bi bi-image text-primary"></i> Contenuti
+                  multimediali
                 </Col>
                 <Col md="auto">
                   <i className="bi bi-calendar3 text-warning"></i> Evento
                 </Col>
                 <Col md="auto">
-                  <i className="bi bi-layout-text-window-reverse text-warning-emphasis"></i> Scrivi un articolo
+                  <i className="bi bi-layout-text-window-reverse text-warning-emphasis"></i>{" "}
+                  Scrivi un articolo
                 </Col>
               </Row>
             </ListGroupItem>
           </ListGroup>
           <div className="d-flex align-items-center">
-            <div className="my-3 bg-dark-subtle me-2 flex-grow-1" style={{ height: '2px' }}></div>
-            <small className="d-inline-block">Seleziona la visualizzazione del feed:</small>
+            <div
+              className="my-3 bg-dark-subtle me-2 flex-grow-1"
+              style={{ height: "2px" }}
+            ></div>
+            <small className="d-inline-block">
+              Seleziona la visualizzazione del feed:
+            </small>
             <Dropdown data-bs-theme="light" className="">
-              <Dropdown.Toggle id="dropdown-button-dark-example1" variant="transparent" className="">
+              <Dropdown.Toggle
+                id="dropdown-button-dark-example1"
+                variant="transparent"
+                className=""
+              >
                 <small>Dropdown Button</small>
               </Dropdown.Toggle>
               <Dropdown.Menu>
@@ -152,7 +185,11 @@ const MyHome = () => {
 
         {/*  */}
         {/* Terza Colonna */}
-        <Col xs={12} className="p-0 third-column d-none d-lg-block" style={{ width: '300px' }}>
+        <Col
+          xs={12}
+          className="p-0 third-column d-none d-lg-block"
+          style={{ width: "300px" }}
+        >
           <ListGroup>
             <ListGroup.Item variant="light">
               <h5>Linkedin notizie</h5>
@@ -200,12 +237,14 @@ const MyHome = () => {
                 <p>Altro</p>
               </small>
             </div>
-            <small className="text-center fw-semibold">Linkedin Corporation &copy; 2024</small>
+            <small className="text-center fw-semibold">
+              Linkedin Corporation &copy; 2024
+            </small>
           </ListGroup>
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default MyHome
+export default MyHome;

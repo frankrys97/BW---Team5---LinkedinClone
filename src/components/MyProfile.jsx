@@ -1,160 +1,168 @@
-import { useEffect, useState } from 'react'
-import { CardText, Col, Dropdown, Form, Modal, Nav, Row } from 'react-bootstrap'
-import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
-import MyFooter from './MyFooter'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from "react";
+import {
+  CardText,
+  Col,
+  Dropdown,
+  Form,
+  Modal,
+  Nav,
+  Row,
+} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import MyFooter from "./MyFooter";
+import { useSelector } from "react-redux";
 
 const MyProfile = () => {
-  const myProfile = useSelector((state) => state.myProfile.content)
-  const [showModalGet, setShowModalGet] = useState(false)
-  const [showModalPost, setShowModalPost] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
+  const myProfile = useSelector((state) => state.myProfile.content);
+  const [showModalGet, setShowModalGet] = useState(false);
+  const [showModalPost, setShowModalPost] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
 
   const [newExp, setNewExp] = useState({
-    role: '',
-    company: '',
-    startDate: '',
-    endDate: '',
-    description: '',
-    area: '',
-  })
+    role: "",
+    company: "",
+    startDate: "",
+    endDate: "",
+    description: "",
+    area: "",
+  });
   const handleFieldChange = (propertyName, propertyValue) => {
-    setNewExp({ ...newExp, [propertyName]: propertyValue })
-  }
+    setNewExp({ ...newExp, [propertyName]: propertyValue });
+  };
 
-  const handleCloseGet = () => setShowModalGet(false)
-  const handleClosePost = () => setShowModalPost(false)
+  const handleCloseGet = () => setShowModalGet(false);
+  const handleClosePost = () => setShowModalPost(false);
 
-  const handleShowModalGet = () => setShowModalGet(true)
+  const handleShowModalGet = () => setShowModalGet(true);
 
   const myKey2 =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE'
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE";
   const myKey =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
-  const URL = 'https://striveschool-api.herokuapp.com/api/profile/'
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o";
+  const URL = "https://striveschool-api.herokuapp.com/api/profile/";
   const getExperinence = async (exp) => {
     try {
       const response = await fetch(URL + exp, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${myKey}`,
         },
-      })
+      });
       if (response.ok) {
-        const data = await response.json()
+        const data = await response.json();
 
-        setExp(data)
+        setExp(data);
       } else {
-        alert('Errore nella fetch')
+        alert("Errore nella fetch");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  const [exp, setExp] = useState([])
+  const [exp, setExp] = useState([]);
   useEffect(() => {
     if (myProfile) {
-      getExperinence(`${myProfile._id}/experiences`)
+      getExperinence(`${myProfile._id}/experiences`);
     }
-  }, [myProfile])
+  }, [myProfile]);
 
-  const [isClicked, setIsClicked] = useState(false)
+  const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => {
-    setIsClicked(!isClicked)
-  }
-  const [isClicked2, setIsClicked2] = useState(false)
+    setIsClicked(!isClicked);
+  };
+  const [isClicked2, setIsClicked2] = useState(false);
   const handleClick2 = () => {
-    setIsClicked2(!isClicked2)
-  }
-  const [isClicked3, setIsClicked3] = useState(false)
+    setIsClicked2(!isClicked2);
+  };
+  const [isClicked3, setIsClicked3] = useState(false);
   const handleClick3 = () => {
-    setIsClicked3(!isClicked3)
-  }
+    setIsClicked3(!isClicked3);
+  };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    postExperience(`${myProfile._id}/experiences`)
-  }
+    event.preventDefault();
+    postExperience(`${myProfile._id}/experiences`);
+  };
 
   const postExperience = async (exp) => {
     try {
       const resp = await fetch(URL + exp, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(newExp),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${myKey2}`,
         },
-      })
+      });
 
       if (resp.ok) {
-        console.log(newExp)
-        console.log(resp)
+        console.log(newExp);
+        console.log(resp);
         setNewExp({
-          role: '',
-          company: '',
-          startDate: '',
-          endDate: '',
-          description: '',
-          area: '',
-        })
-        setShowModalGet(false)
+          role: "",
+          company: "",
+          startDate: "",
+          endDate: "",
+          description: "",
+          area: "",
+        });
+        setShowModalGet(false);
         // setSubmitted(!submited)
-        getExperinence(`${myProfile._id}/experiences`)
+        getExperinence(`${myProfile._id}/experiences`);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const handleDelete = async (id) => {
     try {
-      const resp = await fetch(URL + myProfile._id + '/experiences/' + id, {
-        method: 'DELETE',
+      const resp = await fetch(URL + myProfile._id + "/experiences/" + id, {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${myKey2}`,
         },
-      })
+      });
 
       if (resp.ok) {
-        getExperinence(`${myProfile._id}/experiences`)
-        console.log('DELETE')
+        getExperinence(`${myProfile._id}/experiences`);
+        console.log("DELETE");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const handlePost = async (id) => {
     try {
-      const resp = await fetch(URL + myProfile._id + '/experiences/' + id, {
-        method: 'POST',
+      const resp = await fetch(URL + myProfile._id + "/experiences/" + id, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${myKey2}`,
         },
-      })
+      });
 
       if (resp.ok) {
-        getExperinence(`${myProfile._id}/experiences`)
-        console.log('POST')
+        getExperinence(`${myProfile._id}/experiences`);
+        console.log("POST");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     myProfile && (
       <>
-        <div className="contBody " style={{ paddingTop: '65px' }}>
+        <div className="contBody " style={{ paddingTop: "65px" }}>
           <Row>
             <Col xs={12} lg={9}>
               {/* CARD PROFILO */}
-              <Card style={{ maxWidth: '100%' }}>
+              <Card style={{ maxWidth: "100%" }}>
                 <Card.Img
                   variant="top"
                   src="https://media.licdn.com/dms/image/D4D16AQGdLXRnSjl7bQ/profile-displaybackgroundimage-shrink_350_1400/0/1713442065268?e=1721260800&v=beta&t=t-XxVkrYJWOMbzSDmeCUsoY-SVin550O1VB7x7tBfqk"
@@ -169,12 +177,18 @@ const MyProfile = () => {
                     <p className="name fs-4">
                       {myProfile.name} {myProfile.surname}
                     </p>
-                    {myProfile.bio ? <p className="name fs-4">{myProfile.bio}</p> : 'qui dentro ci va la bio'}
+                    {myProfile.bio ? (
+                      <p className="name fs-4">{myProfile.bio}</p>
+                    ) : (
+                      "qui dentro ci va la bio"
+                    )}
                     <p className="my-0">
-                      <span className="text-secondary">{myProfile.area} &middot;</span>{' '}
+                      <span className="text-secondary">
+                        {myProfile.area} &middot;
+                      </span>{" "}
                       <a href="">Informazioni di contatto</a>
                     </p>
-                    <p style={{ fontSize: '0.8rem' }} className="text-primary ">
+                    <p style={{ fontSize: "0.8rem" }} className="text-primary ">
                       17 collegamenti
                     </p>
                   </div>
@@ -182,10 +196,16 @@ const MyProfile = () => {
                     <Button className="mx-1 rounded-pill" variant="primary">
                       Disponibile per
                     </Button>
-                    <Button className="mx-1 text-primary border border-primary rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 text-primary border border-primary rounded-pill"
+                      variant="ligth"
+                    >
                       Aggiungi sezione del profilo
                     </Button>
-                    <Button className="mx-1 border border-black rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 border border-black rounded-pill"
+                      variant="ligth"
+                    >
                       Altro
                     </Button>
                   </div>
@@ -245,7 +265,9 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>28 Visualizzazioni del profilo</span>
-                      <p className="text-muted">Scopri chi ha visitato il tuo profilo</p>
+                      <p className="text-muted">
+                        Scopri chi ha visitato il tuo profilo
+                      </p>
                     </div>
                     <div className="ms-5">
                       <svg
@@ -261,13 +283,17 @@ const MyProfile = () => {
                         <path d="M23 20v1H1v-1zM8 9H2v10h6zm7-6H9v16h6zm7 11h-6v5h6z"></path>
                       </svg>
                       <span>113 Impressioni del post</span>
-                      <p className="text-muted">Scopri chi sta interagendo con i tuoi post</p>
-                      <span className="text-secondary my-0">Ultimi 7 giorni</span>
+                      <p className="text-muted">
+                        Scopri chi sta interagendo con i tuoi post
+                      </p>
+                      <span className="text-secondary my-0">
+                        Ultimi 7 giorni
+                      </span>
                     </div>
                   </div>
                 </Card.Body>
                 <CardText className="border-top fw-bold pt-2 text-center">
-                  <p>
+                  <span>
                     Mostra tutte le analisi
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -279,7 +305,7 @@ const MyProfile = () => {
                     >
                       <path d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
                     </svg>
-                  </p>
+                  </span>
                 </CardText>
               </Card>
               {/* FINE CARD ANALISI */}
@@ -317,7 +343,9 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>La mia rete</span>
-                      <p className="text-muted">Salva e gestisci i tuoi collegamenti e interessi</p>
+                      <p className="text-muted">
+                        Salva e gestisci i tuoi collegamenti e interessi
+                      </p>
                     </div>
                     <div className="">
                       <svg
@@ -333,12 +361,15 @@ const MyProfile = () => {
                         <path d="M19 5a3 3 0 00-3-3H5v20l7-6.29L19 22z"></path>
                       </svg>
                       <span>Elementi salvati</span>
-                      <p className="text-muted">Monitora le tue offerte di lavoro, i corsi e gli articoli</p>
+                      <p className="text-muted">
+                        Monitora le tue offerte di lavoro, i corsi e gli
+                        articoli
+                      </p>
                     </div>
                   </div>
                 </Card.Body>
                 <CardText className="border-top fw-bold pt-2 text-center">
-                  <p>
+                  <span>
                     Mostra tutte le analisi
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -350,7 +381,7 @@ const MyProfile = () => {
                     >
                       <path d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
                     </svg>
-                  </p>
+                  </span>
                 </CardText>
               </Card>
               {/* FINE CARD RISORSE */}
@@ -362,7 +393,11 @@ const MyProfile = () => {
 
                     <div className="d-flex">
                       <Dropdown data-bs-theme="light" className="">
-                        <Dropdown.Toggle variant="transparent" className="noToggle border-0" align={'end'}>
+                        <Dropdown.Toggle
+                          variant="transparent"
+                          className="noToggle border-0"
+                          align={"end"}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="27"
@@ -375,7 +410,10 @@ const MyProfile = () => {
                           </svg>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          <Dropdown.Item href="#/action-1" onClick={handleShowModalGet}>
+                          <Dropdown.Item
+                            href="#/action-1"
+                            onClick={handleShowModalGet}
+                          >
                             <small>Aggiungi posizione lavorativa</small>
                           </Dropdown.Item>
                           <Dropdown.Item href="#/action-2">
@@ -386,9 +424,16 @@ const MyProfile = () => {
 
                       {/* MODALE PER AGGIUNTA ESPERIENZE */}
 
-                      <Modal show={showModalGet} onHide={handleCloseGet} backdrop="static" keyboard={false}>
+                      <Modal
+                        show={showModalGet}
+                        onHide={handleCloseGet}
+                        backdrop="static"
+                        keyboard={false}
+                      >
                         <Modal.Header closeButton>
-                          <Modal.Title>Aggiungi posizione lavorativa</Modal.Title>
+                          <Modal.Title>
+                            Aggiungi posizione lavorativa
+                          </Modal.Title>
                         </Modal.Header>
                         <Form onSubmit={handleSubmit}>
                           <Modal.Body>
@@ -398,7 +443,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Qualifica"
                                 value={newExp.role}
-                                onChange={(e) => handleFieldChange('role', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("role", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -408,7 +455,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Nome azienda"
                                 value={newExp.company}
-                                onChange={(e) => handleFieldChange('company', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("company", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -418,7 +467,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Località"
                                 value={newExp.area}
-                                onChange={(e) => handleFieldChange('area', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("area", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -427,7 +478,9 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={newExp.startDate}
-                                onChange={(e) => handleFieldChange('startDate', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("startDate", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -436,7 +489,9 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={newExp.endDate}
-                                onChange={(e) => handleFieldChange('endDate', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("endDate", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -446,7 +501,12 @@ const MyProfile = () => {
                                 as="textarea"
                                 rows={4}
                                 value={newExp.description}
-                                onChange={(e) => handleFieldChange('description', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange(
+                                    "description",
+                                    e.target.value
+                                  )
+                                }
                                 required
                               />
                             </Form.Group>
@@ -488,7 +548,10 @@ const MyProfile = () => {
                                 className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
                               />
                               <div className="ms-2">
-                                <p className="my-0 fw-bold"> {experience.role}</p>
+                                <p className="my-0 fw-bold">
+                                  {" "}
+                                  {experience.role}
+                                </p>
                                 <p className="my-0 ">{experience.company}</p>
                                 <p className="my-0 mb-1 text-secondary">
                                   {experience.startDate}-{experience.endDate}
@@ -497,14 +560,17 @@ const MyProfile = () => {
                             </div>
                             {isDelete && (
                               <div>
-                                <Button variant="danger" onClick={() => handleDelete(experience._id)}>
+                                <Button
+                                  variant="danger"
+                                  onClick={() => handleDelete(experience._id)}
+                                >
                                   <i className="bi bi-trash3-fill"></i>
                                 </Button>
                                 <Button
                                   variant="success"
                                   className="ms-2"
                                   onClick={() => {
-                                    setShowModalPost(true)
+                                    setShowModalPost(true);
                                     setNewExp({
                                       role: experience.role,
                                       company: experience.company,
@@ -512,16 +578,25 @@ const MyProfile = () => {
                                       endDate: experience.endDate,
                                       description: experience.description,
                                       area: experience.area,
-                                    })
+                                    });
                                   }}
                                 >
                                   <i className="bi bi-pen"></i>
                                 </Button>
-                                <Modal show={showModalPost} onHide={handleClosePost} backdrop="static" keyboard={false}>
+                                <Modal
+                                  show={showModalPost}
+                                  onHide={handleClosePost}
+                                  backdrop="static"
+                                  keyboard={false}
+                                >
                                   <Modal.Header closeButton>
-                                    <Modal.Title>Aggiungi posizione lavorativa</Modal.Title>
+                                    <Modal.Title>
+                                      Aggiungi posizione lavorativa
+                                    </Modal.Title>
                                   </Modal.Header>
-                                  <Form onSubmit={() => handlePost(experience._id)}>
+                                  <Form
+                                    onSubmit={() => handlePost(experience._id)}
+                                  >
                                     <Modal.Body>
                                       <Form.Group className="mb-3">
                                         <Form.Label>Qualifica</Form.Label>
@@ -529,7 +604,12 @@ const MyProfile = () => {
                                           type="text"
                                           placeholder="Qualifica"
                                           value={newExp.role}
-                                          onChange={(e) => handleFieldChange('role', e.target.value)}
+                                          onChange={(e) =>
+                                            handleFieldChange(
+                                              "role",
+                                              e.target.value
+                                            )
+                                          }
                                           required
                                         />
                                       </Form.Group>
@@ -539,7 +619,12 @@ const MyProfile = () => {
                                           type="text"
                                           placeholder="Nome azienda"
                                           value={newExp.company}
-                                          onChange={(e) => handleFieldChange('company', e.target.value)}
+                                          onChange={(e) =>
+                                            handleFieldChange(
+                                              "company",
+                                              e.target.value
+                                            )
+                                          }
                                           required
                                         />
                                       </Form.Group>
@@ -549,7 +634,12 @@ const MyProfile = () => {
                                           type="text"
                                           placeholder="Località"
                                           value={newExp.area}
-                                          onChange={(e) => handleFieldChange('area', e.target.value)}
+                                          onChange={(e) =>
+                                            handleFieldChange(
+                                              "area",
+                                              e.target.value
+                                            )
+                                          }
                                           required
                                         />
                                       </Form.Group>
@@ -558,7 +648,12 @@ const MyProfile = () => {
                                         <Form.Control
                                           type="month"
                                           value={newExp.startDate}
-                                          onChange={(e) => handleFieldChange('startDate', e.target.value)}
+                                          onChange={(e) =>
+                                            handleFieldChange(
+                                              "startDate",
+                                              e.target.value
+                                            )
+                                          }
                                           required
                                         />
                                       </Form.Group>
@@ -567,7 +662,12 @@ const MyProfile = () => {
                                         <Form.Control
                                           type="month"
                                           value={newExp.endDate}
-                                          onChange={(e) => handleFieldChange('endDate', e.target.value)}
+                                          onChange={(e) =>
+                                            handleFieldChange(
+                                              "endDate",
+                                              e.target.value
+                                            )
+                                          }
                                           required
                                         />
                                       </Form.Group>
@@ -577,7 +677,12 @@ const MyProfile = () => {
                                           as="textarea"
                                           rows={4}
                                           value={newExp.description}
-                                          onChange={(e) => handleFieldChange('description', e.target.value)}
+                                          onChange={(e) =>
+                                            handleFieldChange(
+                                              "description",
+                                              e.target.value
+                                            )
+                                          }
                                           required
                                         />
                                       </Form.Group>
@@ -594,7 +699,7 @@ const MyProfile = () => {
                           </div>
                         </div>
                       ))
-                    : 'vuoto'}
+                    : "vuoto"}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">
                   Mostra tutte le competenze (8)
@@ -629,7 +734,9 @@ const MyProfile = () => {
                     </svg>
                   </div>
 
-                  <div className="px-3">qui dentro ci va la bio utente che prenderemo da data.bio</div>
+                  <div className="px-3">
+                    qui dentro ci va la bio utente che prenderemo da data.bio
+                  </div>
                 </Card.Body>
               </Card>
 
@@ -642,20 +749,32 @@ const MyProfile = () => {
                       <Card.Title>Attività</Card.Title>
                       <p className="text-primary">17 follower</p>
                       <div>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Post</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Commenti</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Immagini</span>
                         </Button>
                       </div>
                     </div>
 
                     <div>
-                      <Button className="border mb-3 border-primary p-0 px-3  rounded-pill" variant="ligth">
+                      <Button
+                        className="border mb-3 border-primary p-0 px-3  rounded-pill"
+                        variant="ligth"
+                      >
                         <span className="mx-1 text-primary">Crea un post</span>
                       </Button>
                       <svg
@@ -673,13 +792,17 @@ const MyProfile = () => {
 
                   <div className="px-3">
                     <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
+                      <p>
+                        {myProfile.name} ha pubblicato questo post &middot; 3s
+                      </p>
                       <img
                         className="rounded"
                         src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
                         alt=""
                       />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
+                      <span className="mx-3">
+                        qui dentro ci va le descrizione del post
+                      </span>
                     </div>
                     <img
                       className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
@@ -692,13 +815,17 @@ const MyProfile = () => {
                   </div>
                   <div className="px-3">
                     <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
+                      <p>
+                        {myProfile.name} ha pubblicato questo post &middot; 3s
+                      </p>
                       <img
                         className="rounded"
                         src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
                         alt=""
                       />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
+                      <span className="mx-3">
+                        qui dentro ci va le descrizione del post
+                      </span>
                     </div>
                     <img
                       className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
@@ -711,13 +838,17 @@ const MyProfile = () => {
                   </div>
                   <div className="px-3">
                     <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
+                      <p>
+                        {myProfile.name} ha pubblicato questo post &middot; 3s
+                      </p>
                       <img
                         className="rounded"
                         src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
                         alt=""
                       />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
+                      <span className="mx-3">
+                        qui dentro ci va le descrizione del post
+                      </span>
                     </div>
                     <img
                       className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
@@ -776,7 +907,9 @@ const MyProfile = () => {
                       </div>
                       <div>
                         <p className="my-0">EPICODE</p>
-                        <p className="text-secondary mt-0">feb 2024 - ago 2024</p>
+                        <p className="text-secondary mt-0">
+                          feb 2024 - ago 2024
+                        </p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -879,7 +1012,11 @@ const MyProfile = () => {
                   <Nav defaultActiveKey="#first">
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked ? 'text-success border-bottom border-success' : 'text-secondary'}
+                        className={
+                          isClicked
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick}
                         href="#aziende"
                       >
@@ -888,7 +1025,11 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked2 ? 'text-success border-bottom border-success' : 'text-secondary'}
+                        className={
+                          isClicked2
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick2}
                         href="#gruppi"
                       >
@@ -897,7 +1038,11 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked3 ? 'text-success border-bottom border-success' : 'text-secondary'}
+                        className={
+                          isClicked3
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick3}
                         href="#Scuole"
                       >
@@ -919,8 +1064,13 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">15.000 follower </div>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                      <div className="my-0 text-secondary">
+                        15.000 follower{" "}
+                      </div>
+                      <Button
+                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                        variant="ligth"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -947,8 +1097,13 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">15.000 follower </div>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                      <div className="my-0 text-secondary">
+                        15.000 follower{" "}
+                      </div>
+                      <Button
+                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                        variant="ligth"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -1005,14 +1160,16 @@ const MyProfile = () => {
               {/* FINE CARD LINGUA E URL */}
               <img
                 src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"
-                width={'100%'}
+                width={"100%"}
                 className="mb-2 rounded"
                 alt=""
               />
               {/* INIZIO CARD PROFILI SIMILI */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Altri profili simili</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Altri profili simili
+                  </Card.Subtitle>
                   <div className="d-flex mt-2 border-bottom">
                     <Card.Img
                       className="rounded-circle w-25 h-25 border border-light border-5"
@@ -1023,7 +1180,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1049,7 +1209,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1075,7 +1238,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1101,7 +1267,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1127,7 +1296,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1150,7 +1322,9 @@ const MyProfile = () => {
               {/* INIZIO PERSONE CHE POTRESTI CONOSCERE */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Persone che potresti conoscere</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Persone che potresti conoscere
+                  </Card.Subtitle>
                   <span className="text-muted">Del tuo settore</span>
                   <div className="d-flex mt-2 border-bottom">
                     <Card.Img
@@ -1162,7 +1336,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1189,7 +1366,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1216,7 +1396,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1243,7 +1426,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1270,7 +1456,10 @@ const MyProfile = () => {
                       <div>
                         <p className="my-0">Giovanni reder &middot; 2&deg; </p>
                         <p className="my-0">Junior full stack </p>
-                        <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                          variant="ligth"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -1293,7 +1482,7 @@ const MyProfile = () => {
               {/* FINE PERSONE CHE POTRESTI CONOSCERE */}
               <img
                 src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"
-                width={'100%'}
+                width={"100%"}
                 className="mb-2 rounded"
                 alt=""
               />
@@ -1304,7 +1493,7 @@ const MyProfile = () => {
         </div>
       </>
     )
-  )
-}
+  );
+};
 
-export default MyProfile
+export default MyProfile;
