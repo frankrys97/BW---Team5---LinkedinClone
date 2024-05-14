@@ -189,13 +189,13 @@ const MyHome = () => {
               <p>Servizi alle aziende</p>
             </small>
             <small>
-              <p>Scarica l'app LinkedIn</p>
+              <p>Scarica l&apos;app LinkedIn</p>
             </small>
             <small>
               <p>Altro</p>
             </small>
           </div>
-          <small className="text-center fw-semibold">Linkedin Corporation © 2024</small>
+          <small className="text-center fw-semibold">Linkedin Corporation &copy; 2024</small>
         </ListGroup>
       </Col>
     </Row>
