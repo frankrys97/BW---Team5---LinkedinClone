@@ -7,7 +7,7 @@ import '../style/myHome.css'
 const MyHome = () => {
   const [open, setOpen] = useState(false)
   return (
-    <Container>
+    <Container style={{ paddingTop: '65px' }}>
       <Row className="justify-content-center">
         {/* Prima Colonna */}
         <Col xs={12} className="p-0 first-column ">

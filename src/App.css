@@ -75,6 +75,22 @@
   background-color: rgba(0, 0, 0, 0.5); 
   z-index: 999; 
 } */
+
+.toolbar {
+  position: fixed;
+  top: -60px;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  transition: top 1s ease;
+  min-height: 50px;
+}
+
+.show-toolbar {
+  top: 62px;
+}
+
 /* FINE CSS FRANCESCO */
 /* INIZIO CSS GIOVANNI */
 

@@ -36,7 +36,7 @@ const MyProfile = () => {
   }
   return (
     <>
-      <div className="contBody ">
+      <div className="contBody " style={{paddingTop: '65px'}}>
         <Row>
           <Col xs={12} lg={9}>
             {/* CARD PROFILO */}
