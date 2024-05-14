@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { MdMoreHoriz, MdArrowUpward, MdEdit, MdArrowDropDown, MdSearch } from 'react-icons/md';
 import AdditionalDropdown from './additionaldropdowm';
 
@@ -15,6 +15,7 @@ function Dropdown() {
   const [isEditIconHovered, setIsEditIconHovered] = useState(false);
   const [additionalDropdownOpen, setAdditionalDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [inputClicked, setInputClicked] = useState(false); 
 
   useEffect(() => {
     const fetchProfileImage = async () => {
@@ -83,7 +84,7 @@ function Dropdown() {
   };
 
   const handleEditClick = () => {
-    // Add your edit logic here
+   
   };
 
   const handleCloseDropdown = () => {
@@ -96,7 +97,8 @@ function Dropdown() {
   };
 
   const handleInputClick = (e) => {
-    e.stopPropagation(); // Prevents the click on the input from affecting the dropdown behavior
+    e.stopPropagation();
+    setInputClicked(true); 
   };
 
   const iconStyle = {
@@ -174,7 +176,7 @@ function Dropdown() {
                   placeholder="Cerca un messaggio"
                   value={searchTerm}
                   onChange={handleSearchInputChange}
-                  onClick={handleInputClick} // Add input click handling
+                  onClick={handleInputClick} 
                   style={{
                     paddingLeft: '2rem',
                     paddingRight: '1rem',
@@ -182,9 +184,9 @@ function Dropdown() {
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                     outline: 'none',
-                    cursor: isOpen ? 'text' : 'pointer' // Change cursor to text when dropdown is open
+                    cursor: isOpen ? 'text' : 'pointer' 
                   }}
-                  readOnly={!isOpen} // Make input field editable only when dropdown is open
+                  readOnly={!isOpen} 
                 />
                 <MdSearch style={{ position: 'absolute', left: '0.5rem', fontSize: '20px', color: '#999' }} />
               </div>
@@ -207,7 +209,7 @@ function Dropdown() {
       {additionalDropdownOpen && (
         <AdditionalDropdown isOpen={additionalDropdownOpen} onClose={() => setAdditionalDropdownOpen(false)} />
       )}
-      {isOpen && (
+      {isOpen && !inputClicked && ( 
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 0 }} onClick={handleCloseDropdown}></div>
       )}
     </div>
