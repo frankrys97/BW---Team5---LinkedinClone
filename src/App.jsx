@@ -1,18 +1,23 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import MyComponent from './components/IndexMessage'
+import MyNavbar from './components/MyNavbar'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import MyProfile from './components/MyProfile'
+import MyHome from './components/MyHome'
 
 function App() {
   return (
-    <BrowserRouter>
-      {/* <MyNavbar  /> */}
-      <Routes>
-        <Route path='/' element={<MyComponent />} />
-        {/* <Route path='/profile_my'element={} /> 
-        <Route path='/profile/:userId' element={} /> */}
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      <BrowserRouter>
+        <MyNavbar />
+        <MyComponent />
+        <Routes>
+          <Route path="/" element={<MyHome />} />
+          <Route path="/profile_my" element={<MyProfile />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 

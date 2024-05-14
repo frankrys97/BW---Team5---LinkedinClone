@@ -1,0 +1,99 @@
+.header {
+  max-height: 60px;
+  z-index: 999 !important;
+}
+
+.navbar-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  z-index: 999;
+}
+
+.custom-placeholder {
+  background-color: #cce6f870;
+}
+
+.dropdown-toggle {
+  padding: 0;
+  font-size: 12px;
+}
+
+.dropdown-item:hover {
+  text-decoration: underline;
+}
+
+.offcanvas-link {
+  border: 1px solid #a3a3a3;
+}
+
+.offcanvas-link:hover {
+  animation: growUp 0.3s forwards;
+  cursor: pointer;
+}
+
+@keyframes growUp {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+#altroBusiness .nav-link:hover {
+  text-decoration: underline;
+}
+
+#paginaAziendale:hover {
+  text-decoration: underline;
+}
+
+.premiumLink {
+  text-decoration: underline;
+  color: #915a05;
+}
+
+#forDropdownAzienda {
+  cursor: pointer;
+}
+
+#navMain .nav-link:hover {
+  svg {
+    fill: black;
+  }
+  p {
+    color: black;
+  }
+}
+
+/* .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 999; 
+} */
+/* FINE CSS FRANCESCO */
+/* INIZIO CSS GIOVANNI */
+
+.profileImg {
+  max-width: 22%;
+  transform: translateY(-86%) translateX(20px);
+  z-index: 2;
+}
+.infoBox {
+  background-color: #dde7f1;
+}
+.name {
+  margin-top: -15%;
+}
+.contBody {
+  max-width: 1128px;
+  margin-inline: auto;
+}
+body {
+  background-color: #f4f2ee;
+}
+/* FINE CSS GIOVANNI */
