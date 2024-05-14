@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import MyComponent from './Components/IndexMessage'
+import MyComponent from './components/IndexMessage'
 import MyNavbar from "./components/MyNavbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyProfile from "../src/components/MyProfile";
@@ -10,8 +10,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <MyNavbar />
+        <MyComponent />
         <Routes>
-        <Route path='/' element={<MyComponent />} />
+    
+       
           <Route path="/profile_my" element={<MyProfile />} />
         </Routes>
       </BrowserRouter>
