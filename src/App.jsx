@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import MyComponent from './Components/IndexMessage'
+import MyComponent from './components/IndexMessage'
 
 function App() {
   return (
