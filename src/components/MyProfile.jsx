@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux'
 
 const MyProfile = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
-  const [showModal, setShowModal] = useState(false)
+  const [showModalGet, setShowModalGet] = useState(false)
+  const [showModalPost, setShowModalPost] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
 
   const [newExp, setNewExp] = useState({
@@ -22,8 +23,10 @@ const MyProfile = () => {
     setNewExp({ ...newExp, [propertyName]: propertyValue })
   }
 
-  const handleClose = () => setShowModal(false)
-  const handleShowModal = () => setShowModal(true)
+  const handleCloseGet = () => setShowModalGet(false)
+  const handleClosePost = () => setShowModalPost(false)
+
+  const handleShowModalGet = () => setShowModalGet(true)
 
   const myKey2 =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE'
@@ -97,7 +100,7 @@ const MyProfile = () => {
           description: '',
           area: '',
         })
-        setShowModal(false)
+        setShowModalGet(false)
         // setSubmitted(!submited)
         getExperinence(`${myProfile._id}/experiences`)
       }
@@ -107,7 +110,6 @@ const MyProfile = () => {
   }
 
   const handleDelete = async (id) => {
-    // console.log(URL + myProfile._id + '/experiences/'id)
     try {
       const resp = await fetch(URL + myProfile._id + '/experiences/' + id, {
         method: 'DELETE',
@@ -125,6 +127,26 @@ const MyProfile = () => {
       console.log(error)
     }
   }
+
+  const handlePost = async (id) => {
+    try {
+      const resp = await fetch(URL + myProfile._id + '/experiences/' + id, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${myKey2}`,
+        },
+      })
+
+      if (resp.ok) {
+        getExperinence(`${myProfile._id}/experiences`)
+        console.log('POST')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     myProfile && (
       <>
@@ -353,7 +375,7 @@ const MyProfile = () => {
                           </svg>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          <Dropdown.Item href="#/action-1" onClick={handleShowModal}>
+                          <Dropdown.Item href="#/action-1" onClick={handleShowModalGet}>
                             <small>Aggiungi posizione lavorativa</small>
                           </Dropdown.Item>
                           <Dropdown.Item href="#/action-2">
@@ -364,7 +386,7 @@ const MyProfile = () => {
 
                       {/* MODALE PER AGGIUNTA ESPERIENZE */}
 
-                      <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
+                      <Modal show={showModalGet} onHide={handleCloseGet} backdrop="static" keyboard={false}>
                         <Modal.Header closeButton>
                           <Modal.Title>Aggiungi posizione lavorativa</Modal.Title>
                         </Modal.Header>
@@ -474,9 +496,100 @@ const MyProfile = () => {
                               </div>
                             </div>
                             {isDelete && (
-                              <Button variant="danger" onClick={() => handleDelete(experience._id)}>
-                                <i className="bi bi-trash3-fill"></i>
-                              </Button>
+                              <div>
+                                <Button variant="danger" onClick={() => handleDelete(experience._id)}>
+                                  <i className="bi bi-trash3-fill"></i>
+                                </Button>
+                                <Button
+                                  variant="success"
+                                  className="ms-2"
+                                  onClick={() => {
+                                    setShowModalPost(true)
+                                    setNewExp({
+                                      role: experience.role,
+                                      company: experience.company,
+                                      startDate: experience.startDate,
+                                      endDate: experience.endDate,
+                                      description: experience.description,
+                                      area: experience.area,
+                                    })
+                                  }}
+                                >
+                                  <i className="bi bi-pen"></i>
+                                </Button>
+                                <Modal show={showModalPost} onHide={handleClosePost} backdrop="static" keyboard={false}>
+                                  <Modal.Header closeButton>
+                                    <Modal.Title>Aggiungi posizione lavorativa</Modal.Title>
+                                  </Modal.Header>
+                                  <Form onSubmit={() => handlePost(experience._id)}>
+                                    <Modal.Body>
+                                      <Form.Group className="mb-3">
+                                        <Form.Label>Qualifica</Form.Label>
+                                        <Form.Control
+                                          type="text"
+                                          placeholder="Qualifica"
+                                          value={newExp.role}
+                                          onChange={(e) => handleFieldChange('role', e.target.value)}
+                                          required
+                                        />
+                                      </Form.Group>
+                                      <Form.Group className="mb-3">
+                                        <Form.Label>Nome Azienda</Form.Label>
+                                        <Form.Control
+                                          type="text"
+                                          placeholder="Nome azienda"
+                                          value={newExp.company}
+                                          onChange={(e) => handleFieldChange('company', e.target.value)}
+                                          required
+                                        />
+                                      </Form.Group>
+                                      <Form.Group className="mb-3">
+                                        <Form.Label>Località</Form.Label>
+                                        <Form.Control
+                                          type="text"
+                                          placeholder="Località"
+                                          value={newExp.area}
+                                          onChange={(e) => handleFieldChange('area', e.target.value)}
+                                          required
+                                        />
+                                      </Form.Group>
+                                      <Form.Group className="mb-3">
+                                        <Form.Label>Data inizio</Form.Label>
+                                        <Form.Control
+                                          type="month"
+                                          value={newExp.startDate}
+                                          onChange={(e) => handleFieldChange('startDate', e.target.value)}
+                                          required
+                                        />
+                                      </Form.Group>
+                                      <Form.Group className="mb-3">
+                                        <Form.Label>Data fine</Form.Label>
+                                        <Form.Control
+                                          type="month"
+                                          value={newExp.endDate}
+                                          onChange={(e) => handleFieldChange('endDate', e.target.value)}
+                                          required
+                                        />
+                                      </Form.Group>
+                                      <Form.Group className="mb-3">
+                                        <Form.Label>Descrizione</Form.Label>
+                                        <Form.Control
+                                          as="textarea"
+                                          rows={4}
+                                          value={newExp.description}
+                                          onChange={(e) => handleFieldChange('description', e.target.value)}
+                                          required
+                                        />
+                                      </Form.Group>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                      <Button variant="primary" type="submit">
+                                        Salva
+                                      </Button>
+                                    </Modal.Footer>
+                                  </Form>
+                                </Modal>
+                              </div>
                             )}
                           </div>
                         </div>
