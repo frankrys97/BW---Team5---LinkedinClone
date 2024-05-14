@@ -118,18 +118,18 @@ function Dropdown() {
   return (
     <>
       <div
-        className="z-3"
         style={{
           position: 'fixed',
           top: isOpen ? `${dropdownTop}px` : 'auto',
           bottom: isOpen ? 'auto' : 0,
           right: 15,
+          zIndex: 998,
         }}
       >
         <div
           className="border-bottom-0"
           style={{
-            width: '325px',
+            width: '100%',
             display: 'flex',
             alignItems: 'center',
             background: hoveredIcon ? '#fafafa' : 'white',
@@ -190,6 +190,8 @@ function Dropdown() {
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 borderRadius: '4px',
                 padding: '8px',
+                height: "70vh",
+                overflowY: "auto"
               }}
               ref={(ref) => {
                 if (ref) {
