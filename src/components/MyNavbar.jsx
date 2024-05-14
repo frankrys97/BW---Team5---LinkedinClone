@@ -1,28 +1,28 @@
-import { Container, Nav, NavDropdown, Navbar, Form, Button, Col, Badge } from "react-bootstrap";
-import logo from "../assets/linkedIn-logo.png";
-import { FaSearch } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import premium from "../assets/linkedin-premium.png";
-import MyOffcanvas from "./NavbarOffcanvas";
-import { getMyProfile } from "../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { Container, Nav, NavDropdown, Navbar, Form, Button, Col, Badge } from 'react-bootstrap'
+import logo from '../assets/linkedIn-logo.png'
+import { FaSearch } from 'react-icons/fa'
+import { Link, useNavigate } from 'react-router-dom'
+import premium from '../assets/linkedin-premium.png'
+import MyOffcanvas from './NavbarOffcanvas'
+import { getMyProfile } from '../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const MyNavbar = () => {
   // const [isOverlay, setIsOverlay] = useState(false);
-  const myProfile = useSelector((state) => state.myProfile.content);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const myProfile = useSelector((state) => state.myProfile.content)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(getMyProfile());
+    dispatch(getMyProfile())
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <>
       {myProfile && (
-        <Container fluid className="header z-3 p-0 position-fixed w-100">
+        <Container fluid className="header z-3 p-0 position-sticky w-100 mb-1 top-0">
           <Navbar
             expand="md"
             className="bg-body-tertiary border-bottom border-0 p-0
@@ -60,7 +60,7 @@ const MyNavbar = () => {
                   id="navMain"
                 >
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
                   >
                     <div className="position-relative">
@@ -77,18 +77,18 @@ const MyNavbar = () => {
                       <Badge
                         bg="danger"
                         className="position-absolute top-0 start-100 translate-middle rounded-circle mt-1"
-                        style={{ fontSize: "10px" }}
+                        style={{ fontSize: '10px' }}
                       >
                         1
                       </Badge>
                     </div>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Home
                     </p>
                   </Link>
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0 "
                   >
                     <div className="position-relative">
@@ -105,18 +105,18 @@ const MyNavbar = () => {
                       <Badge
                         bg="danger"
                         className="position-absolute top-0 start-100 translate-middle rounded-circle mt-1"
-                        style={{ fontSize: "10px" }}
+                        style={{ fontSize: '10px' }}
                       >
                         2
                       </Badge>
                     </div>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Rete
                     </p>
                   </Link>
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
                   >
                     <svg
@@ -131,12 +131,12 @@ const MyNavbar = () => {
                       <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z" />
                     </svg>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Lavoro
                     </p>
                   </Link>
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
                   >
                     <svg
@@ -151,12 +151,12 @@ const MyNavbar = () => {
                       <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
                     </svg>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Messaggistica
                     </p>
                   </Link>
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
                   >
                     <div className="position-relative">
@@ -173,13 +173,13 @@ const MyNavbar = () => {
                       <Badge
                         bg="danger"
                         className="position-absolute top-0 start-100 translate-middle rounded-circle mt-1"
-                        style={{ fontSize: "10px" }}
+                        style={{ fontSize: '10px' }}
                       >
                         20
                       </Badge>
                     </div>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Notifiche
                     </p>
                   </Link>
@@ -190,8 +190,8 @@ const MyNavbar = () => {
                   >
                     <img src={logo} alt="logo" className="rounded-circle" width={25} height={25} />
 
-                    <NavDropdown title="Tu" id="basic-nav-dropdown" align={"end"} className="m-0">
-                      <NavDropdown.Item onClick={() => navigate("/profile_my")}>
+                    <NavDropdown title="Tu" id="basic-nav-dropdown" align={'end'} className="m-0">
+                      <NavDropdown.Item onClick={() => navigate('/profile_my')}>
                         <div className="d-flex gap-2">
                           <Col>
                             <img src={myProfile.image} alt="  logo" width={40} height={40} className="rounded-circle" />
@@ -204,12 +204,12 @@ const MyNavbar = () => {
                               <p
                                 className="mb-0"
                                 style={{
-                                  color: "gray",
-                                  fontSize: "12px",
-                                  maxWidth: "200px",
+                                  color: 'gray',
+                                  fontSize: '12px',
+                                  maxWidth: '200px',
                                   //   textOverflow: "ellipsis",
                                   //   overflow: "hidden",
-                                  whiteSpace: "initial",
+                                  whiteSpace: 'initial',
                                 }}
                               >
                                 Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business
@@ -221,7 +221,7 @@ const MyNavbar = () => {
                         <Button
                           variant="outline-primary"
                           className="w-100 mt-3 rounded rounded-5"
-                          onClick={() => navigate("/profile_my")}
+                          onClick={() => navigate('/profile_my')}
                         >
                           Visualizza profilo
                         </Button>
@@ -231,7 +231,7 @@ const MyNavbar = () => {
                       <NavDropdown.Item href="#action/3.4">
                         <div className="d-flex align-items-center">
                           <img src={premium} alt="" width={15} height={15} />
-                          <p className="mb-0 ms-2 fw-semibold" style={{ color: "gray", fontSize: "16px" }}>
+                          <p className="mb-0 ms-2 fw-semibold" style={{ color: 'gray', fontSize: '16px' }}>
                             Passa a Premium con 0 EUR
                           </p>
                         </div>
@@ -245,13 +245,13 @@ const MyNavbar = () => {
                       <NavDropdown.Item
                         href="#action/3.4"
                         style={{
-                          maxWidth: "250px",
-                          wordBreak: "break-word",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
+                          maxWidth: '250px',
+                          wordBreak: 'break-word',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
                         }}
                       >
-                        Account per la pubblicazione di contenuti ufficiali per la tua sezione profilo{" "}
+                        Account per la pubblicazione di contenuti ufficiali per la tua sezione profilo{' '}
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
                       <NavDropdown.Item href="#action/3.4">Esci </NavDropdown.Item>
@@ -259,9 +259,9 @@ const MyNavbar = () => {
                   </div>
                   <MyOffcanvas />
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-center premiumLink"
-                    style={{ fontSize: "12px" }}
+                    style={{ fontSize: '12px' }}
                   >
                     <p className="mb-0">Passa a Premium</p>
                     <span>gratis</span>
@@ -273,7 +273,7 @@ const MyNavbar = () => {
         </Container>
       )}
     </>
-  );
-};
+  )
+}
 
-export default MyNavbar;
+export default MyNavbar

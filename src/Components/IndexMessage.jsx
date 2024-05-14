@@ -120,10 +120,10 @@ function Dropdown() {
       <div
         className="z-3"
         style={{
-          position: 'absolute',
+          position: 'fixed',
           top: isOpen ? `${dropdownTop}px` : 'auto',
           bottom: isOpen ? 'auto' : 0,
-          right: 0,
+          right: 15,
         }}
       >
         <div

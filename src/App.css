@@ -1,5 +1,6 @@
 .header {
   max-height: 60px;
+  z-index: 999 !important;
 }
 
 .navbar-container {
@@ -76,9 +77,11 @@
 } */
 /* FINE CSS FRANCESCO */
 /* INIZIO CSS GIOVANNI */
+
 .profileImg {
   max-width: 22%;
   transform: translateY(-86%) translateX(20px);
+  z-index: 2;
 }
 .infoBox {
   background-color: #dde7f1;

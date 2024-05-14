@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { CardText, Col, Nav, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import MyFooter from "./MyFooter";
+import { useState } from 'react'
+import { CardText, Col, Nav, Row } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+import MyFooter from './MyFooter'
 
 const MyProfile = () => {
   //   const [profiles, setProfiles] = useState([]);
@@ -22,29 +22,29 @@ const MyProfile = () => {
   //     }
   //   };
   //   getProfiles();
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false)
   const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
-  const [isClicked2, setIsClicked2] = useState(false);
+    setIsClicked(!isClicked)
+  }
+  const [isClicked2, setIsClicked2] = useState(false)
   const handleClick2 = () => {
-    setIsClicked2(!isClicked2);
-  };
-  const [isClicked3, setIsClicked3] = useState(false);
+    setIsClicked2(!isClicked2)
+  }
+  const [isClicked3, setIsClicked3] = useState(false)
   const handleClick3 = () => {
-    setIsClicked3(!isClicked3);
-  };
+    setIsClicked3(!isClicked3)
+  }
   return (
     <>
       <div className="contBody ">
         <Row>
           <Col xs={12} lg={9}>
             {/* CARD PROFILO */}
-            <Card style={{ maxWidth: "100%" }}>
+            <Card style={{ maxWidth: '100%' }}>
               <Card.Img
                 variant="top"
                 src="https://media.licdn.com/dms/image/D5616AQHhuOl8wWoGXA/profile-displaybackgroundimage-shrink_350_1400/0/1713451387419?e=1721260800&v=beta&t=-mLQ_fRWVOEQ_3eB8rO_uAqPBCggC01SvrEKXFIRiRo"
-              />{" "}
+              />{' '}
               <Card.Body className="">
                 <div>
                   <Card.Img
@@ -60,7 +60,7 @@ const MyProfile = () => {
                   <p className="my-0">
                     <span className="text-secondary">data.area &middot;</span> <a href="">Informazioni di contatto</a>
                   </p>
-                  <p style={{ fontSize: "0.8rem" }} className="text-primary ">
+                  <p style={{ fontSize: '0.8rem' }} className="text-primary ">
                     17 collegamenti
                   </p>
                 </div>
@@ -129,7 +129,7 @@ const MyProfile = () => {
                       focusable="false"
                     >
                       <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
-                    </svg>{" "}
+                    </svg>{' '}
                     <span>28 Visualizzazioni del profilo</span>
                     <p className="text-muted">Scopri chi ha visitato il tuo profilo</p>
                   </div>
@@ -508,7 +508,7 @@ const MyProfile = () => {
                 <Nav defaultActiveKey="#first">
                   <Nav.Item>
                     <Nav.Link
-                      className={isClicked ? "text-success border-bottom border-success" : "text-secondary"}
+                      className={isClicked ? 'text-success border-bottom border-success' : 'text-secondary'}
                       onClick={handleClick}
                       href="#aziende"
                     >
@@ -517,7 +517,7 @@ const MyProfile = () => {
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link
-                      className={isClicked2 ? "text-success border-bottom border-success" : "text-secondary"}
+                      className={isClicked2 ? 'text-success border-bottom border-success' : 'text-secondary'}
                       onClick={handleClick2}
                       href="#gruppi"
                     >
@@ -526,7 +526,7 @@ const MyProfile = () => {
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link
-                      className={isClicked3 ? "text-success border-bottom border-success" : "text-secondary"}
+                      className={isClicked3 ? 'text-success border-bottom border-success' : 'text-secondary'}
                       onClick={handleClick3}
                       href="#Scuole"
                     >
@@ -920,7 +920,7 @@ const MyProfile = () => {
       </div>
       <MyFooter />
     </>
-  );
-};
+  )
+}
 
-export default MyProfile;
+export default MyProfile
