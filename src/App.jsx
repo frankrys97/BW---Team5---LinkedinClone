@@ -3,7 +3,7 @@ import './App.css'
 import MyComponent from './components/IndexMessage'
 import MyNavbar from './components/MyNavbar'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import MyProfile from '../src/components/MyProfile'
+import MyProfile from './components/MyProfile'
 import MyHome from './components/MyHome'
 
 function App() {
