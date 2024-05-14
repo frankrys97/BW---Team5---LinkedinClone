@@ -1,9 +1,10 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './App.css'
 import MyComponent from './components/IndexMessage'
-import MyNavbar from "./components/MyNavbar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import MyProfile from "../src/components/MyProfile";
+import MyNavbar from './components/MyNavbar'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import MyProfile from '../src/components/MyProfile'
+import MyHome from './components/MyHome'
 
 function App() {
   return (
@@ -12,13 +13,12 @@ function App() {
         <MyNavbar />
         <MyComponent />
         <Routes>
-    
-       
+          <Route path="/" element={<MyHome />} />
           <Route path="/profile_my" element={<MyProfile />} />
         </Routes>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
