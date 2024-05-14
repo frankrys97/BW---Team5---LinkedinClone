@@ -917,8 +917,8 @@ const MyProfile = () => {
           </Col>
           {/* FINE SECONDA COLONNA */}
         </Row>
-      </div>
       <MyFooter />
+      </div>
     </>
   )
 }
