@@ -2,6 +2,7 @@ import { Button, Col, Collapse, Dropdown, Image, ListGroup, ListGroupItem, Row }
 import img from '../assets/images.jpeg'
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
+import '../style/myHome.css'
 
 const MyHome = () => {
   const [open, setOpen] = useState(false)

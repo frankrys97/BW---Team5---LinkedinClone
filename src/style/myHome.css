@@ -1,0 +1,72 @@
+.Container {
+  max-width: 1128px;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.bi-plus-lg {
+  color: black;
+  padding-inline: 3px;
+}
+.bi-plus-lg:hover {
+  background-color: lightgrey;
+  border-radius: 50%;
+}
+
+.rounded-top {
+  z-index: 0;
+}
+
+.rounded-circle {
+  z-index: 3;
+}
+
+.first-column,
+.second-column {
+  max-width: 576px;
+}
+
+.imgContainer {
+  max-width: 576px;
+}
+.imgBackground {
+  width: 576px;
+  height: 56.25px;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .first-column {
+    /* width: 225px; */
+    max-width: 225px;
+    margin-inline-end: 24px;
+  }
+  .second-column {
+    max-width: 471px;
+    margin-inline-end: 24px;
+  }
+  .imgBackground {
+    width: 225px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .second-column {
+    max-width: 387px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .second-column {
+    max-width: 555px;
+  }
+}
+
+.btnPost:hover {
+  background-color: rgb(231, 231, 231);
+}
