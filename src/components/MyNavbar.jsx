@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const MyNavbar = () => {
+  // const [isOverlay, setIsOverlay] = useState(false);
   const myProfile = useSelector((state) => state.myProfile.content);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,8 +35,16 @@ const MyNavbar = () => {
           <Navbar
             expand="md"
             className="bg-body-tertiary border-bottom border-0 p-0
+
+        
     "
           >
+            {/* {isOverlay && (
+              <div
+                className="overlay"
+                onClick={() => setIsOverlay(false)}
+              ></div>
+            )} */}
             <Container className="navbar-container d-flex gap-5">
               <div className="d-flex">
                 <Navbar.Brand href="#home" className="p-0">
@@ -47,6 +56,8 @@ const MyNavbar = () => {
                     placeholder="Cerca"
                     className="px-5 rounded rounded-2 border border-0 custom-placeholder w-100 "
                     aria-label="Search"
+                    // onFocus={() => setIsOverlay(true)}
+                    // onBlur={() => setIsOverlay(false)}
                   />
                   <FaSearch className="position-absolute top-50 translate-middle-y ms-3" />
                 </Form>
