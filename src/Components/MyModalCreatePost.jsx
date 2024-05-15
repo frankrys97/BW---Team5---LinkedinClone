@@ -1,5 +1,5 @@
-const MyModalCreatePost = () => {
-    return <div></div>;
-}
+// const MyModalCreatePost = () => {
+//     return <div></div>;
+// }
 
-export default MyModalCreatePost
+// // export default MyModalCreatePost
