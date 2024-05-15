@@ -3,7 +3,10 @@ import { CardText, Col, Dropdown, Form, Modal, Nav, Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import MyFooter from "./MyFooter";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import MyModalUploadImage from "./MyModalUploadImage";
+import { setShowModalImageUpload } from "../redux/actions";
+import defaultImage from "../assets/default-image.png";
 
 const MyProfile = () => {
   const myProfile = useSelector((state) => state.myProfile.content);
@@ -19,11 +22,19 @@ const MyProfile = () => {
     description: "",
     area: "",
   });
+
+  const [experienceImage, setExperienceImage] = useState(null);
+
+  const handleImageChange = (event) => {
+    setExperienceImage(event.target.files[0]);
+  };
+
   const handleFieldChange = (propertyName, propertyValue) => {
     setNewExp({ ...newExp, [propertyName]: propertyValue });
   };
 
   const handleCloseModal = () => setShowModal(false);
+  const dispatch = useDispatch();
 
   const handleShowModal = (operation, experience) => {
     setShowModal(true);
@@ -31,6 +42,10 @@ const MyProfile = () => {
     if (operation === "edit") {
       setNewExp(experience);
     }
+  };
+
+  const handleShowModalImageUpload = () => {
+    dispatch(setShowModalImageUpload(true));
   };
 
   const myKey2 =
@@ -106,6 +121,30 @@ const MyProfile = () => {
       }
 
       if (resp.ok) {
+        console.log(experienceImage);
+        const responseData = await resp.json();
+        const experienceId = responseData._id;
+
+        const formData = new FormData();
+        formData.append("experience", experienceImage);
+
+        const imageResp = await fetch(
+          `https://striveschool-api.herokuapp.com/api/profile/${myProfile._id}/experiences/${experienceId}/picture`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${myKey2}`,
+            },
+            body: formData,
+          }
+        );
+
+        if (imageResp.ok) {
+          console.log("image uploaded");
+        } else {
+          console.log("image not uploaded");
+        }
+
         handleCloseModal();
         getExperinence(`${myProfile._id}/experiences`);
       }
@@ -174,6 +213,7 @@ const MyProfile = () => {
   const [profili, setProfili] = useState([]);
   useEffect(() => {
     similarProfiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // FINE FETCH PROFILI SIMILI E AMICI CONSIGLIATI
   // INIZIO FETCH ATTIVITA POST PERSONALI
@@ -224,7 +264,10 @@ const MyProfile = () => {
                       className="rounded-circle profileImg border border-light border-5"
                       src={myProfile.image}
                     /> */}
-                    <div className="profileImg border border-light border-5 rounded-circle overflow-hidden">
+                    <div
+                      className="profileImg border border-light border-5 rounded-circle overflow-hidden"
+                      onClick={handleShowModalImageUpload}
+                    >
                       <img
                         src={myProfile.image}
                         alt="profile"
@@ -236,6 +279,9 @@ const MyProfile = () => {
                         }}
                       />
                     </div>
+
+                    <MyModalUploadImage />
+
                     <p className="name fs-4">
                       {myProfile.name} {myProfile.surname}
                     </p>
@@ -537,6 +583,10 @@ const MyProfile = () => {
                                 required
                               />
                             </Form.Group>
+                            <Form.Group className="mb-3">
+                              <Form.Label>Aggiungi un &aposimmagine</Form.Label>
+                              <Form.Control type="file" accept="jpg, jpeg, png" onChange={handleImageChange} />
+                            </Form.Group>
                           </Modal.Body>
                           <Modal.Footer>
                             <Button variant={operation === "edit" ? "success" : "primary"} type="submit">
@@ -565,15 +615,14 @@ const MyProfile = () => {
                         <div key={experience._id} className="px-3 my-2 ">
                           <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex ">
-                              <img
-                                width="48"
-                                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                loading="lazy"
-                                height="48"
-                                alt="Logo di EPICODE"
-                                id="ember1798"
-                                className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
-                              />
+                              <div style={{ width: "50px", height: "50px" }}>
+                                <img
+                                  src={experience.image || defaultImage}
+                                  alt="Logo di EPICODE"
+                                  id="ember1798"
+                                  className="w-100 h-100"
+                                />
+                              </div>
                               <div className="ms-2">
                                 <p className="my-0 fw-bold"> {experience.role}</p>
                                 <p className="my-0 ">{experience.company}</p>
@@ -988,7 +1037,11 @@ const MyProfile = () => {
                       return (
                         <div key={profilo._id} className="d-flex mt-2 border-bottom">
                           <div
-                            style={{ maxWidth: "70px", maxHeight: "70px", aspectRatio: "1/1" }}
+                            style={{
+                              maxWidth: "70px",
+                              maxHeight: "70px",
+                              aspectRatio: "1/1",
+                            }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
                             <img
@@ -1040,7 +1093,11 @@ const MyProfile = () => {
                       return (
                         <div key={profilo._id} className="d-flex mt-2 border-bottom">
                           <div
-                            style={{ maxWidth: "70px", maxHeight: "70px", aspectRatio: "1/1" }}
+                            style={{
+                              maxWidth: "70px",
+                              maxHeight: "70px",
+                              aspectRatio: "1/1",
+                            }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
                             <img
