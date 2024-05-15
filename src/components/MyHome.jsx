@@ -20,6 +20,7 @@ const MyHome = () => {
   const [consigliaClicked, setConsigliaClicked] = useState({});
   const [open, setOpen] = useState(false)
   const [posts, setPosts] = useState([])
+
   // const [awaitFetch, setAwaitFetch] = useState(false)
   // const Array = []
   const handleConsigliaClick = (postId) => {
@@ -31,6 +32,7 @@ const MyHome = () => {
   const focusCommentInput = (inputId) => {
     document.getElementById(inputId).focus();
   };
+
   const myKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
   const URL = 'https://striveschool-api.herokuapp.com/api/posts'
@@ -305,6 +307,7 @@ const MyHome = () => {
     </div>
   </div>
 </div>
+
             </ListGroupItem>
           </ListGroup>
         );
