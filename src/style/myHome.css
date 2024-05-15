@@ -35,27 +35,27 @@ a:hover {
   max-width: 576px;
 }
 .imgBackground {
-  width: 576px;
+  width: 100%;
   height: 56.25px;
   object-fit: cover;
 }
 
 @media screen and (min-width: 768px) {
   .first-column {
-    /* width: 225px; */
-    max-width: 225px;
+    max-width: 471px;
     margin-inline-end: 24px;
   }
   .second-column {
     max-width: 471px;
     margin-inline-end: 24px;
   }
-  .imgBackground {
-    width: 225px;
-  }
 }
 
 @media screen and (min-width: 992px) {
+  .first-column {
+    max-width: 225px;
+  }
+
   .second-column {
     max-width: 387px;
   }

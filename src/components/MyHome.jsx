@@ -14,24 +14,23 @@ import { NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import '../style/myHome.css'
 import { useSelector } from 'react-redux'
+import LoadingPost from './LoadingPost'
 
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
-  const [consigliaClicked, setConsigliaClicked] = useState({});
+  const [consigliaClicked, setConsigliaClicked] = useState({})
   const [open, setOpen] = useState(false)
   const [posts, setPosts] = useState([])
 
-  // const [awaitFetch, setAwaitFetch] = useState(false)
-  // const Array = []
   const handleConsigliaClick = (postId) => {
-    setConsigliaClicked(prevState => ({
+    setConsigliaClicked((prevState) => ({
       ...prevState,
-      [postId]: !prevState[postId]
-    }));
-  };
+      [postId]: !prevState[postId],
+    }))
+  }
   const focusCommentInput = (inputId) => {
-    document.getElementById(inputId).focus();
-  };
+    document.getElementById(inputId).focus()
+  }
 
   const myKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
@@ -48,9 +47,6 @@ const MyHome = () => {
         const data = await response.json()
         const result = data.slice(4, 14)
         setPosts(result)
-        // setAwaitFetch(true) // da rivedere
-
-        // console.log('posts: ', posts)
       } else {
         alert('Errore nella fetch')
       }
@@ -89,7 +85,7 @@ const MyHome = () => {
           <Col xs={12} className="p-0 first-column ">
             <ListGroup className="mb-1">
               <ListGroup.Item className="text-center">
-                <div className="rounded-top position-absolute start-0 top-0 overflow-hidden imgContainer">
+                <div className="rounded-top position-absolute end-0 start-0 top-0 overflow-hidden imgContainer">
                   <Image
                     src="https://media.licdn.com/dms/image/D4D16AQGdLXRnSjl7bQ/profile-displaybackgroundimage-shrink_350_1400/0/1713442065268?e=1721260800&v=beta&t=t-XxVkrYJWOMbzSDmeCUsoY-SVin550O1VB7x7tBfqk"
                     className="imgBackground"
@@ -237,82 +233,96 @@ const MyHome = () => {
             </div>
 
             {/* Post */}
-            {posts.map((post) => {
-        const isConsigliaClicked = consigliaClicked[post._id];
+            {posts.length > 0
+              ? posts.map((post) => {
+                  const isConsigliaClicked = consigliaClicked[post._id]
 
-        return (
-          <ListGroup className="mb-2" key={post._id}>
-            <ListGroupItem>
-              <div className="d-flex">
-                <Image src={post.user.image} className="rounded-circle " style={{ width: 60, height: 60 }} />
-                <div className="ms-2">
-                  <p className="mb-0">
-                    {post.user.name} {post.user.surname}
-                  </p>
-                  <p className="mb-0">{post.user.username}</p>
-                  <small>
-                    {subDate(post.createdAt)} <i className="bi bi-dot"></i> <i className="bi bi-globe2"></i>
-                  </small>
-                </div>
-              </div>
-              <p className="mb-0">{post.text}</p>
-            </ListGroupItem>
-            <ListGroupItem style={{ width: '100%', height: '300px' }} className="overflow-hidden p-0">
-              <Image
-                fluid
-                src="https://images.unsplash.com/photo-1715596828741-3e2aa6bc3aff?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              />
-            </ListGroupItem>
-            <ListGroupItem>
-              <ButtonGroup className="d-flex justify-content-between">
-                <Button
-                  variant={isConsigliaClicked ? "primary" : "outline-light"}
-                  className={`border-0 text-${isConsigliaClicked ? "light" : "dark"}`}
-                  onClick={() => handleConsigliaClick(post._id)}
-                >
-                  <i className={`bi bi-hand-thumbs-up${isConsigliaClicked ? "-fill" : ""}`}></i> Consiglia
-                </Button>
-                <Button
-  variant="outline-light"
-  className="border-0 text-dark"
-  onClick={() => focusCommentInput(`commentInput-${post._id}`)}
->
-  <i className="bi bi-chat-dots"></i> Commenta
-</Button>
-                <Button variant="outline-light" className="border-0 text-dark">
-                  <i className="bi bi-repeat"></i> Diffondi il post
-                </Button>
-                <Button variant="outline-light" className="border-0 text-dark">
-                  <i className="bi bi-send-fill "></i> Invia
-                </Button>
-              </ButtonGroup>
-              <div className='mt-2' style={{ display: 'flex', alignItems: 'center' }}>
-  <Image
-    src={myProfile.image}
-    className="rounded-circle z-3 border border-white"
-    alt="profile-img"
-    style={{ width: 48, height: 48, marginRight: '10px' }}
-  />
-  <div style={{ position: 'relative', width: '100%' }}>
-    <input
-      id={`commentInput-${post._id}`}
-      type="text"
-      className=""
-      placeholder="Aggiungi un commento..."
-      style={{ width: '100%', padding: '4px', border: '1px solid #f0f0f0', borderRadius: '20px' }}
-    />
-    <div style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center' }}>
-      <i className="bi bi-emoji-smile" style={{ marginRight: '7px', fontSize: "20px" }}></i>
-      <i className="bi bi-card-image" style={{ marginRight: '7px', fontSize: "20px" }}></i>
-    </div>
-  </div>
-</div>
-
-            </ListGroupItem>
-          </ListGroup>
-        );
-      })}
- 
+                  return (
+                    <ListGroup className="mb-2" key={post._id}>
+                      <ListGroupItem>
+                        <div className="d-flex">
+                          <Image src={post.user.image} className="rounded-circle " style={{ width: 60, height: 60 }} />
+                          <div className="ms-2">
+                            <p className="mb-0">
+                              {post.user.name} {post.user.surname}
+                            </p>
+                            <p className="mb-0">{post.user.username}</p>
+                            <small>
+                              {subDate(post.createdAt)} <i className="bi bi-dot"></i> <i className="bi bi-globe2"></i>
+                            </small>
+                          </div>
+                        </div>
+                        <p className="mb-0">{post.text}</p>
+                      </ListGroupItem>
+                      <ListGroupItem style={{ width: '100%', height: '300px' }} className="overflow-hidden p-0">
+                        <Image
+                          fluid
+                          src="https://images.unsplash.com/photo-1715596828741-3e2aa6bc3aff?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        />
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        <ButtonGroup className="d-flex justify-content-between">
+                          <Button
+                            variant={isConsigliaClicked ? 'primary' : 'outline-light'}
+                            className={`border-0 text-${isConsigliaClicked ? 'light' : 'dark'}`}
+                            onClick={() => handleConsigliaClick(post._id)}
+                          >
+                            <i className={`bi bi-hand-thumbs-up${isConsigliaClicked ? '-fill' : ''}`}></i> Consiglia
+                          </Button>
+                          <Button
+                            variant="outline-light"
+                            className="border-0 text-dark"
+                            onClick={() => focusCommentInput(`commentInput-${post._id}`)}
+                          >
+                            <i className="bi bi-chat-dots"></i> Commenta
+                          </Button>
+                          <Button variant="outline-light" className="border-0 text-dark">
+                            <i className="bi bi-repeat"></i> Diffondi il post
+                          </Button>
+                          <Button variant="outline-light" className="border-0 text-dark">
+                            <i className="bi bi-send-fill "></i> Invia
+                          </Button>
+                        </ButtonGroup>
+                        <div className="mt-2" style={{ display: 'flex', alignItems: 'center' }}>
+                          <Image
+                            src={myProfile.image}
+                            className="rounded-circle z-3 border border-white"
+                            alt="profile-img"
+                            style={{ width: 48, height: 48, marginRight: '10px' }}
+                          />
+                          <div style={{ position: 'relative', width: '100%' }}>
+                            <input
+                              id={`commentInput-${post._id}`}
+                              type="text"
+                              className=""
+                              placeholder="Aggiungi un commento..."
+                              style={{
+                                width: '100%',
+                                padding: '4px',
+                                border: '1px solid #f0f0f0',
+                                borderRadius: '20px',
+                              }}
+                            />
+                            <div
+                              style={{
+                                position: 'absolute',
+                                right: '10px',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                display: 'flex',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <i className="bi bi-emoji-smile" style={{ marginRight: '7px', fontSize: '20px' }}></i>
+                              <i className="bi bi-card-image" style={{ marginRight: '7px', fontSize: '20px' }}></i>
+                            </div>
+                          </div>
+                        </div>
+                      </ListGroupItem>
+                    </ListGroup>
+                  )
+                })
+              : [...Array(10).keys()].map((_, i) => <LoadingPost key={i} />)}
           </Col>
           {/*  */}
 
