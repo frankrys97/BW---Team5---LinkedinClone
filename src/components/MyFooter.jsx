@@ -14,26 +14,14 @@ function MyFooter() {
             <div>
               <Dropdown style={{ marginLeft: "-6%" }}>
                 <Dropdown.Toggle variant="transparent" id="dropdown-basic">
-                  <span style={{ fontSize: "0.8rem" }}>
-                    Privacy e condizioni
-                  </span>
+                  <span style={{ fontSize: "0.8rem" }}>Privacy e condizioni</span>
                 </Dropdown.Toggle>
                 <DropdownMenu>
-                  <Dropdown.Item eventKey="1">
-                    Informativa sulla privacy
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey="2">
-                    Contratto di licenza
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey="3">
-                    Termini e condizioni delle pagine
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey="4">
-                    informativa sui cookie
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey="5">
-                    Informativa sul copyrigth
-                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="1">Informativa sulla privacy</Dropdown.Item>
+                  <Dropdown.Item eventKey="2">Contratto di licenza</Dropdown.Item>
+                  <Dropdown.Item eventKey="3">Termini e condizioni delle pagine</Dropdown.Item>
+                  <Dropdown.Item eventKey="4">informativa sui cookie</Dropdown.Item>
+                  <Dropdown.Item eventKey="5">Informativa sul copyrigth</Dropdown.Item>
                 </DropdownMenu>
               </Dropdown>
             </div>
@@ -48,9 +36,7 @@ function MyFooter() {
           <div>
             <p style={{ fontSize: "0.7rem" }}>Accessibilità</p>
             <p style={{ fontSize: "0.7rem" }}>Carriera</p>
-            <p style={{ fontSize: "0.7rem" }}>
-              Opzioni per gli annunci pubblicitari
-            </p>
+            <p style={{ fontSize: "0.7rem" }}>Opzioni per gli annunci pubblicitari</p>
             <p style={{ fontSize: "0.7rem" }}>Mobile</p>
           </div>
         </Col>
@@ -121,7 +107,7 @@ function MyFooter() {
         <Col xs={2}>
           <div>
             <p>Seleziona lingua</p>
-            <Dropdown className=" w-100 ">
+            {/* <Dropdown className=" w-100 ">
               <Dropdown.Toggle
                 className="border "
                 style={{ backgroundColor: "white" }}
@@ -145,7 +131,88 @@ function MyFooter() {
                   Norsk (Norvegese) else
                 </Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
+            <select id="globalfooter-select_language" className="w-100">
+              <option value="it_IT" lang="it-it">
+                Italiano (Italiano)
+              </option>
+              <option value="ar_AE" lang="ar-ae">
+                العربية (Arabo)
+              </option>
+              <option value="cs_CZ" lang="cs-cz">
+                Čeština (Ceco)
+              </option>
+              <option value="da_DK" lang="da-dk">
+                Dansk (Danese)
+              </option>
+              <option value="de_DE" lang="de-de">
+                Deutsch (Tedesco)
+              </option>
+              <option value="en_US" lang="en-us">
+                English (Inglese)
+              </option>
+              <option value="es_ES" lang="es-es">
+                Español (Spagnolo)
+              </option>
+              <option value="fr_FR" lang="fr-fr">
+                Français (Francese)
+              </option>
+              <option value="hi_IN" lang="hi-in">
+                हिंदी (Hindi)
+              </option>
+              <option value="in_ID" lang="in-id">
+                Bahasa Indonesia (Indonesiano)
+              </option>
+
+              <option value="ja_JP" lang="ja-jp">
+                日本語 (Giapponese)
+              </option>
+              <option value="ko_KR" lang="ko-kr">
+                한국어 (Coreano)
+              </option>
+              <option value="ms_MY" lang="ms-my">
+                Bahasa Malaysia (Malese)
+              </option>
+              <option value="nl_NL" lang="nl-nl">
+                Nederlands (Olandese)
+              </option>
+              <option value="no_NO" lang="no-no">
+                Norsk (Norvegese)
+              </option>
+              <option value="pl_PL" lang="pl-pl">
+                Polski (Polacco)
+              </option>
+              <option value="pt_BR" lang="pt-br">
+                Português (Portoghese)
+              </option>
+              <option value="ro_RO" lang="ro-ro">
+                Română (Rumeno)
+              </option>
+              <option value="ru_RU" lang="ru-ru">
+                Русский (Russo)
+              </option>
+              <option value="sv_SE" lang="sv-se">
+                Svenska (Svedese)
+              </option>
+              <option value="th_TH" lang="th-th">
+                ภาษาไทย (Tailandese)
+              </option>
+              <option value="tl_PH" lang="tl-ph">
+                Tagalog (Tagalog)
+              </option>
+              <option value="tr_TR" lang="tr-tr">
+                Türkçe (Turco)
+              </option>
+              <option value="uk_UA" lang="uk-ua">
+                Українська (Ucraino)
+              </option>
+              <option value="zh_CN" lang="zh-cn">
+                简体中文 (Cinese (Semplificato))
+              </option>
+              <option value="zh_TW" lang="zh-tw">
+                正體中文 (Cinese (Tradizionale))
+              </option>
+            </select>
           </div>
         </Col>
       </Row>

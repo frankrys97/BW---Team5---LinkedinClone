@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  CardText,
-  Col,
-  Dropdown,
-  Form,
-  Modal,
-  Nav,
-  Row,
-} from "react-bootstrap";
+import { CardText, Col, Dropdown, Form, Modal, Nav, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import MyFooter from "./MyFooter";
@@ -151,7 +143,39 @@ const MyProfile = () => {
     const date = dateString.slice(0, 7);
     return date;
   };
+  // INIZIO FETCH PROFILI SIMILI
 
+  const URL2 = "https://striveschool-api.herokuapp.com/api/profile/";
+  const shuffleArray = (array) => {
+    return array.sort(() => Math.random() - 0.5);
+  };
+  const similarProfiles = async () => {
+    try {
+      const response = await fetch(URL2, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${myKey}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+
+        console.log(data);
+        const shuffle = shuffleArray(data);
+        console.log(shuffle);
+        setProfili(shuffle);
+      } else {
+        alert("Errore nella fetch");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const [profili, setProfili] = useState([]);
+  useEffect(() => {
+    similarProfiles();
+  }, []);
+  // FINE FETCH PROFILI SIMILI
   return (
     myProfile && (
       <>
@@ -166,23 +190,19 @@ const MyProfile = () => {
                 />
                 <Card.Body className="">
                   <div>
-                    <Card.Img
-                      className="rounded-circle profileImg border border-light border-5"
-                      variant="top"
-                      src={myProfile.image}
-                    />
+                    <div>
+                      <Card.Img
+                        className="rounded-circle profileImg border border-light border-5"
+                        variant="top"
+                        src={myProfile.image}
+                      />
+                    </div>
                     <p className="name fs-4">
                       {myProfile.name} {myProfile.surname}
                     </p>
-                    {myProfile.bio ? (
-                      <p className="name fs-4">{myProfile.bio}</p>
-                    ) : (
-                      "qui dentro ci va la bio"
-                    )}
+                    {myProfile.bio ? <p className="name fs-4">{myProfile.bio}</p> : "qui dentro ci va la bio"}
                     <p className="my-0">
-                      <span className="text-secondary">
-                        {myProfile.area} &middot;
-                      </span>{" "}
+                      <span className="text-secondary">{myProfile.area} &middot;</span>{" "}
                       <a href="">Informazioni di contatto</a>
                     </p>
                     <p style={{ fontSize: "0.8rem" }} className="text-primary ">
@@ -193,16 +213,10 @@ const MyProfile = () => {
                     <Button className="mx-1 rounded-pill" variant="primary">
                       Disponibile per
                     </Button>
-                    <Button
-                      className="mx-1 text-primary border border-primary rounded-pill"
-                      variant="ligth"
-                    >
+                    <Button className="mx-1 text-primary border border-primary rounded-pill" variant="ligth">
                       Aggiungi sezione del profilo
                     </Button>
-                    <Button
-                      className="mx-1 border border-black rounded-pill"
-                      variant="ligth"
-                    >
+                    <Button className="mx-1 border border-black rounded-pill" variant="ligth">
                       Altro
                     </Button>
                   </div>
@@ -262,9 +276,7 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>28 Visualizzazioni del profilo</span>
-                      <p className="text-muted">
-                        Scopri chi ha visitato il tuo profilo
-                      </p>
+                      <p className="text-muted">Scopri chi ha visitato il tuo profilo</p>
                     </div>
                     <div className="ms-5">
                       <svg
@@ -280,12 +292,8 @@ const MyProfile = () => {
                         <path d="M23 20v1H1v-1zM8 9H2v10h6zm7-6H9v16h6zm7 11h-6v5h6z"></path>
                       </svg>
                       <span>113 Impressioni del post</span>
-                      <p className="text-muted">
-                        Scopri chi sta interagendo con i tuoi post
-                      </p>
-                      <span className="text-secondary my-0">
-                        Ultimi 7 giorni
-                      </span>
+                      <p className="text-muted">Scopri chi sta interagendo con i tuoi post</p>
+                      <span className="text-secondary my-0">Ultimi 7 giorni</span>
                     </div>
                   </div>
                 </Card.Body>
@@ -340,9 +348,7 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>La mia rete</span>
-                      <p className="text-muted">
-                        Salva e gestisci i tuoi collegamenti e interessi
-                      </p>
+                      <p className="text-muted">Salva e gestisci i tuoi collegamenti e interessi</p>
                     </div>
                     <div className="">
                       <svg
@@ -358,10 +364,7 @@ const MyProfile = () => {
                         <path d="M19 5a3 3 0 00-3-3H5v20l7-6.29L19 22z"></path>
                       </svg>
                       <span>Elementi salvati</span>
-                      <p className="text-muted">
-                        Monitora le tue offerte di lavoro, i corsi e gli
-                        articoli
-                      </p>
+                      <p className="text-muted">Monitora le tue offerte di lavoro, i corsi e gli articoli</p>
                     </div>
                   </div>
                 </Card.Body>
@@ -390,11 +393,7 @@ const MyProfile = () => {
 
                     <div className="d-flex">
                       <Dropdown data-bs-theme="light" className="">
-                        <Dropdown.Toggle
-                          variant="transparent"
-                          className="noToggle border-0"
-                          align={"end"}
-                        >
+                        <Dropdown.Toggle variant="transparent" className="noToggle border-0" align={"end"}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="27"
@@ -431,16 +430,9 @@ const MyProfile = () => {
 
                       {/* MODALE PER AGGIUNTA ESPERIENZE */}
 
-                      <Modal
-                        show={showModal}
-                        onHide={handleCloseModal}
-                        backdrop="static"
-                        keyboard={false}
-                      >
+                      <Modal show={showModal} onHide={handleCloseModal} backdrop="static" keyboard={false}>
                         <Modal.Header closeButton>
-                          <Modal.Title>
-                            Aggiungi posizione lavorativa
-                          </Modal.Title>
+                          <Modal.Title>Aggiungi posizione lavorativa</Modal.Title>
                         </Modal.Header>
                         <Form onSubmit={handleSubmit}>
                           <Modal.Body>
@@ -448,11 +440,9 @@ const MyProfile = () => {
                               <Form.Label>Qualifica</Form.Label>
                               <Form.Control
                                 type="text"
-                                placeholder="Qualifica"
+                                placeholder="Esempio: Retail Sales Manager"
                                 value={newExp.role}
-                                onChange={(e) =>
-                                  handleFieldChange("role", e.target.value)
-                                }
+                                onChange={(e) => handleFieldChange("role", e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -460,11 +450,9 @@ const MyProfile = () => {
                               <Form.Label>Nome Azienda</Form.Label>
                               <Form.Control
                                 type="text"
-                                placeholder="Nome azienda"
+                                placeholder="Esempio: Microsoft"
                                 value={newExp.company}
-                                onChange={(e) =>
-                                  handleFieldChange("company", e.target.value)
-                                }
+                                onChange={(e) => handleFieldChange("company", e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -472,11 +460,9 @@ const MyProfile = () => {
                               <Form.Label>Località</Form.Label>
                               <Form.Control
                                 type="text"
-                                placeholder="Località"
+                                placeholder="Esempio: Milano, Italia"
                                 value={newExp.area}
-                                onChange={(e) =>
-                                  handleFieldChange("area", e.target.value)
-                                }
+                                onChange={(e) => handleFieldChange("area", e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -485,9 +471,7 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.startDate)}
-                                onChange={(e) =>
-                                  handleFieldChange("startDate", e.target.value)
-                                }
+                                onChange={(e) => handleFieldChange("startDate", e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -496,9 +480,7 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.endDate)}
-                                onChange={(e) =>
-                                  handleFieldChange("endDate", e.target.value)
-                                }
+                                onChange={(e) => handleFieldChange("endDate", e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -508,23 +490,13 @@ const MyProfile = () => {
                                 as="textarea"
                                 rows={4}
                                 value={newExp.description}
-                                onChange={(e) =>
-                                  handleFieldChange(
-                                    "description",
-                                    e.target.value
-                                  )
-                                }
+                                onChange={(e) => handleFieldChange("description", e.target.value)}
                                 required
                               />
                             </Form.Group>
                           </Modal.Body>
                           <Modal.Footer>
-                            <Button
-                              variant={
-                                operation === "edit" ? "success" : "primary"
-                              }
-                              type="submit"
-                            >
+                            <Button variant={operation === "edit" ? "success" : "primary"} type="submit">
                               {operation === "edit" ? "Modifica" : "Salva"}
                             </Button>
                           </Modal.Footer>
@@ -560,16 +532,10 @@ const MyProfile = () => {
                                 className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
                               />
                               <div className="ms-2">
-                                <p className="my-0 fw-bold">
-                                  {" "}
-                                  {experience.role}
-                                </p>
+                                <p className="my-0 fw-bold"> {experience.role}</p>
                                 <p className="my-0 ">{experience.company}</p>
                                 <p className="my-0 mb-1 text-secondary">
-                                  <span>
-                                    {formatDate(experience.startDate)}
-                                  </span>{" "}
-                                  /{" "}
+                                  <span>{formatDate(experience.startDate)}</span> /{" "}
                                   <span>{formatDate(experience.endDate)}</span>
                                   {/* {formatDate(experience.startDate)} / 
                                    {formatDate(experience.endDate)} */}
@@ -578,18 +544,13 @@ const MyProfile = () => {
                             </div>
                             {isDelete && (
                               <div>
-                                <Button
-                                  variant="danger"
-                                  onClick={() => handleDelete(experience._id)}
-                                >
+                                <Button variant="danger" onClick={() => handleDelete(experience._id)}>
                                   <i className="bi bi-trash3-fill"></i>
                                 </Button>
                                 <Button
                                   variant="success"
                                   className="ms-2"
-                                  onClick={() =>
-                                    handleShowModal("edit", experience)
-                                  }
+                                  onClick={() => handleShowModal("edit", experience)}
                                 >
                                   <i className="bi bi-pen"></i>
                                 </Button>
@@ -633,9 +594,7 @@ const MyProfile = () => {
                     </svg>
                   </div>
 
-                  <div className="px-3">
-                    qui dentro ci va la bio utente che prenderemo da data.bio
-                  </div>
+                  <div className="px-3">qui dentro ci va la bio utente che prenderemo da data.bio</div>
                 </Card.Body>
               </Card>
 
@@ -648,32 +607,20 @@ const MyProfile = () => {
                       <Card.Title>Attività</Card.Title>
                       <p className="text-primary">17 follower</p>
                       <div>
-                        <Button
-                          className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill"
-                          variant="ligth"
-                        >
+                        <Button className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill" variant="ligth">
                           <span className="mx-1 text-primary">Post</span>
                         </Button>
-                        <Button
-                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
-                          variant="ligth"
-                        >
+                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
                           <span className="mx-1 text-primary">Commenti</span>
                         </Button>
-                        <Button
-                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
-                          variant="ligth"
-                        >
+                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
                           <span className="mx-1 text-primary">Immagini</span>
                         </Button>
                       </div>
                     </div>
 
                     <div>
-                      <Button
-                        className="border mb-3 border-primary p-0 px-3  rounded-pill"
-                        variant="ligth"
-                      >
+                      <Button className="border mb-3 border-primary p-0 px-3  rounded-pill" variant="ligth">
                         <span className="mx-1 text-primary">Crea un post</span>
                       </Button>
                       <svg
@@ -691,17 +638,13 @@ const MyProfile = () => {
 
                   <div className="px-3">
                     <div>
-                      <p>
-                        {myProfile.name} ha pubblicato questo post &middot; 3s
-                      </p>
+                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
                       <img
                         className="rounded"
                         src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
                         alt=""
                       />
-                      <span className="mx-3">
-                        qui dentro ci va le descrizione del post
-                      </span>
+                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
                     </div>
                     <img
                       className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
@@ -714,17 +657,13 @@ const MyProfile = () => {
                   </div>
                   <div className="px-3">
                     <div>
-                      <p>
-                        {myProfile.name} ha pubblicato questo post &middot; 3s
-                      </p>
+                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
                       <img
                         className="rounded"
                         src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
                         alt=""
                       />
-                      <span className="mx-3">
-                        qui dentro ci va le descrizione del post
-                      </span>
+                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
                     </div>
                     <img
                       className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
@@ -737,17 +676,13 @@ const MyProfile = () => {
                   </div>
                   <div className="px-3">
                     <div>
-                      <p>
-                        {myProfile.name} ha pubblicato questo post &middot; 3s
-                      </p>
+                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
                       <img
                         className="rounded"
                         src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
                         alt=""
                       />
-                      <span className="mx-3">
-                        qui dentro ci va le descrizione del post
-                      </span>
+                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
                     </div>
                     <img
                       className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
@@ -806,9 +741,7 @@ const MyProfile = () => {
                       </div>
                       <div>
                         <p className="my-0">EPICODE</p>
-                        <p className="text-secondary mt-0">
-                          feb 2024 - ago 2024
-                        </p>
+                        <p className="text-secondary mt-0">feb 2024 - ago 2024</p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -911,11 +844,7 @@ const MyProfile = () => {
                   <Nav defaultActiveKey="#first">
                     <Nav.Item>
                       <Nav.Link
-                        className={
-                          isClicked
-                            ? "text-success border-bottom border-success"
-                            : "text-secondary"
-                        }
+                        className={isClicked ? "text-success border-bottom border-success" : "text-secondary"}
                         onClick={handleClick}
                         href="#aziende"
                       >
@@ -924,11 +853,7 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={
-                          isClicked2
-                            ? "text-success border-bottom border-success"
-                            : "text-secondary"
-                        }
+                        className={isClicked2 ? "text-success border-bottom border-success" : "text-secondary"}
                         onClick={handleClick2}
                         href="#gruppi"
                       >
@@ -937,11 +862,7 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={
-                          isClicked3
-                            ? "text-success border-bottom border-success"
-                            : "text-secondary"
-                        }
+                        className={isClicked3 ? "text-success border-bottom border-success" : "text-secondary"}
                         onClick={handleClick3}
                         href="#Scuole"
                       >
@@ -963,13 +884,8 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">
-                        15.000 follower{" "}
-                      </div>
-                      <Button
-                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                        variant="ligth"
-                      >
+                      <div className="my-0 text-secondary">15.000 follower </div>
+                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -996,13 +912,8 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">
-                        15.000 follower{" "}
-                      </div>
-                      <Button
-                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                        variant="ligth"
-                      >
+                      <div className="my-0 text-secondary">15.000 follower </div>
+                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -1066,154 +977,50 @@ const MyProfile = () => {
               {/* INIZIO CARD PROFILI SIMILI */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">
-                    Altri profili simili
-                  </Card.Subtitle>
-                  <div className="d-flex mt-2 border-bottom">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-send-fill"
-                            viewBox="0 0 16 16"
+                  <Card.Subtitle className="mb-2 ">Altri profili simili</Card.Subtitle>
+                  {profili &&
+                    profili.slice(0, 5).map((profilo) => {
+                      return (
+                        <div key={profilo._id} className="d-flex mt-2 border-bottom">
+                          <div
+                            style={{ maxWidth: "70px", maxHeight: "70px", aspectRatio: "1/1" }}
+                            className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
-                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                          </svg>
-                          <span className="mx-1">Messaggio</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex mt-2 border-bottom">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-send-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                          </svg>
-                          <span className="mx-1">Messaggio</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex mt-2 border-bottom">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-send-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                          </svg>
-                          <span className="mx-1">Messaggio</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex mt-2 border-bottom">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-send-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                          </svg>
-                          <span className="mx-1">Messaggio</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex mt-2">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-send-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                          </svg>
-                          <span className="mx-1">Messaggio</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                            <img
+                              src={profilo.image}
+                              alt="profile"
+                              style={{
+                                width: "100%",
+                                objectFit: "cover",
+                                height: "100%",
+                                aspectRatio: "1 / 1",
+                              }}
+                            />
+                          </div>
+                          <div className="d-flex mx-1">
+                            <div>
+                              <p className="my-0">
+                                {profilo.name} {profilo.surname}
+                              </p>
+                              <p className="my-0">{profilo.title} </p>
+                              <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  className="bi bi-send-fill"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                                </svg>
+                                <span className="mx-1">Messaggio</span>
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
               </Card>
@@ -1221,160 +1028,50 @@ const MyProfile = () => {
               {/* INIZIO PERSONE CHE POTRESTI CONOSCERE */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">
-                    Persone che potresti conoscere
-                  </Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">Persone che potresti conoscere</Card.Subtitle>
                   <span className="text-muted">Del tuo settore</span>
-                  <div className="d-flex mt-2 border-bottom">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-person-plus-fill"
-                            viewBox="0 0 16 16"
+                  {profili &&
+                    profili.slice(6, 10).map((profilo) => {
+                      return (
+                        <div key={profilo._id} className="d-flex mt-2 border-bottom">
+                          <div
+                            style={{ maxWidth: "70px", maxHeight: "70px", aspectRatio: "1/1" }}
+                            className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
-                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                          </svg>
-                          <span className="mx-1">Collegati</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex mt-2 border-bottom">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-person-plus-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                          </svg>
-                          <span className="mx-1">Collegati</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex mt-2 border-bottom">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-person-plus-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                          </svg>
-                          <span className="mx-1">Collegati</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex mt-2 border-bottom">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-person-plus-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                          </svg>
-                          <span className="mx-1">Collegati</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex mt-2">
-                    <Card.Img
-                      className="rounded-circle w-25 h-25 border border-light border-5"
-                      variant="top"
-                      src="https://media.licdn.com/dms/image/D4D03AQF-8iCJF6IBkw/profile-displayphoto-shrink_800_800/0/1713440802425?e=1721260800&v=beta&t=IWlWS0LVL0UJdZfY2-gkFiqH0nRvAmpli3eSWezM0_I"
-                    />
-                    <div className="d-flex mx-1">
-                      <div>
-                        <p className="my-0">Giovanni reder &middot; 2&deg; </p>
-                        <p className="my-0">Junior full stack </p>
-                        <Button
-                          className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
-                          variant="ligth"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-person-plus-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                            <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                          </svg>
-                          <span className="mx-1">Collegati</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                            <img
+                              src={profilo.image}
+                              alt="profile"
+                              style={{
+                                width: "100%",
+                                objectFit: "cover",
+                                height: "100%",
+                                aspectRatio: "1 / 1",
+                              }}
+                            />
+                          </div>
+                          <div className="d-flex mx-1">
+                            <div>
+                              <p className="my-0">{profilo.name}</p>
+                              <p className="my-0">{profilo.title} </p>
+                              <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  className="bi bi-person-plus-fill"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                  <path d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                </svg>
+                                <span className="mx-1">Collegati</span>
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
               </Card>

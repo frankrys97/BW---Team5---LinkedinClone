@@ -98,10 +98,12 @@
 /* INIZIO CSS GIOVANNI */
 
 .profileImg {
-  max-width: 22%;
-  transform: translateY(-86%) translateX(20px);
+  max-width: 20%;
+  aspect-ratio: 1/1;
+  transform: translateY(-75%) translateX(20px);
   z-index: 2;
 }
+
 .infoBox {
   background-color: #dde7f1;
 }
@@ -109,7 +111,7 @@
   margin-top: -15%;
 }
 .contBody {
-  max-width: 1128px;
+  max-width: 90%;
   margin-inline: auto;
 }
 body {
