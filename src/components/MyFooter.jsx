@@ -5,26 +5,38 @@ import { Dropdown, DropdownMenu } from "react-bootstrap";
 
 function MyFooter() {
   return (
-    <Container fluid="md d-flex flex-wrap mt-5">
+    <Container className=" d-flex flex-wrap mt-5">
       <Row>
         <Col xs={2}>
           <div>
             <p style={{ fontSize: "0.8rem" }}>Informazioni</p>
             <p style={{ fontSize: "0.8rem" }}>Linee guida della comunity</p>
-            <p>
+            <div>
               <Dropdown style={{ marginLeft: "-6%" }}>
                 <Dropdown.Toggle variant="transparent" id="dropdown-basic">
-                  <span style={{ fontSize: "0.8rem" }}>Privacy e condizioni</span>
+                  <span style={{ fontSize: "0.8rem" }}>
+                    Privacy e condizioni
+                  </span>
                 </Dropdown.Toggle>
                 <DropdownMenu>
-                  <Dropdown.Item eventKey="1">Informativa sulla privacy</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Contratto di licenza</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Termini e condizioni delle pagine</Dropdown.Item>
-                  <Dropdown.Item eventKey="4">informativa sui cookie</Dropdown.Item>
-                  <Dropdown.Item eventKey="5">Informativa sul copyrigth</Dropdown.Item>
+                  <Dropdown.Item eventKey="1">
+                    Informativa sulla privacy
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="2">
+                    Contratto di licenza
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="3">
+                    Termini e condizioni delle pagine
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="4">
+                    informativa sui cookie
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="5">
+                    Informativa sul copyrigth
+                  </Dropdown.Item>
                 </DropdownMenu>
               </Dropdown>
-            </p>
+            </div>
             <p>Sales and solutions</p>
             <p style={{ fontSize: "0.8rem" }}>Centro sicurezza</p>
             <p style={{ fontSize: "0.7rem" }} className="text-secondary">
@@ -36,7 +48,9 @@ function MyFooter() {
           <div>
             <p style={{ fontSize: "0.7rem" }}>Accessibilità</p>
             <p style={{ fontSize: "0.7rem" }}>Carriera</p>
-            <p style={{ fontSize: "0.7rem" }}>Opzioni per gli annunci pubblicitari</p>
+            <p style={{ fontSize: "0.7rem" }}>
+              Opzioni per gli annunci pubblicitari
+            </p>
             <p style={{ fontSize: "0.7rem" }}>Mobile</p>
           </div>
         </Col>
@@ -48,7 +62,7 @@ function MyFooter() {
             <p style={{ fontSize: "0.7rem" }}>Mobile</p>
           </div>
         </Col>
-        <Col>
+        <Col xs={4}>
           <div className="d-flex my-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -104,10 +118,10 @@ function MyFooter() {
             </div>
           </div>
         </Col>
-        <Col xs={4}>
+        <Col xs={2}>
           <div>
             <p>Seleziona lingua</p>
-            <Dropdown className=" w-100">
+            <Dropdown className=" w-100 ">
               <Dropdown.Toggle
                 className="border "
                 style={{ backgroundColor: "white" }}
@@ -118,10 +132,18 @@ function MyFooter() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">English (Inglese)</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Espanol (Spagnolo)</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Polski (Polacco) else</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Norsk (Norvegese) else</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">
+                  English (Inglese)
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-2">
+                  Espanol (Spagnolo)
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-3">
+                  Polski (Polacco) else
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-3">
+                  Norsk (Norvegese) else
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

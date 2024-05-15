@@ -118,6 +118,7 @@ function Dropdown() {
   return (
     <>
       <div
+        className="d-none d-xl-block"
         style={{
           position: 'fixed',
           top: isOpen ? `${dropdownTop}px` : 'auto',
@@ -190,8 +191,8 @@ function Dropdown() {
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 borderRadius: '4px',
                 padding: '8px',
-                height: "70vh",
-                overflowY: "auto"
+                height: '70vh',
+                overflowY: 'auto',
               }}
               ref={(ref) => {
                 if (ref) {

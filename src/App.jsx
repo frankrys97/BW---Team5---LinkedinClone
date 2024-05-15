@@ -1,10 +1,11 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
-import MyComponent from './components/IndexMessage'
-import MyNavbar from './components/MyNavbar'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import MyProfile from './components/MyProfile'
-import MyHome from './components/MyHome'
+import "bootstrap/dist/css/bootstrap.min.css";
+// import 'bootstrap-icons/font/bootstrap-icons.css'
+import "./App.css";
+import MyComponent from "./components/IndexMessage";
+import MyNavbar from "./components/MyNavbar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MyProfile from "./components/MyProfile";
+import MyHome from "./components/MyHome";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
