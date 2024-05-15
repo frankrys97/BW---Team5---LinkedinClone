@@ -344,7 +344,7 @@ const MyHome = () => {
       background: '#fff', 
     }}
   >
-  <div>
+<div>
       <h6>
         <i className="bi bi-pencil-square" style={{ marginRight: '5px' }}></i>
         Diffondi il post con le tue idee
