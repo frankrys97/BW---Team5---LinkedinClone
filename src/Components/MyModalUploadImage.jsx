@@ -69,7 +69,7 @@ const MyModalUploadImage = () => {
     if (uploadedFile) {
       postUploadImage();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedFile]);
 
   return (
