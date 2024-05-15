@@ -11,6 +11,7 @@ function AdditionalDropdown({ isOpen }) {
 
   return isOpen ? (
     <div
+      className="additional-dropdown d-none d-xl-block" 
       style={{
         position: 'fixed',
         marginTop: '46rem',
