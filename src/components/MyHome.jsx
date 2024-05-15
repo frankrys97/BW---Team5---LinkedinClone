@@ -17,12 +17,18 @@ import { useSelector } from 'react-redux'
 
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
+  const [consigliaClicked, setConsigliaClicked] = useState({});
 
   const [open, setOpen] = useState(false)
   const [posts, setPosts] = useState([])
   // const [awaitFetch, setAwaitFetch] = useState(false)
   // const Array = []
-
+  const handleConsigliaClick = (postId) => {
+    setConsigliaClicked(prevState => ({
+      ...prevState,
+      [postId]: !prevState[postId]
+    }));
+  };
   const myKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
   const URL = 'https://striveschool-api.herokuapp.com/api/posts'
@@ -228,48 +234,55 @@ const MyHome = () => {
 
             {/* Post */}
             {posts.map((post) => {
-              return (
-                <ListGroup className="mb-2" key={post._id}>
-                  <ListGroupItem>
-                    <div className="d-flex">
-                      <Image src={post.user.image} className="rounded-circle " style={{ width: 60, height: 60 }} />
-                      <div className="ms-2">
-                        <p className="mb-0">
-                          {post.user.name} {post.user.surname}
-                        </p>
-                        <p className="mb-0">{post.user.username}</p>
-                        <small>
-                          {subDate(post.createdAt)} <i className="bi bi-dot"></i> <i className="bi bi-globe2"></i>
-                        </small>
-                      </div>
-                    </div>
-                    <p className="mb-0">{post.text}</p>
-                  </ListGroupItem>
-                  <ListGroupItem style={{ width: '100%', height: '300px' }} className="overflow-hidden p-0">
-                    <Image
-                      fluid
-                      src="https://images.unsplash.com/photo-1715596828741-3e2aa6bc3aff?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    />
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    <ButtonGroup className="d-flex justify-content-between">
-                      <Button variant="outline-light" className="border-0 text-dark">
-                        <i className="bi bi-hand-thumbs-up"></i> Consiglia
-                      </Button>
-                      <Button variant="outline-light" className="border-0 text-dark">
-                        <i className="bi bi-chat-dots"></i> Commenta
-                      </Button>
-                      <Button variant="outline-light" className="border-0 text-dark">
-                        <i className="bi bi-repeat"></i> Diffondi il post
-                      </Button>
-                      <Button variant="outline-light" className="border-0 text-dark">
-                        <i className="bi bi-send-fill"></i> Invia
-                      </Button>
-                    </ButtonGroup>
-                  </ListGroupItem>
-                </ListGroup>
-              )
-            })}
+        const isConsigliaClicked = consigliaClicked[post._id];
+
+        return (
+          <ListGroup className="mb-2" key={post._id}>
+            <ListGroupItem>
+              <div className="d-flex">
+                <Image src={post.user.image} className="rounded-circle " style={{ width: 60, height: 60 }} />
+                <div className="ms-2">
+                  <p className="mb-0">
+                    {post.user.name} {post.user.surname}
+                  </p>
+                  <p className="mb-0">{post.user.username}</p>
+                  <small>
+                    {subDate(post.createdAt)} <i className="bi bi-dot"></i> <i className="bi bi-globe2"></i>
+                  </small>
+                </div>
+              </div>
+              <p className="mb-0">{post.text}</p>
+            </ListGroupItem>
+            <ListGroupItem style={{ width: '100%', height: '300px' }} className="overflow-hidden p-0">
+              <Image
+                fluid
+                src="https://images.unsplash.com/photo-1715596828741-3e2aa6bc3aff?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              />
+            </ListGroupItem>
+            <ListGroupItem>
+              <ButtonGroup className="d-flex justify-content-between">
+                <Button
+                  variant={isConsigliaClicked ? "primary" : "outline-light"}
+                  className={`border-0 text-${isConsigliaClicked ? "light" : "dark"}`}
+                  onClick={() => handleConsigliaClick(post._id)}
+                >
+                  <i className={`bi bi-hand-thumbs-up${isConsigliaClicked ? "-fill" : ""}`}></i> Consiglia
+                </Button>
+                <Button variant="outline-light" className="border-0 text-dark">
+                  <i className="bi bi-chat-dots"></i> Commenta
+                </Button>
+                <Button variant="outline-light" className="border-0 text-dark">
+                  <i className="bi bi-repeat"></i> Diffondi il post
+                </Button>
+                <Button variant="outline-light" className="border-0 text-dark">
+                  <i className="bi bi-send-fill "></i> Invia
+                </Button>
+              </ButtonGroup>
+            </ListGroupItem>
+          </ListGroup>
+        );
+      })}
+ 
           </Col>
           {/*  */}
 
