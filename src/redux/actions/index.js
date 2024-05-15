@@ -32,3 +32,12 @@ export const getMyProfile = () => {
       });
   };
 };
+
+export const SHOW_MODAL_IMAGE_UPLOAD = "SHOW_MODAL_IMAGE_UPLOAD";
+
+export const setShowModalImageUpload = (payload) => {
+  return {
+    type: SHOW_MODAL_IMAGE_UPLOAD,
+    payload,
+  };
+};

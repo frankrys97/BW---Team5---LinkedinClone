@@ -3,7 +3,10 @@ import { CardText, Col, Container, Dropdown, Form, Modal, Nav, Row } from 'react
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import MyFooter from './MyFooter'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import MyModalUploadImage from './MyModalUploadImage'
+import { setShowModalImageUpload } from '../redux/actions'
+import defaultImage from '../assets/default-image.png'
 
 const MyProfile = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
@@ -19,11 +22,19 @@ const MyProfile = () => {
     description: '',
     area: '',
   })
+
+  const [experienceImage, setExperienceImage] = useState(null)
+
+  const handleImageChange = (event) => {
+    setExperienceImage(event.target.files[0])
+  }
+
   const handleFieldChange = (propertyName, propertyValue) => {
     setNewExp({ ...newExp, [propertyName]: propertyValue })
   }
 
   const handleCloseModal = () => setShowModal(false)
+  const dispatch = useDispatch()
 
   const handleShowModal = (operation, experience) => {
     setShowModal(true)
@@ -31,6 +42,10 @@ const MyProfile = () => {
     if (operation === 'edit') {
       setNewExp(experience)
     }
+  }
+
+  const handleShowModalImageUpload = () => {
+    dispatch(setShowModalImageUpload(true))
   }
 
   const myKey2 =
@@ -106,6 +121,30 @@ const MyProfile = () => {
       }
 
       if (resp.ok) {
+        console.log(experienceImage)
+        const responseData = await resp.json()
+        const experienceId = responseData._id
+
+        const formData = new FormData()
+        formData.append('experience', experienceImage)
+
+        const imageResp = await fetch(
+          `https://striveschool-api.herokuapp.com/api/profile/${myProfile._id}/experiences/${experienceId}/picture`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${myKey2}`,
+            },
+            body: formData,
+          }
+        )
+
+        if (imageResp.ok) {
+          console.log('image uploaded')
+        } else {
+          console.log('image not uploaded')
+        }
+
         handleCloseModal()
         getExperinence(`${myProfile._id}/experiences`)
       }
@@ -143,7 +182,7 @@ const MyProfile = () => {
     const date = dateString.slice(0, 7)
     return date
   }
-  // INIZIO FETCH PROFILI SIMILI
+  // INIZIO FETCH PROFILI SIMILI E AMICI CONSIGLIATI
 
   const URL2 = 'https://striveschool-api.herokuapp.com/api/profile/'
   const shuffleArray = (array) => {
@@ -174,8 +213,40 @@ const MyProfile = () => {
   const [profili, setProfili] = useState([])
   useEffect(() => {
     similarProfiles()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  // FINE FETCH PROFILI SIMILI
+  // FINE FETCH PROFILI SIMILI E AMICI CONSIGLIATI
+  // INIZIO FETCH ATTIVITA POST PERSONALI
+  const URLPost = 'https://striveschool-api.herokuapp.com/api/posts/6644cb48e8e5d700153c7765'
+
+  const personalPost = async () => {
+    try {
+      const response = await fetch(URLPost, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${myKey}`,
+        },
+      })
+      if (response.ok) {
+        const data = await response.json()
+
+        console.log(data)
+
+        setPostPersonal([data])
+        console.log(postPersonal)
+      } else {
+        alert('Errore nella fetch')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const [postPersonal, setPostPersonal] = useState([])
+  useEffect(() => {
+    personalPost()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  // FINE FETCH ATTIVITA POST PERSONALI
   return (
     myProfile && (
       <>
@@ -194,7 +265,10 @@ const MyProfile = () => {
                       className="rounded-circle profileImg border border-light border-5"
                       src={myProfile.image}
                     /> */}
-                    <div className="profileImg border border-light border-5 rounded-circle overflow-hidden">
+                    <div
+                      className="profileImg border border-light border-5 rounded-circle overflow-hidden"
+                      onClick={handleShowModalImageUpload}
+                    >
                       <img
                         src={myProfile.image}
                         alt="profile"
@@ -206,10 +280,17 @@ const MyProfile = () => {
                         }}
                       />
                     </div>
+
+                    <MyModalUploadImage />
+
                     <p className="name fs-4">
                       {myProfile.name} {myProfile.surname}
                     </p>
-                    {myProfile.bio ? <p className="name fs-4">{myProfile.bio}</p> : 'qui dentro ci va la bio'}
+                    {myProfile.bio ? (
+                      <p className="name fs-4">{myProfile.bio}</p>
+                    ) : (
+                      'Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business Management 📈'
+                    )}
                     <p className="my-0">
                       <span className="text-secondary">{myProfile.area} &middot;</span>{' '}
                       <a href="">Informazioni di contatto</a>
@@ -503,6 +584,10 @@ const MyProfile = () => {
                                 required
                               />
                             </Form.Group>
+                            <Form.Group className="mb-3">
+                              <Form.Label>Aggiungi un &aposimmagine</Form.Label>
+                              <Form.Control type="file" accept="jpg, jpeg, png" onChange={handleImageChange} />
+                            </Form.Group>
                           </Modal.Body>
                           <Modal.Footer>
                             <Button variant={operation === 'edit' ? 'success' : 'primary'} type="submit">
@@ -531,15 +616,14 @@ const MyProfile = () => {
                         <div key={experience._id} className="px-3 my-2 ">
                           <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex ">
-                              <img
-                                width="48"
-                                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                loading="lazy"
-                                height="48"
-                                alt="Logo di EPICODE"
-                                id="ember1798"
-                                className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
-                              />
+                              <div style={{ width: '50px', height: '50px' }}>
+                                <img
+                                  src={experience.image || defaultImage}
+                                  alt="Logo di EPICODE"
+                                  id="ember1798"
+                                  className="w-100 h-100"
+                                />
+                              </div>
                               <div className="ms-2">
                                 <p className="my-0 fw-bold"> {experience.role}</p>
                                 <p className="my-0 ">{experience.company}</p>
@@ -603,7 +687,7 @@ const MyProfile = () => {
                     </svg>
                   </div>
 
-                  <div className="px-3">qui dentro ci va la bio utente che prenderemo da data.bio</div>
+                  <div className="px-3"> 👋 Ciao! Sono Francesco Cristiano, 26 anni da Napoli. </div>
                 </Card.Body>
               </Card>
 
@@ -644,64 +728,26 @@ const MyProfile = () => {
                       </svg>
                     </div>
                   </div>
-
-                  <div className="px-3">
-                    <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
-                      <img
-                        className="rounded"
-                        src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
-                        alt=""
-                      />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
-                    </div>
-                    <img
-                      className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
-                      src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
-                      alt="like"
-                      data-test-reactions-icon-type="LIKE"
-                      data-test-reactions-icon-theme="light"
-                    />
-                    <span className="text-muted ms-1">5</span>
-                  </div>
-                  <div className="px-3">
-                    <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
-                      <img
-                        className="rounded"
-                        src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
-                        alt=""
-                      />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
-                    </div>
-                    <img
-                      className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
-                      src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
-                      alt="like"
-                      data-test-reactions-icon-type="LIKE"
-                      data-test-reactions-icon-theme="light"
-                    />
-                    <span className="text-muted ms-1">5</span>
-                  </div>
-                  <div className="px-3">
-                    <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
-                      <img
-                        className="rounded"
-                        src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
-                        alt=""
-                      />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
-                    </div>
-                    <img
-                      className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
-                      src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
-                      alt="like"
-                      data-test-reactions-icon-type="LIKE"
-                      data-test-reactions-icon-theme="light"
-                    />
-                    <span className="text-muted ms-1">5</span>
-                  </div>
+                  {postPersonal &&
+                    postPersonal.map((post) => {
+                      return (
+                        <div key={post.text} className="px-3">
+                          <div>
+                            <p>{post.username} ha pubblicato questo post &middot; 3s</p>
+                            <img style={{ maxWidth: '20%' }} className="rounded" src={post.image} alt="" />
+                            <span className="mx-3">{post.text}</span>
+                          </div>
+                          <img
+                            className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
+                            src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
+                            alt="like"
+                            data-test-reactions-icon-type="LIKE"
+                            data-test-reactions-icon-theme="light"
+                          />
+                          <span className="text-muted ms-1">5</span>
+                        </div>
+                      )
+                    })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
               </Card>
@@ -992,7 +1038,11 @@ const MyProfile = () => {
                       return (
                         <div key={profilo._id} className="d-flex mt-2 border-bottom">
                           <div
-                            style={{ maxWidth: '70px', maxHeight: '70px', aspectRatio: '1/1' }}
+                            style={{
+                              maxWidth: '70px',
+                              maxHeight: '70px',
+                              aspectRatio: '1/1',
+                            }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
                             <img
@@ -1044,7 +1094,11 @@ const MyProfile = () => {
                       return (
                         <div key={profilo._id} className="d-flex mt-2 border-bottom">
                           <div
-                            style={{ maxWidth: '70px', maxHeight: '70px', aspectRatio: '1/1' }}
+                            style={{
+                              maxWidth: '70px',
+                              maxHeight: '70px',
+                              aspectRatio: '1/1',
+                            }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
                             <img
