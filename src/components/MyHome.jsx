@@ -284,7 +284,7 @@ const MyHome = () => {
                   <i className="bi bi-send-fill "></i> Invia
                 </Button>
               </ButtonGroup>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div className='mt-2' style={{ display: 'flex', alignItems: 'center' }}>
   <Image
     src={myProfile.image}
     className="rounded-circle z-3 border border-white"
