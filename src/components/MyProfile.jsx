@@ -239,7 +239,11 @@ const MyProfile = () => {
                     <p className="name fs-4">
                       {myProfile.name} {myProfile.surname}
                     </p>
-                    {myProfile.bio ? <p className="name fs-4">{myProfile.bio}</p> : "qui dentro ci va la bio"}
+                    {myProfile.bio ? (
+                      <p className="name fs-4">{myProfile.bio}</p>
+                    ) : (
+                      "Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business Management 📈"
+                    )}
                     <p className="my-0">
                       <span className="text-secondary">{myProfile.area} &middot;</span>{" "}
                       <a href="">Informazioni di contatto</a>
@@ -633,7 +637,7 @@ const MyProfile = () => {
                     </svg>
                   </div>
 
-                  <div className="px-3">qui dentro ci va la bio utente che prenderemo da data.bio</div>
+                  <div className="px-3"> 👋 Ciao! Sono Francesco Cristiano, 26 anni da Napoli. </div>
                 </Card.Body>
               </Card>
 
