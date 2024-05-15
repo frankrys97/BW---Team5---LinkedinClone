@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { CardText, Col, Dropdown, Form, Modal, Nav, Row } from "react-bootstrap";
+import {
+  CardText,
+  Col,
+  Dropdown,
+  Form,
+  Modal,
+  Nav,
+  Row,
+} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import MyFooter from "./MyFooter";
@@ -217,7 +225,8 @@ const MyProfile = () => {
   }, []);
   // FINE FETCH PROFILI SIMILI E AMICI CONSIGLIATI
   // INIZIO FETCH ATTIVITA POST PERSONALI
-  const URLPost = "https://striveschool-api.herokuapp.com/api/posts/6644cb48e8e5d700153c7765";
+  const URLPost =
+    "https://striveschool-api.herokuapp.com/api/posts/6644cb48e8e5d700153c7765";
 
   const personalPost = async () => {
     try {
@@ -244,7 +253,7 @@ const MyProfile = () => {
   const [postPersonal, setPostPersonal] = useState([]);
   useEffect(() => {
     personalPost();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // FINE FETCH ATTIVITA POST PERSONALI
   return (
@@ -292,7 +301,9 @@ const MyProfile = () => {
                       "Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business Management 📈"
                     )}
                     <p className="my-0">
-                      <span className="text-secondary">{myProfile.area} &middot;</span>{" "}
+                      <span className="text-secondary">
+                        {myProfile.area} &middot;
+                      </span>{" "}
                       <a href="">Informazioni di contatto</a>
                     </p>
                     <p style={{ fontSize: "0.8rem" }} className="text-primary ">
@@ -303,10 +314,16 @@ const MyProfile = () => {
                     <Button className="mx-1 rounded-pill" variant="primary">
                       Disponibile per
                     </Button>
-                    <Button className="mx-1 text-primary border border-primary rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 text-primary border border-primary rounded-pill"
+                      variant="ligth"
+                    >
                       Aggiungi sezione del profilo
                     </Button>
-                    <Button className="mx-1 border border-black rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 border border-black rounded-pill"
+                      variant="ligth"
+                    >
                       Altro
                     </Button>
                   </div>
@@ -366,7 +383,9 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>28 Visualizzazioni del profilo</span>
-                      <p className="text-muted">Scopri chi ha visitato il tuo profilo</p>
+                      <p className="text-muted">
+                        Scopri chi ha visitato il tuo profilo
+                      </p>
                     </div>
                     <div className="ms-5">
                       <svg
@@ -382,8 +401,12 @@ const MyProfile = () => {
                         <path d="M23 20v1H1v-1zM8 9H2v10h6zm7-6H9v16h6zm7 11h-6v5h6z"></path>
                       </svg>
                       <span>113 Impressioni del post</span>
-                      <p className="text-muted">Scopri chi sta interagendo con i tuoi post</p>
-                      <span className="text-secondary my-0">Ultimi 7 giorni</span>
+                      <p className="text-muted">
+                        Scopri chi sta interagendo con i tuoi post
+                      </p>
+                      <span className="text-secondary my-0">
+                        Ultimi 7 giorni
+                      </span>
                     </div>
                   </div>
                 </Card.Body>
@@ -438,7 +461,9 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>La mia rete</span>
-                      <p className="text-muted">Salva e gestisci i tuoi collegamenti e interessi</p>
+                      <p className="text-muted">
+                        Salva e gestisci i tuoi collegamenti e interessi
+                      </p>
                     </div>
                     <div className="">
                       <svg
@@ -454,7 +479,10 @@ const MyProfile = () => {
                         <path d="M19 5a3 3 0 00-3-3H5v20l7-6.29L19 22z"></path>
                       </svg>
                       <span>Elementi salvati</span>
-                      <p className="text-muted">Monitora le tue offerte di lavoro, i corsi e gli articoli</p>
+                      <p className="text-muted">
+                        Monitora le tue offerte di lavoro, i corsi e gli
+                        articoli
+                      </p>
                     </div>
                   </div>
                 </Card.Body>
@@ -483,7 +511,11 @@ const MyProfile = () => {
 
                     <div className="d-flex">
                       <Dropdown data-bs-theme="light" className="">
-                        <Dropdown.Toggle variant="transparent" className="noToggle border-0" align={"end"}>
+                        <Dropdown.Toggle
+                          variant="transparent"
+                          className="noToggle border-0"
+                          align={"end"}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="27"
@@ -520,9 +552,16 @@ const MyProfile = () => {
 
                       {/* MODALE PER AGGIUNTA ESPERIENZE */}
 
-                      <Modal show={showModal} onHide={handleCloseModal} backdrop="static" keyboard={false}>
+                      <Modal
+                        show={showModal}
+                        onHide={handleCloseModal}
+                        backdrop="static"
+                        keyboard={false}
+                      >
                         <Modal.Header closeButton>
-                          <Modal.Title>Aggiungi posizione lavorativa</Modal.Title>
+                          <Modal.Title>
+                            Aggiungi posizione lavorativa
+                          </Modal.Title>
                         </Modal.Header>
                         <Form onSubmit={handleSubmit}>
                           <Modal.Body>
@@ -532,7 +571,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Retail Sales Manager"
                                 value={newExp.role}
-                                onChange={(e) => handleFieldChange("role", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("role", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -542,7 +583,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Microsoft"
                                 value={newExp.company}
-                                onChange={(e) => handleFieldChange("company", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("company", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -552,7 +595,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Milano, Italia"
                                 value={newExp.area}
-                                onChange={(e) => handleFieldChange("area", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("area", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -561,7 +606,9 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.startDate)}
-                                onChange={(e) => handleFieldChange("startDate", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("startDate", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -570,7 +617,9 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.endDate)}
-                                onChange={(e) => handleFieldChange("endDate", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("endDate", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -580,17 +629,31 @@ const MyProfile = () => {
                                 as="textarea"
                                 rows={4}
                                 value={newExp.description}
-                                onChange={(e) => handleFieldChange("description", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange(
+                                    "description",
+                                    e.target.value
+                                  )
+                                }
                                 required
                               />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                              <Form.Label>Aggiungi un &aposimmagine</Form.Label>
-                              <Form.Control type="file" accept="jpg, jpeg, png" onChange={handleImageChange} />
+                              <Form.Label>Aggiungi un&apos;immagine</Form.Label>
+                              <Form.Control
+                                type="file"
+                                accept="jpg, jpeg, png"
+                                onChange={handleImageChange}
+                              />
                             </Form.Group>
                           </Modal.Body>
                           <Modal.Footer>
-                            <Button variant={operation === "edit" ? "success" : "primary"} type="submit">
+                            <Button
+                              variant={
+                                operation === "edit" ? "success" : "primary"
+                              }
+                              type="submit"
+                            >
                               {operation === "edit" ? "Modifica" : "Salva"}
                             </Button>
                           </Modal.Footer>
@@ -625,10 +688,16 @@ const MyProfile = () => {
                                 />
                               </div>
                               <div className="ms-2">
-                                <p className="my-0 fw-bold"> {experience.role}</p>
+                                <p className="my-0 fw-bold">
+                                  {" "}
+                                  {experience.role}
+                                </p>
                                 <p className="my-0 ">{experience.company}</p>
                                 <p className="my-0 mb-1 text-secondary">
-                                  <span>{formatDate(experience.startDate)}</span> /{" "}
+                                  <span>
+                                    {formatDate(experience.startDate)}
+                                  </span>{" "}
+                                  /{" "}
                                   <span>{formatDate(experience.endDate)}</span>
                                   {/* {formatDate(experience.startDate)} / 
                                    {formatDate(experience.endDate)} */}
@@ -637,13 +706,18 @@ const MyProfile = () => {
                             </div>
                             {isDelete && (
                               <div>
-                                <Button variant="danger" onClick={() => handleDelete(experience._id)}>
+                                <Button
+                                  variant="danger"
+                                  onClick={() => handleDelete(experience._id)}
+                                >
                                   <i className="bi bi-trash3-fill"></i>
                                 </Button>
                                 <Button
                                   variant="success"
                                   className="ms-2"
-                                  onClick={() => handleShowModal("edit", experience)}
+                                  onClick={() =>
+                                    handleShowModal("edit", experience)
+                                  }
                                 >
                                   <i className="bi bi-pen"></i>
                                 </Button>
@@ -687,7 +761,10 @@ const MyProfile = () => {
                     </svg>
                   </div>
 
-                  <div className="px-3"> 👋 Ciao! Sono Francesco Cristiano, 26 anni da Napoli. </div>
+                  <div className="px-3">
+                    {" "}
+                    👋 Ciao! Sono Francesco Cristiano, 26 anni da Napoli.{" "}
+                  </div>
                 </Card.Body>
               </Card>
 
@@ -700,20 +777,32 @@ const MyProfile = () => {
                       <Card.Title>Attività</Card.Title>
                       <p className="text-primary">17 follower</p>
                       <div>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Post</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Commenti</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Immagini</span>
                         </Button>
                       </div>
                     </div>
 
                     <div>
-                      <Button className="border mb-3 border-primary p-0 px-3  rounded-pill" variant="ligth">
+                      <Button
+                        className="border mb-3 border-primary p-0 px-3  rounded-pill"
+                        variant="ligth"
+                      >
                         <span className="mx-1 text-primary">Crea un post</span>
                       </Button>
                       <svg
@@ -733,8 +822,16 @@ const MyProfile = () => {
                       return (
                         <div key={post.text} className="px-3">
                           <div>
-                            <p>{post.username} ha pubblicato questo post &middot; 3s</p>
-                            <img style={{ maxWidth: "20%" }} className="rounded" src={post.image} alt="" />
+                            <p>
+                              {post.username} ha pubblicato questo post &middot;
+                              3s
+                            </p>
+                            <img
+                              style={{ maxWidth: "20%" }}
+                              className="rounded"
+                              src={post.image}
+                              alt=""
+                            />
                             <span className="mx-3">{post.text}</span>
                           </div>
                           <img
@@ -796,7 +893,9 @@ const MyProfile = () => {
                       </div>
                       <div>
                         <p className="my-0">EPICODE</p>
-                        <p className="text-secondary mt-0">feb 2024 - ago 2024</p>
+                        <p className="text-secondary mt-0">
+                          feb 2024 - ago 2024
+                        </p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -899,7 +998,11 @@ const MyProfile = () => {
                   <Nav defaultActiveKey="#first">
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={
+                          isClicked
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick}
                         href="#aziende"
                       >
@@ -908,7 +1011,11 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked2 ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={
+                          isClicked2
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick2}
                         href="#gruppi"
                       >
@@ -917,7 +1024,11 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked3 ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={
+                          isClicked3
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick3}
                         href="#Scuole"
                       >
@@ -939,8 +1050,13 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">15.000 follower </div>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                      <div className="my-0 text-secondary">
+                        15.000 follower{" "}
+                      </div>
+                      <Button
+                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                        variant="ligth"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -967,8 +1083,13 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">15.000 follower </div>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                      <div className="my-0 text-secondary">
+                        15.000 follower{" "}
+                      </div>
+                      <Button
+                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                        variant="ligth"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -1032,11 +1153,16 @@ const MyProfile = () => {
               {/* INIZIO CARD PROFILI SIMILI */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Altri profili simili</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Altri profili simili
+                  </Card.Subtitle>
                   {profili &&
                     profili.slice(0, 5).map((profilo) => {
                       return (
-                        <div key={profilo._id} className="d-flex mt-2 border-bottom">
+                        <div
+                          key={profilo._id}
+                          className="d-flex mt-2 border-bottom"
+                        >
                           <div
                             style={{
                               maxWidth: "70px",
@@ -1062,7 +1188,10 @@ const MyProfile = () => {
                                 {profilo.name} {profilo.surname}
                               </p>
                               <p className="my-0">{profilo.title} </p>
-                              <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                              <Button
+                                className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                                variant="ligth"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="16"
@@ -1087,12 +1216,17 @@ const MyProfile = () => {
               {/* INIZIO PERSONE CHE POTRESTI CONOSCERE */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Persone che potresti conoscere</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Persone che potresti conoscere
+                  </Card.Subtitle>
                   <span className="text-muted">Del tuo settore</span>
                   {profili &&
                     profili.slice(6, 10).map((profilo) => {
                       return (
-                        <div key={profilo._id} className="d-flex mt-2 border-bottom">
+                        <div
+                          key={profilo._id}
+                          className="d-flex mt-2 border-bottom"
+                        >
                           <div
                             style={{
                               maxWidth: "70px",
@@ -1116,7 +1250,10 @@ const MyProfile = () => {
                             <div>
                               <p className="my-0">{profilo.name}</p>
                               <p className="my-0">{profilo.title} </p>
-                              <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                              <Button
+                                className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                                variant="ligth"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="16"
