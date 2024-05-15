@@ -166,11 +166,22 @@ const MyProfile = () => {
                 />
                 <Card.Body className="">
                   <div>
-                    <Card.Img
+                    {/* <Card.Img
                       className="rounded-circle profileImg border border-light border-5"
-                      variant="top"
                       src={myProfile.image}
-                    />
+                    /> */}
+                    <div className="profileImg border border-light border-5 rounded-circle overflow-hidden">
+                      <img
+                        src={myProfile.image}
+                        alt="profile"
+                        style={{
+                          width: "100%",
+                          objectFit: "cover",
+                          height: "100%",
+                          aspectRatio: "1 / 1",
+                        }}
+                      />
+                    </div>
                     <p className="name fs-4">
                       {myProfile.name} {myProfile.surname}
                     </p>

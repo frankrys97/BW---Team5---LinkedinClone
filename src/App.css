@@ -99,7 +99,8 @@
 
 .profileImg {
   max-width: 22%;
-  transform: translateY(-86%) translateX(20px);
+  aspect-ratio: 1 / 1;
+  transform: translateY(-75%) translateX(20px);
   z-index: 2;
 }
 .infoBox {
