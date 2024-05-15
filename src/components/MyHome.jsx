@@ -333,6 +333,7 @@ const MyHome = () => {
  {showSpreadOptions && (
   <div
     style={{
+      width:"60%",
       position: 'absolute',
       top: 'calc(100% - 15px)', 
       left: '50%', 
