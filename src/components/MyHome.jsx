@@ -21,6 +21,9 @@ const MyHome = () => {
   const [open, setOpen] = useState(false)
   const [posts, setPosts] = useState([])
   const [showCommentInputs, setShowCommentInputs] = useState({});
+  const [showSpreadOptions, setShowSpreadOptions] = useState(false);
+
+  
   // const [awaitFetch, setAwaitFetch] = useState(false)
   // const Array = []
   const handleConsigliaClick = (postId) => {
@@ -41,6 +44,9 @@ const MyHome = () => {
     setShowCommentInputs(updatedShowCommentInputs);
 
     focusCommentInput(`commentInput-${postId}`);
+  };
+  const handleSpreadButtonClick = () => {
+    setShowSpreadOptions(!showSpreadOptions);
   };
   const myKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
@@ -288,9 +294,14 @@ const MyHome = () => {
           >
             <i className="bi bi-chat-dots"></i> Commenta
           </Button>
-                <Button variant="outline-light" className="border-0 text-dark">
-                  <i className="bi bi-repeat"></i> Diffondi il post
-                </Button>
+          <Button
+  variant="outline-light"
+  className="border-0 text-dark"
+  onClick={handleSpreadButtonClick}
+  style={{ position: 'relative' }} 
+>
+  <i className="bi bi-repeat" style={{ position: 'relative', marginRight: '5px' }}></i> Diffondi il post
+</Button>
                 <Button variant="outline-light" className="border-0 text-dark">
                   <i className="bi bi-send-fill "></i> Invia
                 </Button>
@@ -317,8 +328,39 @@ const MyHome = () => {
                 </div>
               </div>
             </div>
+            
           )}
-      
+ {showSpreadOptions && (
+  <div
+    style={{
+      position: 'absolute',
+      top: 'calc(100% - 15px)', 
+      left: '50%', 
+      transform: 'translateX(-50%)', 
+      zIndex: '1', 
+      padding: '5px',
+      borderRadius: '15px',
+      border: '1px solid #ccc',
+      background: '#fff', 
+    }}
+  >
+  <div>
+      <h6>
+        <i className="bi bi-pencil-square" style={{ marginRight: '5px' }}></i>
+        Diffondi il post con le tue idee
+      </h6>
+      <span style={{ fontSize: '14px', color: '#777' }}>Crea un nuovo posto come allegato</span>
+    </div>
+    <div>
+      <h6>
+        <i className="bi bi-repeat" style={{ marginRight: '5px' }}></i>
+        Diffondi il Post
+      </h6>
+      <span style={{ fontSize: '14px', color: '#777' }}>Pubblica al istante questo post</span>
+    </div>
+  </div>
+)}
+
    
 
 
