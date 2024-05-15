@@ -244,6 +244,7 @@ const MyProfile = () => {
   const [postPersonal, setPostPersonal] = useState([]);
   useEffect(() => {
     personalPost();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // FINE FETCH ATTIVITA POST PERSONALI
   return (
