@@ -20,7 +20,7 @@ const MyHome = () => {
   const [consigliaClicked, setConsigliaClicked] = useState({});
   const [open, setOpen] = useState(false)
   const [posts, setPosts] = useState([])
-
+  const [showCommentInputs, setShowCommentInputs] = useState({});
   // const [awaitFetch, setAwaitFetch] = useState(false)
   // const Array = []
   const handleConsigliaClick = (postId) => {
@@ -32,7 +32,16 @@ const MyHome = () => {
   const focusCommentInput = (inputId) => {
     document.getElementById(inputId).focus();
   };
+  const handleCommentButtonClick = (postId) => {
+   
+    const updatedShowCommentInputs = { ...showCommentInputs };
+ 
+    updatedShowCommentInputs[postId] = true;
 
+    setShowCommentInputs(updatedShowCommentInputs);
+
+    focusCommentInput(`commentInput-${postId}`);
+  };
   const myKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
   const URL = 'https://striveschool-api.herokuapp.com/api/posts'
@@ -273,12 +282,12 @@ const MyHome = () => {
                   <i className={`bi bi-hand-thumbs-up${isConsigliaClicked ? "-fill" : ""}`}></i> Consiglia
                 </Button>
                 <Button
-  variant="outline-light"
-  className="border-0 text-dark"
-  onClick={() => focusCommentInput(`commentInput-${post._id}`)}
->
-  <i className="bi bi-chat-dots"></i> Commenta
-</Button>
+            variant="outline-light"
+            className="border-0 text-dark"
+            onClick={() => handleCommentButtonClick(post._id)}
+          >
+            <i className="bi bi-chat-dots"></i> Commenta
+          </Button>
                 <Button variant="outline-light" className="border-0 text-dark">
                   <i className="bi bi-repeat"></i> Diffondi il post
                 </Button>
@@ -286,27 +295,32 @@ const MyHome = () => {
                   <i className="bi bi-send-fill "></i> Invia
                 </Button>
               </ButtonGroup>
-              <div className='mt-2' style={{ display: 'flex', alignItems: 'center' }}>
-  <Image
-    src={myProfile.image}
-    className="rounded-circle z-3 border border-white"
-    alt="profile-img"
-    style={{ width: 48, height: 48, marginRight: '10px' }}
-  />
-  <div style={{ position: 'relative', width: '100%' }}>
-    <input
-      id={`commentInput-${post._id}`}
-      type="text"
-      className=""
-      placeholder="Aggiungi un commento..."
-      style={{ width: '100%', padding: '4px', border: '1px solid #f0f0f0', borderRadius: '20px' }}
-    />
-    <div style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center' }}>
-      <i className="bi bi-emoji-smile" style={{ marginRight: '7px', fontSize: "20px" }}></i>
-      <i className="bi bi-card-image" style={{ marginRight: '7px', fontSize: "20px" }}></i>
-    </div>
-  </div>
-</div>
+              {showCommentInputs[post._id] && (
+            <div className='mt-2' style={{ display: 'flex', alignItems: 'center' }}>
+              <Image
+                src={myProfile.image}
+                className="rounded-circle z-3 border border-white"
+                alt="profile-img"
+                style={{ width: 48, height: 48, marginRight: '10px' }}
+              />
+              <div style={{ position: 'relative', width: '100%' }}>
+                <input
+                  id={`commentInput-${post._id}`}
+                  type="text"
+                  className=""
+                  placeholder="Aggiungi un commento..."
+                  style={{ width: '100%', padding: '4px', border: '1px solid #f0f0f0', borderRadius: '20px' }}
+                />
+                <div style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center' }}>
+                  <i className="bi bi-emoji-smile" style={{ marginRight: '7px', fontSize: "20px" }}></i>
+                  <i className="bi bi-card-image" style={{ marginRight: '7px', fontSize: "20px" }}></i>
+                </div>
+              </div>
+            </div>
+          )}
+      
+   
+
 
             </ListGroupItem>
           </ListGroup>
