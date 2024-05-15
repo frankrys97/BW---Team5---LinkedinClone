@@ -7,9 +7,10 @@ import { IoCalendarOutline } from "react-icons/io5";
 import { BiParty } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const MyModalCreatePost = (props) => {
+// eslint-disable-next-line react/prop-types
+const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
   const myProfile = useSelector((state) => state.myProfile.content);
   const showModalCreatePost = useSelector(
     (state) => state.ModalCreatePost.showModalCreatePost
@@ -26,14 +27,57 @@ const MyModalCreatePost = (props) => {
     image: null,
   });
 
+  useEffect(() => {
+    if (editMode) {
+      fetchPostDetails(postId);
+    }
+  }, [editMode, postId]);
+
+  const fetchPostDetails = (postId) => {
+    const myKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE";
+
+    fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${myKey}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch post details");
+        }
+      })
+      .then((data) => {
+        setPost({
+          text: data.text,
+          image: data.image,
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching post details:", error);
+      });
+  };
+
   const handleSumbit = (event) => {
     event.preventDefault();
     console.log(post);
 
     const myKey =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE";
-    fetch(`https://striveschool-api.herokuapp.com/api/posts`, {
-      method: "POST",
+
+    let endpoint = "https://striveschool-api.herokuapp.com/api/posts";
+    let method = "POST";
+
+    if (editMode) {
+      endpoint = `https://striveschool-api.herokuapp.com/api/posts/${postId}`;
+      method = "PUT";
+    }
+
+    fetch(endpoint, {
+      method: method,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${myKey}`,
@@ -50,8 +94,7 @@ const MyModalCreatePost = (props) => {
       .then((data) => {
         console.log("data", data);
         handleClose();
-        // eslint-disable-next-line react/prop-types
-        props.personalPost();
+        personalPost();
         setPost({
           text: "",
           image: null,
@@ -63,7 +106,11 @@ const MyModalCreatePost = (props) => {
   };
 
   return (
-    <Modal show={showModalCreatePost} onHide={handleClose} size="lg">
+    <Modal
+      show={showModalCreatePost && (editMode || !editMode)}
+      onHide={handleClose}
+      size="lg"
+    >
       <Modal.Header closeButton>
         <Modal.Title className=" border border-0">
           <div className="d-flex gap-2">
@@ -113,7 +160,7 @@ const MyModalCreatePost = (props) => {
             disabled={!post.text}
             type="submit"
           >
-            Pubblica
+            {editMode ? "Modifica" : "Pubblica"}
           </Button>
         </Modal.Footer>
       </Form>

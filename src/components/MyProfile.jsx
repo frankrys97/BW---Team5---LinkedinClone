@@ -26,6 +26,19 @@ const MyProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [operation, setOperation] = useState("add");
+  const [editMode, setEditMode] = useState(false);
+  const [postId, setPostId] = useState("");
+
+  const handlePutPost = (id) => {
+    setEditMode(true);
+    dispatch(setShowModalCreatePost(true));
+    setPostId(id);
+  };
+
+  const handleCreatePost = () => {
+    setEditMode(false);
+    dispatch(setShowModalCreatePost(true));
+  };
 
   const [newExp, setNewExp] = useState({
     role: "",
@@ -838,12 +851,16 @@ const MyProfile = () => {
                       <Button
                         className="border mb-3 border-primary p-0 px-3  rounded-pill"
                         variant="ligth"
-                        onClick={() => dispatch(setShowModalCreatePost(true))}
+                        onClick={() => handleCreatePost()}
                       >
                         <span className="mx-1 text-primary">Crea un post</span>
                       </Button>
 
-                      <MyModalCreatePost personalPost={personalPost} />
+                      <MyModalCreatePost
+                        personalPost={personalPost}
+                        editMode={editMode}
+                        postId={postId}
+                      />
 
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -885,7 +902,11 @@ const MyProfile = () => {
                                 >
                                   <i className="bi bi-trash3-fill"></i>
                                 </Button>
-                                <Button variant="success" className="ms-2">
+                                <Button
+                                  variant="success"
+                                  className="ms-2"
+                                  onClick={() => handlePutPost(post._id)}
+                                >
                                   <i className="bi bi-pen"></i>
                                 </Button>
                               </div>
