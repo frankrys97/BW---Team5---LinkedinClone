@@ -190,11 +190,20 @@ const MyProfile = () => {
                 />
                 <Card.Body className="">
                   <div>
-                    <div>
-                      <Card.Img
-                        className="rounded-circle profileImg border border-light border-5"
-                        variant="top"
+                    {/* <Card.Img
+                      className="rounded-circle profileImg border border-light border-5"
+                      src={myProfile.image}
+                    /> */}
+                    <div className="profileImg border border-light border-5 rounded-circle overflow-hidden">
+                      <img
                         src={myProfile.image}
+                        alt="profile"
+                        style={{
+                          width: "100%",
+                          objectFit: "cover",
+                          height: "100%",
+                          aspectRatio: "1 / 1",
+                        }}
                       />
                     </div>
                     <p className="name fs-4">
@@ -524,7 +533,7 @@ const MyProfile = () => {
                             <div className="d-flex ">
                               <img
                                 width="48"
-                                src={myProfile.image}
+                                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 loading="lazy"
                                 height="48"
                                 alt="Logo di EPICODE"

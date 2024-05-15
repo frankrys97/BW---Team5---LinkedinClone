@@ -98,8 +98,8 @@
 /* INIZIO CSS GIOVANNI */
 
 .profileImg {
-  max-width: 20%;
-  aspect-ratio: 1/1;
+  max-width: 22%;
+  aspect-ratio: 1 / 1;
   transform: translateY(-75%) translateX(20px);
   z-index: 2;
 }
