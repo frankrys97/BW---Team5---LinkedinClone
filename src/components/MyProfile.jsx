@@ -143,7 +143,7 @@ const MyProfile = () => {
     const date = dateString.slice(0, 7);
     return date;
   };
-  // INIZIO FETCH PROFILI SIMILI
+  // INIZIO FETCH PROFILI SIMILI E AMICI CONSIGLIATI
 
   const URL2 = "https://striveschool-api.herokuapp.com/api/profile/";
   const shuffleArray = (array) => {
@@ -175,7 +175,37 @@ const MyProfile = () => {
   useEffect(() => {
     similarProfiles();
   }, []);
-  // FINE FETCH PROFILI SIMILI
+  // FINE FETCH PROFILI SIMILI E AMICI CONSIGLIATI
+  // INIZIO FETCH ATTIVITA POST PERSONALI
+  const URLPost = "https://striveschool-api.herokuapp.com/api/posts/6644cb48e8e5d700153c7765";
+
+  const personalPost = async () => {
+    try {
+      const response = await fetch(URLPost, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${myKey}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+
+        console.log(data);
+
+        setPostPersonal([data]);
+        console.log(postPersonal);
+      } else {
+        alert("Errore nella fetch");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const [postPersonal, setPostPersonal] = useState([]);
+  useEffect(() => {
+    personalPost();
+  }, []);
+  // FINE FETCH ATTIVITA POST PERSONALI
   return (
     myProfile && (
       <>
@@ -644,64 +674,26 @@ const MyProfile = () => {
                       </svg>
                     </div>
                   </div>
-
-                  <div className="px-3">
-                    <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
-                      <img
-                        className="rounded"
-                        src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
-                        alt=""
-                      />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
-                    </div>
-                    <img
-                      className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
-                      src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
-                      alt="like"
-                      data-test-reactions-icon-type="LIKE"
-                      data-test-reactions-icon-theme="light"
-                    />
-                    <span className="text-muted ms-1">5</span>
-                  </div>
-                  <div className="px-3">
-                    <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
-                      <img
-                        className="rounded"
-                        src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
-                        alt=""
-                      />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
-                    </div>
-                    <img
-                      className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
-                      src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
-                      alt="like"
-                      data-test-reactions-icon-type="LIKE"
-                      data-test-reactions-icon-theme="light"
-                    />
-                    <span className="text-muted ms-1">5</span>
-                  </div>
-                  <div className="px-3">
-                    <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
-                      <img
-                        className="rounded"
-                        src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
-                        alt=""
-                      />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
-                    </div>
-                    <img
-                      className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
-                      src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
-                      alt="like"
-                      data-test-reactions-icon-type="LIKE"
-                      data-test-reactions-icon-theme="light"
-                    />
-                    <span className="text-muted ms-1">5</span>
-                  </div>
+                  {postPersonal &&
+                    postPersonal.map((post) => {
+                      return (
+                        <div key={post.text} className="px-3">
+                          <div>
+                            <p>{post.username} ha pubblicato questo post &middot; 3s</p>
+                            <img style={{ maxWidth: "20%" }} className="rounded" src={post.image} alt="" />
+                            <span className="mx-3">{post.text}</span>
+                          </div>
+                          <img
+                            className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
+                            src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
+                            alt="like"
+                            data-test-reactions-icon-type="LIKE"
+                            data-test-reactions-icon-theme="light"
+                          />
+                          <span className="text-muted ms-1">5</span>
+                        </div>
+                      );
+                    })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
               </Card>
