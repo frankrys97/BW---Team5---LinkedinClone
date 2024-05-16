@@ -24,7 +24,7 @@ const MyHome = () => {
   const [posts, setPosts] = useState([])
   const [showCommentInputs, setShowCommentInputs] = useState({})
   const [showModal, setShowModal] = useState(false)
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [spreadCardId, setSpreadCardId] = useState(null)
   const handleSendClick = () => {
     setShowModal(true)
@@ -60,6 +60,9 @@ const MyHome = () => {
       setSpreadCardId(postId)
     }
   }
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   const myKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
@@ -412,23 +415,35 @@ const MyHome = () => {
           {/* Terza Colonna */}
           <Col xs={12} className="p-0 third-column d-none d-lg-block" style={{ width: '300px' }}>
             <ListGroup>
+              
               <ListGroup.Item variant="light">
                 <h5>Linkedin notizie</h5>
                 <p>Storie principali</p>
               </ListGroup.Item>
               <ListGroup.Item action variant="light">
-                <p className="m-0 fw-semibold">prova</p>
-                <small>9 ore fa · 133 lettori</small>
+                <h6  className="m-0 fw-semibold"> Medicina aereospaziale in fase di decollo</h6>
+                <small>16 ore fa · 765 lettori</small>
               </ListGroup.Item>
               <ListGroup.Item action variant="light">
-                <p className="m-0 fw-semibold">prova</p>
-                <small>9 ore fa · 133 lettori</small>
+              <h6  className="m-0 fw-semibold"> Quali saranno le lauree più richieste?</h6>
+                <small>16 ore fa · 154 lettori</small>
               </ListGroup.Item>
               <ListGroup.Item action variant="light">
-                <p className="m-0 fw-semibold">prova</p>
-                <small>9 ore fa · 133 lettori</small>
+              <h6  className="m-0 fw-semibold"> Dove Sventolano le bandiere Blu?</h6>
+              
+                <small>1 giorno fa · 300 lettori</small>
               </ListGroup.Item>
-
+              <ListGroup.Item action variant="light">
+                <h6 className="m-0 fw-semibold">Dazn fa squadra con Discovery</h6>
+              
+                <small>1 ora fa · 63 lettori</small>
+              </ListGroup.Item>
+              <ListGroup.Item action variant="light">
+                <h6 className="m-0 fw-semibold">Come nasce un punto vendita automatizzato?</h6>
+              
+                <small>7 ore fa · 876 lettori</small>
+              </ListGroup.Item>
+             
               <div className="d-flex flex-wrap justify-content-center column-gap-4 mt-3">
                 <small>
                   <p>informazioni</p>
