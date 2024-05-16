@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Nav, Row, Tab } from "react-bootstrap";
+import { useEffect, useState } from 'react'
+import { Button, Card, Col, Container, Nav, Row, Tab } from 'react-bootstrap'
+import LoadingSearch from './LoadingSearch'
 
 const SearchJobs = () => {
   const formatInputDate = (dateString) => {
-    const date = dateString.slice(0, 10);
-    return date;
-  };
+    const date = dateString.slice(0, 10)
+    return date
+  }
   const myKey =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE";
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE'
 
-  const URL = "https://strive-benchmark.herokuapp.com/api/jobs";
+  const URL = 'https://strive-benchmark.herokuapp.com/api/jobs'
   //   const shuffleArray = (array) => {
   //     return array.sort(() => Math.random() - 0.5);
   //   };
@@ -17,32 +18,32 @@ const SearchJobs = () => {
     try {
       const response = await fetch(URL, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${myKey}`,
         },
-      });
+      })
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json()
 
-        setCompany(data);
+        setCompany(data)
       } else {
-        alert("Errore nella fetch");
+        alert('Errore nella fetch')
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
-  const [company, setCompany] = useState(null);
+  }
+  const [company, setCompany] = useState(null)
   useEffect(() => {
-    companyFetch();
-  }, []);
-  console.log(company);
+    companyFetch()
+  }, [])
+  console.log(company)
   return (
     <>
-      <Container className="bg-white rounded customRow  " style={{ maxWidth: "1128px", marginTop: "65px" }}>
+      <Container className="bg-white rounded customRow  " style={{ maxWidth: '1128px', marginTop: '65px' }}>
         <Tab.Container className=" h-100">
           <Row className="h-100  ">
-            <Col style={{ overflowY: "auto" }} xs={12} md={5} className="p-0 h-100  ">
+            <Col style={{ overflowY: 'auto' }} xs={12} md={5} className="p-0 h-100  ">
               <div className="d-flex justify-content-between p-2">
                 <div>
                   <Card.Title>Trova il tuo prossimo ruolo</Card.Title>
@@ -50,7 +51,7 @@ const SearchJobs = () => {
                 </div>
               </div>
               <Nav variant="pills" className="flex-column">
-                {company &&
+                {company ? (
                   company.data.slice(0, 20).map((compagnie) => {
                     return (
                       <Nav.Item key={compagnie._id} className=" border-bottom">
@@ -78,11 +79,14 @@ const SearchJobs = () => {
                           </div>
                         </Nav.Link>
                       </Nav.Item>
-                    );
-                  })}
+                    )
+                  })
+                ) : (
+                  <LoadingSearch />
+                )}
               </Nav>
             </Col>
-            <Col style={{ overflowY: "auto" }} xs={12} md={7} className="p-2 d-none d-md-block h-100 ">
+            <Col style={{ overflowY: 'auto' }} xs={12} md={7} className="p-2 d-none d-md-block h-100 ">
               <Tab.Content>
                 {company &&
                   company.data.slice(0, 20).map((compagnie, index) => {
@@ -159,37 +163,37 @@ const SearchJobs = () => {
                             <div className="d-flex ms-1">
                               <img
                                 className="rounded-circle"
-                                style={{ width: "25px", height: "25px" }}
+                                style={{ width: '25px', height: '25px' }}
                                 src="https://media.licdn.com/media/AAUQAgE2AAgAAQAAAAAAAAHzAAAAJGJiZDM1MGJkLTIzOTAtNDhmMS1hZTM5LTEzZDk2NWQ4ZDhjYQ.png"
                                 alt=""
                               />
                               <img
                                 className="rounded-circle"
-                                style={{ width: "25px", height: "25px" }}
+                                style={{ width: '25px', height: '25px' }}
                                 src="https://media.licdn.com/media/AAUQAgE2AAgAAQAAAAAAAAdKAAAAJDQ1YjQ5MTk5LTY2ZGUtNDI2MC05YmQ1LTE3YjE4ZWNlN2ZkYg.png"
                                 alt=""
                               />
                               <img
                                 className="rounded-circle"
-                                style={{ width: "25px", height: "25px" }}
+                                style={{ width: '25px', height: '25px' }}
                                 src="https://media.licdn.com/media/AAUQAgE2AAgAAQAAAAAAAAhCAAAAJDBmNzFjMzUzLWFlNTAtNDRkZi1hNmZlLTljNjI0MzRlMmY4YQ.png"
                                 alt=""
                               />
-                              <p style={{ fontSize: "0.7rem" }} className="text-secondary p-1 ">
+                              <p style={{ fontSize: '0.7rem' }} className="text-secondary p-1 ">
                                 Milioni di utenti usano Premium
                               </p>
                             </div>
-                            <Button className="rounded-pill ms-1" style={{ backgroundColor: "#E9A53F" }} variant="">
+                            <Button className="rounded-pill ms-1" style={{ backgroundColor: '#E9A53F' }} variant="">
                               Prova Premium per 0 euro
                             </Button>
-                            <p style={{ fontSize: "0.7rem" }} className="text-secondary p-1 ms-1 ">
+                            <p style={{ fontSize: '0.7rem' }} className="text-secondary p-1 ms-1 ">
                               Prova gratuita di 1 mese. Ti invieremo un promemoria 7 giorni prima della fine del periodo
                               di prova.
                             </p>
                           </div>
                         </div>
                       </Tab.Pane>
-                    );
+                    )
                   })}
               </Tab.Content>
             </Col>
@@ -197,6 +201,6 @@ const SearchJobs = () => {
         </Tab.Container>
       </Container>
     </>
-  );
-};
-export default SearchJobs;
+  )
+}
+export default SearchJobs
