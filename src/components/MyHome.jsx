@@ -9,23 +9,26 @@ import {
   ListGroup,
   ListGroupItem,
   Row,
-} from "react-bootstrap";
-import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import "../style/myHome.css";
-import { useSelector } from "react-redux";
-import { Modal } from "react-bootstrap";
-import "../style/modalInvioButton.css";
-import LoadingPost from "./LoadingPost";
+} from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import '../style/myHome.css'
+import { useSelector } from 'react-redux'
+import { Modal } from 'react-bootstrap'
+import '../style/modalInvioButton.css'
+import LoadingPost from './LoadingPost'
+import '../style/DropDowmAnimation.css';
 const MyHome = () => {
-  const myProfile = useSelector((state) => state.myProfile.content);
-  const [consigliaClicked, setConsigliaClicked] = useState({});
-  const [open, setOpen] = useState(false);
-  const [posts, setPosts] = useState([]);
-  const [showCommentInputs, setShowCommentInputs] = useState({});
-  const [showModal, setShowModal] = useState(false);
+  const myProfile = useSelector((state) => state.myProfile.content)
+  const [consigliaClicked, setConsigliaClicked] = useState({})
+  const [open, setOpen] = useState(false)
+  const [posts, setPosts] = useState([])
+  const [showCommentInputs, setShowCommentInputs] = useState({})
+  const [showModal, setShowModal] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [spreadCardId, setSpreadCardId] = useState(null)
+  const [servicesDropdownOpen, ] = useState(false);
 
-  const [spreadCardId, setSpreadCardId] = useState(null);
   const handleSendClick = () => {
     setShowModal(true);
   };
@@ -59,6 +62,9 @@ const MyHome = () => {
     } else {
       setSpreadCardId(postId);
     }
+  }
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
   };
 
   const myKey =
@@ -500,63 +506,218 @@ const MyHome = () => {
 
           {/*  */}
           {/* Terza Colonna */}
-          <Col
-            xs={12}
-            className="p-0 third-column d-none d-lg-block"
-            style={{ width: "300px" }}
-          >
-            <ListGroup>
-              <ListGroup.Item variant="light">
-                <h5>Linkedin notizie</h5>
-                <p>Storie principali</p>
-              </ListGroup.Item>
-              <ListGroup.Item action variant="light">
-                <p className="m-0 fw-semibold">prova</p>
-                <small>9 ore fa · 133 lettori</small>
-              </ListGroup.Item>
-              <ListGroup.Item action variant="light">
-                <p className="m-0 fw-semibold">prova</p>
-                <small>9 ore fa · 133 lettori</small>
-              </ListGroup.Item>
-              <ListGroup.Item action variant="light">
-                <p className="m-0 fw-semibold">prova</p>
-                <small>9 ore fa · 133 lettori</small>
-              </ListGroup.Item>
+          <Col xs={12} className="p-0 third-column d-none d-lg-block" style={{ width: '300px' }}>
+      <ListGroup>
+        <ListGroup.Item variant="light">
+          <h5>Linkedin notizie</h5>
+          <p>Storie principali</p>
+        </ListGroup.Item>
+        <ListGroup.Item action variant="light">
+          <h6 className="m-0 fw-semibold">Medicina aereospaziale in fase di decollo</h6>
+          <small>16 ore fa · 765 lettori</small>
+        </ListGroup.Item>
+        <ListGroup.Item action variant="light">
+          <h6 className="m-0 fw-semibold">Quali saranno le lauree più richieste?</h6>
+          <small>16 ore fa · 154 lettori</small>
+        </ListGroup.Item>
+        <ListGroup.Item action variant="light">
+          <h6 className="m-0 fw-semibold">Dove Sventolano le bandiere Blu?</h6>
+          <small>1 giorno fa · 300 lettori</small>
+        </ListGroup.Item>
+        <ListGroup.Item action variant="light">
+          <h6 className="m-0 fw-semibold">Dazn fa squadra con Discovery</h6>
+          <small>1 ora fa · 63 lettori</small>
+        </ListGroup.Item>
+        <ListGroup.Item action variant="light">
+          <h6 className="m-0 fw-semibold">Come nasce un punto vendita automatizzato?</h6>
+          <small>7 ore fa · 876 lettori</small>
+        </ListGroup.Item>
 
-              <div className="d-flex flex-wrap justify-content-center column-gap-4 mt-3">
-                <small>
-                  <p>informazioni</p>
-                </small>
-                <small>
-                  <p>Accessibilità</p>
-                </small>
-                <small>
-                  <p>Centro assistenza</p>
-                </small>
-                <small>
-                  <p>Privacy e condizioni</p>
-                </small>
-                <small>
-                  <p>Opzioni per gli annunci pubblicitari</p>
-                </small>
-                <small>
-                  <p>Pubblicità</p>
-                </small>
-                <small>
-                  <p>Servizi alle aziende</p>
-                </small>
-                <small>
-                  <p>Scarica l&apos;app LinkedIn</p>
-                </small>
-                <small>
-                  <p>Altro</p>
-                </small>
-              </div>
-              <small className="text-center fw-semibold">
-                Linkedin Corporation &copy; 2024
-              </small>
-            </ListGroup>
-          </Col>
+        {dropdownOpen && (
+        <div className="animated-content"> 
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">Alle Smart city mancano Tecnici</h6>
+            <small> 3 ore fa · 163 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">Italia in vetta per congressi ospitati</h6>
+            <small>17 ore fa · 1633 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">Se il paragone non aiuta</h6>
+            <small>23 ore fa · 233 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">INetflix e Nuovo Imae rinnovano l&apos;accordo</h6>
+            <small>7 ore fa · 683 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">OpenAI svela GPT -4o</h6>
+            <small>19 ore fa · 730 lettori</small>
+          </ListGroup.Item>
+        </div>
+      )}
+
+      <div className="dropdown-wrapper">
+        <Dropdown show={dropdownOpen} onToggle={toggleDropdown}>
+          <Dropdown.Toggle variant="light" id="dropdown-basic">
+            {dropdownOpen ? 'Mostra meno' : 'Vedi altro'}
+          </Dropdown.Toggle>
+        </Dropdown>
+      </div>
+      <div className='mt-2'>
+      <img
+                src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"
+                width={"100%"}
+                className="mb-2 rounded"
+                alt=""
+              />
+      </div>
+     
+           
+
+      <div className="d-flex flex-wrap justify-content-center column-gap-4 mt-3">
+      <style>
+  {`
+    a {
+      text-decoration: none; 
+      color: inherit; 
+    }
+
+    a:hover {
+      text-decoration: underline; 
+      color: blue;
+    }
+
+    .dropdown-trigger {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .dropdown-trigger:hover {
+      text-decoration: underline;
+      color: blue;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 10px 8px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  `}
+</style>
+      <a href="#informazioni">
+        <small><p>informazioni</p></small>
+      </a>
+      <a href="#accessibilità">
+        <small><p>Accessibilità</p></small>
+      </a>
+      <a href="#centro-assistenza">
+        <small><p>Centro assistenza</p></small>
+      </a>
+      <Dropdown>
+        <Dropdown.Toggle variant="link" className="dropdown-trigger">
+          <small>Privacy e condizioni</small>
+        </Dropdown.Toggle>
+        <Dropdown.Menu show={servicesDropdownOpen}>
+          <Dropdown.Item>
+            <h6>Informativa sulla privacy</h6>
+       
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Contratto di licenza</h6>
+         
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Termini e condizioni</h6>
+           
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Informativa sui cookie</h6>
+       
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Informativa sul copyright</h6>
+          
+          </Dropdown.Item>
+       
+        </Dropdown.Menu>
+      </Dropdown>
+    
+      <a href="#opzioni-annunci-pubblicitari">
+        <small><p>Opzioni per gli annunci pubblicitari</p></small>
+      </a>
+      <a href="#pubblicità">
+        <small><p>Pubblicità</p></small>
+      </a>
+      <Dropdown>
+        <Dropdown.Toggle variant="link" className="dropdown-trigger">
+          <small style={{fontSize:"10px"}}>Servizi alle aziende</small>
+        </Dropdown.Toggle>
+        <Dropdown.Menu show={servicesDropdownOpen}>
+          <Dropdown.Item>
+            <h6>Assumi su linkedin</h6>
+            <small>Trova,attrai,Assumi</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Vendi con linkedin</h6>
+            <small>Sblocca nuove opportunità di vendita</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Offerta di lavoro gratuita</h6>
+            <small>Ottieni rapidamente candidati qualificati</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Fai pubblicità su Linkedin</h6>
+            <small>Acquisisci clienti e fai crescere la tua Azienda</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Inizia con Premium</h6>
+            <small>Assumi su Linkedin</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Centro Amministrazione</h6>
+            <small>Gestisci i dettagli di fatturazione e account</small>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <a href="#scarica-app-linkedin">
+        <small><p>Scarica l&apos;app LinkedIn</p></small>
+      </a>
+      <a href="#altro">
+        <small><p>Altro</p></small>
+      </a>
+      <small className="text-center fw-semibold">
+        <img
+          src="https://static.licdn.com/aero-v1/sc/h/aahlc8ivbnmk0t3eyz8as5gvr"
+          alt="LinkedIn Logo"
+          width="56"
+          height="14"
+        />
+        &nbsp;Linkedin Corporation &copy; 2024
+      </small>
+    </div>
+      </ListGroup>
+    </Col>
         </Row>
       </Container>
     )
