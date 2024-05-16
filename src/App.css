@@ -129,3 +129,22 @@ body {
 .nav-pills .nav-link {
   width: 100%;
 }
+
+.nav-tabs .nav-link {
+  color: black !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+  padding: 12px 8px 16px !important;
+  margin-inline-end: 8px;
+}
+
+.nav-tabs .nav-link:hover {
+  background-color: #e6e6e6;
+}
+
+.nav-tabs .nav-link.active {
+  border-bottom: solid 4px green !important;
+  color: green !important;
+}

@@ -37,7 +37,7 @@ const MyNavbar = () => {
     <>
       {myProfile && (
         <Container fluid className="header z-3 p-0 position-fixed w-100 mb-1 top-0">
-          <section className={`toolbar ${showToolbar ? "show-toolbar" : ""}`}>
+          <section className={`toolbar d-none d-md-block ${showToolbar ? "show-toolbar" : ""}`}>
             <Container className="navbar-container mt-1">
               <div className="d-flex align-items-center justify-content-between">
                 <div className="d-flex align-items-center gap-3">
@@ -89,29 +89,29 @@ const MyNavbar = () => {
               ></div>
             )} */}
 
-            <Container className="navbar-container d-flex gap-5">
+            <Container className="navbar-container d-flex gap-2">
               <div className="d-flex">
                 <Navbar.Brand href="#home" className="p-0">
                   <img src={logo} alt="logo" width={34} height={34} />
                 </Navbar.Brand>
-                <Form className="position-relative w-100">
-                  <Form.Control
-                    type="search"
-                    placeholder="Cerca"
-                    className="px-5 rounded rounded-2 border border-0 custom-placeholder w-100 "
-                    aria-label="Search"
-                    // onFocus={() => setIsOverlay(true)}
-                    // onBlur={() => setIsOverlay(false)}
-                  />
-                  <FaSearch className="position-absolute top-50 translate-middle-y ms-3" />
-                </Form>
               </div>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav
-                  className="d-flex flex-column w-100 justify-content-start flex-md-row justify-content-md-between align-items-start"
+                  className="d-flex flex-column w-100 justify-content-start flex-md-row justify-content-md-between align-items-start align-items-md-center"
                   id="navMain"
                 >
+                  <Form className="position-relative me-auto mb-2 mb-md-0">
+                    <Form.Control
+                      type="search"
+                      placeholder="Cerca"
+                      className="px-5 rounded rounded-2 border border-0 custom-placeholder w-100 "
+                      aria-label="Search"
+                      // onFocus={() => setIsOverlay(true)}
+                      // onBlur={() => setIsOverlay(false)}
+                    />
+                    <FaSearch className="position-absolute top-50 translate-middle-y ms-3" />
+                  </Form>
                   <Link
                     to={"/"}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
