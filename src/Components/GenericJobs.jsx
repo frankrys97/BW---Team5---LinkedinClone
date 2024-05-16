@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Dropdown, Row } from "react-bootstrap";
 
 const GenericJobs = () => {
+  const [servicesDropdownOpen, ] = useState(false);
+
+
   const myKey =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE";
 
@@ -165,39 +168,147 @@ const GenericJobs = () => {
             </Card>
           </Col>
           <Col xs={12} className="p-0 third-column  d-none d-lg-block" style={{ width: "300px" }}>
-            <div className="d-flex flex-wrap text-secondary justify-content-center column-gap-4 mt-3">
-              <small>
-                <p className="my-0">Informazioni</p>
-              </small>
-              <small>
-                <p>Accessibilità</p>
-              </small>
-              <small>
-                <p>Centro assistenza</p>
-              </small>
-              <small>
-                <p>Privacy e condizioni</p>
-              </small>
-              <small>
-                <p>Opzioni per gli annunci pubblicitari</p>
-              </small>
-              <small>
-                <p>Pubblicità</p>
-              </small>
-              <small>
-                <p>Servizi alle aziende</p>
-              </small>
-              <small>
-                <p>Scarica l&apos;app LinkedIn</p>
-              </small>
-              <small>
-                <p>Altro</p>
-              </small>
-              <div>
-                <img src="https://static.licdn.com/aero-v1/sc/h/aahlc8ivbnmk0t3eyz8as5gvr" alt="" />
-                <small className="text-center text-dark "> Corporation &copy; 2024</small>
-              </div>
-            </div>
+            
+          <div className="d-flex flex-wrap justify-content-center column-gap-4 mt-3">
+      <style>
+  {`
+    a {
+      text-decoration: none; 
+      color: inherit; 
+    }
+
+    a:hover {
+      text-decoration: underline; 
+      color: blue;
+    }
+
+    .dropdown-trigger {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .dropdown-trigger:hover {
+      text-decoration: underline;
+      color: blue;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 10px 8px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  `}
+</style>
+      <a href="#informazioni">
+        <small><p>informazioni</p></small>
+      </a>
+      <a href="#accessibilità">
+        <small><p>Accessibilità</p></small>
+      </a>
+      <a href="#centro-assistenza">
+        <small><p>Centro assistenza</p></small>
+      </a>
+      <Dropdown>
+        <Dropdown.Toggle variant="link" className="dropdown-trigger">
+          <small>Privacy e condizioni</small>
+        </Dropdown.Toggle>
+        <Dropdown.Menu show={servicesDropdownOpen}>
+          <Dropdown.Item>
+            <h6>Informativa sulla privacy</h6>
+       
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Contratto di licenza</h6>
+         
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Termini e condizioni</h6>
+           
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Informativa sui cookie</h6>
+       
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Informativa sul copyright</h6>
+          
+          </Dropdown.Item>
+       
+        </Dropdown.Menu>
+      </Dropdown>
+    
+      <a href="#opzioni-annunci-pubblicitari">
+        <small><p>Opzioni per gli annunci pubblicitari</p></small>
+      </a>
+      <a href="#pubblicità">
+        <small><p>Pubblicità</p></small>
+      </a>
+      <Dropdown>
+        <Dropdown.Toggle variant="link" className="dropdown-trigger">
+          <small style={{fontSize:"10px"}}>Servizi alle aziende</small>
+        </Dropdown.Toggle>
+        <Dropdown.Menu show={servicesDropdownOpen}>
+          <Dropdown.Item>
+            <h6>Assumi su linkedin</h6>
+            <small>Trova,attrai,Assumi</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Vendi con linkedin</h6>
+            <small>Sblocca nuove opportunità di vendita</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Offerta di lavoro gratuita</h6>
+            <small>Ottieni rapidamente candidati qualificati</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Fai pubblicità su Linkedin</h6>
+            <small>Acquisisci clienti e fai crescere la tua Azienda</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Inizia con Premium</h6>
+            <small>Assumi su Linkedin</small>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <h6>Centro Amministrazione</h6>
+            <small>Gestisci i dettagli di fatturazione e account</small>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <a href="#scarica-app-linkedin">
+        <small><p>Scarica l&apos;app LinkedIn</p></small>
+      </a>
+      <a href="#altro">
+        <small><p>Altro</p></small>
+      </a>
+      <small className="text-center fw-semibold">
+        <img
+          src="https://static.licdn.com/aero-v1/sc/h/aahlc8ivbnmk0t3eyz8as5gvr"
+          alt="LinkedIn Logo"
+          width="56"
+          height="14"
+        />
+        &nbsp;Linkedin Corporation &copy; 2024
+      </small>
+    </div>
           </Col>
         </Row>
       </Container>
