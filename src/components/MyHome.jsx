@@ -32,8 +32,6 @@ const MyHome = () => {
   const handleCloseModal = () => {
     setShowModal(false)
   }
-  // const [awaitFetch, setAwaitFetch] = useState(false)
-  // const Array = []
   const handleConsigliaClick = (postId) => {
     setConsigliaClicked((prevState) => ({
       ...prevState,
@@ -78,9 +76,6 @@ const MyHome = () => {
         const data = await response.json()
         const result = data.reverse().slice(0, 20)
         setPosts(result)
-        // setAwaitFetch(true) // da rivedere
-
-        // console.log('posts: ', posts)
       } else {
         alert('Errore nella fetch')
       }
