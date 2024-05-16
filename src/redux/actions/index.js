@@ -1,52 +1,65 @@
-export const SET_MY_PROFILE = "SET_MY_PROFILE";
+export const SET_MY_PROFILE = 'SET_MY_PROFILE'
 
 export const setMyProfile = (profile) => {
   return {
     type: SET_MY_PROFILE,
     payload: profile,
-  };
-};
+  }
+}
 
 export const getMyProfile = () => {
   const myKey =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE";
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE'
   return (dispatch) => {
-    fetch("https://striveschool-api.herokuapp.com/api/profile/me", {
+    fetch('https://striveschool-api.herokuapp.com/api/profile/me', {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${myKey}`,
       },
     })
       .then((response) => {
         if (response.ok) {
-          return response.json();
+          return response.json()
         } else {
-          throw new Error("Something went wrong");
+          throw new Error('Something went wrong')
         }
       })
       .then((data) => {
-        dispatch(setMyProfile(data));
+        dispatch(setMyProfile(data))
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
-};
+        console.log(error)
+      })
+  }
+}
 
-export const SHOW_MODAL_IMAGE_UPLOAD = "SHOW_MODAL_IMAGE_UPLOAD";
+export const SHOW_MODAL_IMAGE_UPLOAD = 'SHOW_MODAL_IMAGE_UPLOAD'
 
 export const setShowModalImageUpload = (payload) => {
   return {
     type: SHOW_MODAL_IMAGE_UPLOAD,
     payload,
-  };
-};
+  }
+}
 
-export const SHOW_MODAL_CREATE_POST = "SHOW_MODAL_CREATE_POST";
+export const SHOW_MODAL_CREATE_POST = 'SHOW_MODAL_CREATE_POST'
 
 export const setShowModalCreatePost = (payload) => {
   return {
     type: SHOW_MODAL_CREATE_POST,
     payload,
-  };
-};
+  }
+}
+
+export const SELECT_JOB = 'SELECT_JOB'
+
+export const selectJob = (payload) => ({ type: SELECT_JOB, payload })
+
+export const ADD_JOB = 'ADD_JOB'
+export const REMOVE_JOB = 'REMOVE_JOB'
+
+export const addSavedJob = (payload) => ({ type: ADD_JOB, payload })
+export const removeSavedJob = (payload) => ({ type: REMOVE_JOB, payload })
+
+export const GET_JOB = 'GET_JOB'
+export const getJob = (payload) => ({ type: GET_JOB, payload })

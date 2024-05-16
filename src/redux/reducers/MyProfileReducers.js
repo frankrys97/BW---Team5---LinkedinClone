@@ -1,8 +1,8 @@
-import { SET_MY_PROFILE } from "../actions";
+import { SET_MY_PROFILE } from '../actions'
 
 const initialState = {
   content: null,
-};
+}
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -10,8 +10,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         content: action.payload,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }

@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Button, Card, Col, Container, Dropdown, Row } from 'react-bootstrap'
+import { Button, Card, CardBody, Col, Container, Dropdown, Row } from 'react-bootstrap'
 import LoadingJobs from './LoadingJob'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectJob } from '../redux/actions'
 
 const GenericJobs = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const savedJob = useSelector((state) => state.job.savedJob)
   const [servicesDropdownOpen] = useState(false)
 
   const myKey =
@@ -38,7 +44,6 @@ const GenericJobs = () => {
   useEffect(() => {
     companyFetch()
   }, [])
-  console.log(company)
   return (
     <>
       <Container style={{ paddingTop: '65px' }}>
@@ -128,7 +133,46 @@ const GenericJobs = () => {
             <div></div>
           </Col>
           <Col xs={12} className="p-0 second-column  md-0  ">
-            <Card className=" contBody">
+            {savedJob.length > 0 && (
+              <Card className="mb-2">
+                <CardBody>
+                  <Card.Title>Offerte salvate</Card.Title>
+                  {savedJob.map((compagnie) => (
+                    <div
+                      key={compagnie._id}
+                      className="px-3 border-bottom"
+                      onClick={() => {
+                        dispatch(selectJob(compagnie))
+                        navigate('/searchjobs')
+                      }}
+                    >
+                      <div className="d-flex">
+                        <div>
+                          <img
+                            width="48"
+                            src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
+                            loading="lazy"
+                            height="48"
+                            alt="Logo di EPICODE"
+                            id="ember1798"
+                            className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
+                          />
+                        </div>
+                        <div>
+                          <p className="my-0 text-primary">{compagnie.title} </p>
+                          <p className="my-0">{compagnie.company_name}</p>
+                          <p className="my-0 text-secondary">{compagnie.candidate_required_location}</p>
+                          <p className="text-secondary mt-0">
+                            Solitamente le candidature vengono esaminate entro 3 giorni
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </CardBody>
+              </Card>
+            )}
+            <Card>
               <Card.Body>
                 <div className="d-flex justify-content-between p-2">
                   <div>
@@ -139,7 +183,14 @@ const GenericJobs = () => {
                 {company ? (
                   company.data.slice(0, 8).map((compagnie) => {
                     return (
-                      <div key={compagnie._id} className="px-3 border-bottom">
+                      <div
+                        key={compagnie._id}
+                        className="px-3 border-bottom"
+                        onClick={() => {
+                          dispatch(selectJob(compagnie))
+                          navigate('/searchjobs')
+                        }}
+                      >
                         <div className="d-flex">
                           <div>
                             <img

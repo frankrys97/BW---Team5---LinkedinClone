@@ -1,8 +1,17 @@
 import { useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Nav, Row, Tab } from 'react-bootstrap'
 import LoadingSearch from './LoadingSearch'
+import { useDispatch, useSelector } from 'react-redux'
+import { addSavedJob, removeSavedJob, selectJob } from '../redux/actions'
 
 const SearchJobs = () => {
+  const selectedJob = useSelector((state) => state.job.selectedJob)
+  const savedJob = useSelector((state) => state.job.savedJob)
+  const isSaved = (id) => savedJob.findIndex((job) => job._id === id) !== -1
+  const search = useSelector((state) => state.job.searchJob)
+
+  const dispatch = useDispatch()
+
   const formatInputDate = (dateString) => {
     const date = dateString.slice(0, 10)
     return date
@@ -14,9 +23,9 @@ const SearchJobs = () => {
   //   const shuffleArray = (array) => {
   //     return array.sort(() => Math.random() - 0.5);
   //   };
-  const companyFetch = async () => {
+  const companyFetch = async (url = URL) => {
     try {
-      const response = await fetch(URL, {
+      const response = await fetch(url, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${myKey}`,
@@ -24,8 +33,10 @@ const SearchJobs = () => {
       })
       if (response.ok) {
         const data = await response.json()
-
+        setProva(data.data[0]._id)
         setCompany(data)
+        // console.log(selectedJob)
+        // console.log(data.data[0]._id)
       } else {
         alert('Errore nella fetch')
       }
@@ -34,14 +45,19 @@ const SearchJobs = () => {
     }
   }
   const [company, setCompany] = useState(null)
+  const [prova, setProva] = useState(null)
+
   useEffect(() => {
-    companyFetch()
-  }, [])
-  console.log(company)
+    if (search) {
+      companyFetch(`${URL}?search=${search}`)
+    } else {
+      companyFetch()
+    }
+  }, [search])
   return (
     <>
       <Container className="bg-white rounded customRow  " style={{ maxWidth: '1128px', marginTop: '65px' }}>
-        <Tab.Container className=" h-100">
+        <Tab.Container className=" h-100" defaultActiveKey={selectedJob ? selectedJob._id : company && prova}>
           <Row className="h-100  ">
             <Col style={{ overflowY: 'auto' }} xs={12} md={5} className="p-0 h-100  ">
               <div className="d-flex justify-content-between p-2">
@@ -149,7 +165,17 @@ const SearchJobs = () => {
                                 <path d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.854 8.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707z" />
                               </svg>
                             </Button>
-                            <Button className="rounded-pill border-primary text-primary" variant="">
+                            <Button
+                              className="rounded-pill border-primary text-primary"
+                              variant=""
+                              onClick={() => {
+                                if (!isSaved(compagnie._id)) {
+                                  dispatch(addSavedJob(compagnie))
+                                } else {
+                                  dispatch(removeSavedJob(compagnie._id))
+                                }
+                              }}
+                            >
                               Salva
                             </Button>
                           </div>
