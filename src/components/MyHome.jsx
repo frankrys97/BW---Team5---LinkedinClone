@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import { Modal } from 'react-bootstrap'
 import '../style/modalInvioButton.css'
 import LoadingPost from './LoadingPost'
+import '../style/DropDowmAnimation.css';
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
   const [consigliaClicked, setConsigliaClicked] = useState({})
@@ -27,6 +28,7 @@ const MyHome = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [spreadCardId, setSpreadCardId] = useState(null)
   const [servicesDropdownOpen, ] = useState(false);
+
   const handleSendClick = () => {
     setShowModal(true)
   }
@@ -442,35 +444,37 @@ const MyHome = () => {
         </ListGroup.Item>
 
         {dropdownOpen && (
-          <>
-            <ListGroup.Item action variant="light">
-              <h6 className="m-0 fw-semibold">Alle Smart city mancano Tecnici</h6>
-              <small> 3 ore fa · 163 lettori</small>
-            </ListGroup.Item>
-            <ListGroup.Item action variant="light">
-              <h6 className="m-0 fw-semibold">Italia in vetta per congressi ospitati</h6>
-              <small>17 ore fa · 1633 lettori</small>
-            </ListGroup.Item>
-            <ListGroup.Item action variant="light">
-              <h6 className="m-0 fw-semibold">Se il paragone non aiuta</h6>
-              <small>23 ore fa · 233 lettori</small>
-            </ListGroup.Item>
-            <ListGroup.Item action variant="light">
-              <h6 className="m-0 fw-semibold">INetflix e Nuovo Imae rinnovano l'accordo</h6>
-              <small>7 ore fa · 683 lettori</small>
-            </ListGroup.Item>
-            <ListGroup.Item action variant="light">
-              <h6 className="m-0 fw-semibold">OpenAI svela GPT -4o</h6>
-              <small>19 ore fa · 730 lettori</small>
-            </ListGroup.Item>
-          </>
-        )}
+        <div className="animated-content"> 
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">Alle Smart city mancano Tecnici</h6>
+            <small> 3 ore fa · 163 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">Italia in vetta per congressi ospitati</h6>
+            <small>17 ore fa · 1633 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">Se il paragone non aiuta</h6>
+            <small>23 ore fa · 233 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">INetflix e Nuovo Imae rinnovano l'accordo</h6>
+            <small>7 ore fa · 683 lettori</small>
+          </ListGroup.Item>
+          <ListGroup.Item action variant="light" className="fadeInAnimation">
+            <h6 className="m-0 fw-semibold">OpenAI svela GPT -4o</h6>
+            <small>19 ore fa · 730 lettori</small>
+          </ListGroup.Item>
+        </div>
+      )}
 
+      <div className="dropdown-wrapper">
         <Dropdown show={dropdownOpen} onToggle={toggleDropdown}>
           <Dropdown.Toggle variant="light" id="dropdown-basic">
             {dropdownOpen ? 'Mostra meno' : 'Vedi altro'}
           </Dropdown.Toggle>
         </Dropdown>
+      </div>
       <div className='mt-2'>
       <img
                 src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"

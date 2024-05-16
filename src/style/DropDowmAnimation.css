@@ -1,13 +1,15 @@
-.dropdown-menu {
-  display: none;
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease, opacity 0.5s ease, display 0.5s;
+.fadeInAnimation {
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
 }
 
-.dropdown-show .dropdown-menu {
-  display: block;
-  opacity: 1;
-  max-height: 200px; /* Altezza massima del dropdown */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
