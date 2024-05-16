@@ -1,189 +1,189 @@
-import { useEffect, useState } from "react";
-import { CardText, Col, Dropdown, Form, Modal, Nav, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import MyFooter from "./MyFooter";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from 'react'
+import { CardText, Col, Container, Dropdown, Form, Modal, Nav, Row } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+import MyFooter from './MyFooter'
+import { useSelector } from 'react-redux'
 
 const MyProfile = () => {
-  const myProfile = useSelector((state) => state.myProfile.content);
-  const [showModal, setShowModal] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
-  const [operation, setOperation] = useState("add");
+  const myProfile = useSelector((state) => state.myProfile.content)
+  const [showModal, setShowModal] = useState(false)
+  const [isDelete, setIsDelete] = useState(false)
+  const [operation, setOperation] = useState('add')
 
   const [newExp, setNewExp] = useState({
-    role: "",
-    company: "",
-    startDate: "",
-    endDate: "",
-    description: "",
-    area: "",
-  });
+    role: '',
+    company: '',
+    startDate: '',
+    endDate: '',
+    description: '',
+    area: '',
+  })
   const handleFieldChange = (propertyName, propertyValue) => {
-    setNewExp({ ...newExp, [propertyName]: propertyValue });
-  };
+    setNewExp({ ...newExp, [propertyName]: propertyValue })
+  }
 
-  const handleCloseModal = () => setShowModal(false);
+  const handleCloseModal = () => setShowModal(false)
 
   const handleShowModal = (operation, experience) => {
-    setShowModal(true);
-    setOperation(operation);
-    if (operation === "edit") {
-      setNewExp(experience);
+    setShowModal(true)
+    setOperation(operation)
+    if (operation === 'edit') {
+      setNewExp(experience)
     }
-  };
+  }
 
   const myKey2 =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE";
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE'
   const myKey =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o";
-  const URL = "https://striveschool-api.herokuapp.com/api/profile/";
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
+  const URL = 'https://striveschool-api.herokuapp.com/api/profile/'
   const getExperinence = async (exp) => {
     try {
       const response = await fetch(URL + exp, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${myKey}`,
         },
-      });
+      })
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json()
 
-        setExp(data);
+        setExp(data)
       } else {
-        alert("Errore nella fetch");
+        alert('Errore nella fetch')
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
-  const [exp, setExp] = useState([]);
+  const [exp, setExp] = useState([])
   useEffect(() => {
     if (myProfile) {
-      getExperinence(`${myProfile._id}/experiences`);
+      getExperinence(`${myProfile._id}/experiences`)
     }
-  }, [myProfile]);
+  }, [myProfile])
 
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false)
   const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
-  const [isClicked2, setIsClicked2] = useState(false);
+    setIsClicked(!isClicked)
+  }
+  const [isClicked2, setIsClicked2] = useState(false)
   const handleClick2 = () => {
-    setIsClicked2(!isClicked2);
-  };
-  const [isClicked3, setIsClicked3] = useState(false);
+    setIsClicked2(!isClicked2)
+  }
+  const [isClicked3, setIsClicked3] = useState(false)
   const handleClick3 = () => {
-    setIsClicked3(!isClicked3);
-  };
+    setIsClicked3(!isClicked3)
+  }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const url = `${URL}${myProfile._id}/experiences`;
+    event.preventDefault()
+    const url = `${URL}${myProfile._id}/experiences`
 
     try {
-      let resp;
-      if (operation === "add") {
+      let resp
+      if (operation === 'add') {
         resp = await fetch(url, {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify(newExp),
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${myKey2}`,
           },
-        });
-      } else if (operation === "edit") {
-        const expId = newExp._id;
+        })
+      } else if (operation === 'edit') {
+        const expId = newExp._id
         resp = await fetch(`${url}/${expId}`, {
-          method: "PUT",
+          method: 'PUT',
           body: JSON.stringify(newExp),
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${myKey2}`,
           },
-        });
+        })
       }
 
       if (resp.ok) {
-        handleCloseModal();
-        getExperinence(`${myProfile._id}/experiences`);
+        handleCloseModal()
+        getExperinence(`${myProfile._id}/experiences`)
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleDelete = async (id) => {
     try {
-      const resp = await fetch(URL + myProfile._id + "/experiences/" + id, {
-        method: "DELETE",
+      const resp = await fetch(URL + myProfile._id + '/experiences/' + id, {
+        method: 'DELETE',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${myKey2}`,
         },
-      });
+      })
 
       if (resp.ok) {
-        getExperinence(`${myProfile._id}/experiences`);
-        console.log("DELETE");
+        getExperinence(`${myProfile._id}/experiences`)
+        console.log('DELETE')
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const options = { month: "long", year: "numeric" };
-    return date.toLocaleDateString("it-IT", options);
-  };
+    const date = new Date(dateString)
+    const options = { month: 'long', year: 'numeric' }
+    return date.toLocaleDateString('it-IT', options)
+  }
 
   const formatInputDate = (dateString) => {
-    const date = dateString.slice(0, 7);
-    return date;
-  };
+    const date = dateString.slice(0, 7)
+    return date
+  }
   // INIZIO FETCH PROFILI SIMILI
 
-  const URL2 = "https://striveschool-api.herokuapp.com/api/profile/";
+  const URL2 = 'https://striveschool-api.herokuapp.com/api/profile/'
   const shuffleArray = (array) => {
-    return array.sort(() => Math.random() - 0.5);
-  };
+    return array.sort(() => Math.random() - 0.5)
+  }
   const similarProfiles = async () => {
     try {
       const response = await fetch(URL2, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${myKey}`,
         },
-      });
+      })
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json()
 
-        console.log(data);
-        const shuffle = shuffleArray(data);
-        console.log(shuffle);
-        setProfili(shuffle);
+        console.log(data)
+        const shuffle = shuffleArray(data)
+        console.log(shuffle)
+        setProfili(shuffle)
       } else {
-        alert("Errore nella fetch");
+        alert('Errore nella fetch')
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
-  const [profili, setProfili] = useState([]);
+  }
+  const [profili, setProfili] = useState([])
   useEffect(() => {
-    similarProfiles();
-  }, []);
+    similarProfiles()
+  }, [])
   // FINE FETCH PROFILI SIMILI
   return (
     myProfile && (
       <>
-        <div className="contBody " style={{ paddingTop: "65px" }}>
+        <Container className="contBody " style={{ paddingTop: '65px', width: 1128 }}>
           <Row>
             <Col xs={12} lg={9}>
               {/* CARD PROFILO */}
-              <Card style={{ maxWidth: "100%" }}>
+              <Card style={{ maxWidth: '100%' }}>
                 <Card.Img
                   variant="top"
                   src="https://media.licdn.com/dms/image/D4D16AQGdLXRnSjl7bQ/profile-displaybackgroundimage-shrink_350_1400/0/1713442065268?e=1721260800&v=beta&t=t-XxVkrYJWOMbzSDmeCUsoY-SVin550O1VB7x7tBfqk"
@@ -199,22 +199,22 @@ const MyProfile = () => {
                         src={myProfile.image}
                         alt="profile"
                         style={{
-                          width: "100%",
-                          objectFit: "cover",
-                          height: "100%",
-                          aspectRatio: "1 / 1",
+                          width: '100%',
+                          objectFit: 'cover',
+                          height: '100%',
+                          aspectRatio: '1 / 1',
                         }}
                       />
                     </div>
                     <p className="name fs-4">
                       {myProfile.name} {myProfile.surname}
                     </p>
-                    {myProfile.bio ? <p className="name fs-4">{myProfile.bio}</p> : "qui dentro ci va la bio"}
+                    {myProfile.bio ? <p className="name fs-4">{myProfile.bio}</p> : 'qui dentro ci va la bio'}
                     <p className="my-0">
-                      <span className="text-secondary">{myProfile.area} &middot;</span>{" "}
+                      <span className="text-secondary">{myProfile.area} &middot;</span>{' '}
                       <a href="">Informazioni di contatto</a>
                     </p>
-                    <p style={{ fontSize: "0.8rem" }} className="text-primary ">
+                    <p style={{ fontSize: '0.8rem' }} className="text-primary ">
                       17 collegamenti
                     </p>
                   </div>
@@ -402,7 +402,7 @@ const MyProfile = () => {
 
                     <div className="d-flex">
                       <Dropdown data-bs-theme="light" className="">
-                        <Dropdown.Toggle variant="transparent" className="noToggle border-0" align={"end"}>
+                        <Dropdown.Toggle variant="transparent" className="noToggle border-0" align={'end'}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="27"
@@ -419,14 +419,14 @@ const MyProfile = () => {
                             href="#/action-1"
                             onClick={() => {
                               setNewExp({
-                                role: "",
-                                company: "",
-                                startDate: "",
-                                endDate: "",
-                                description: "",
-                                area: "",
-                              });
-                              handleShowModal("add");
+                                role: '',
+                                company: '',
+                                startDate: '',
+                                endDate: '',
+                                description: '',
+                                area: '',
+                              })
+                              handleShowModal('add')
                             }}
                           >
                             <small>Aggiungi posizione lavorativa</small>
@@ -451,7 +451,7 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Retail Sales Manager"
                                 value={newExp.role}
-                                onChange={(e) => handleFieldChange("role", e.target.value)}
+                                onChange={(e) => handleFieldChange('role', e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -461,7 +461,7 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Microsoft"
                                 value={newExp.company}
-                                onChange={(e) => handleFieldChange("company", e.target.value)}
+                                onChange={(e) => handleFieldChange('company', e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -471,7 +471,7 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Milano, Italia"
                                 value={newExp.area}
-                                onChange={(e) => handleFieldChange("area", e.target.value)}
+                                onChange={(e) => handleFieldChange('area', e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -480,7 +480,7 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.startDate)}
-                                onChange={(e) => handleFieldChange("startDate", e.target.value)}
+                                onChange={(e) => handleFieldChange('startDate', e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -489,7 +489,7 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.endDate)}
-                                onChange={(e) => handleFieldChange("endDate", e.target.value)}
+                                onChange={(e) => handleFieldChange('endDate', e.target.value)}
                                 required
                               />
                             </Form.Group>
@@ -499,14 +499,14 @@ const MyProfile = () => {
                                 as="textarea"
                                 rows={4}
                                 value={newExp.description}
-                                onChange={(e) => handleFieldChange("description", e.target.value)}
+                                onChange={(e) => handleFieldChange('description', e.target.value)}
                                 required
                               />
                             </Form.Group>
                           </Modal.Body>
                           <Modal.Footer>
-                            <Button variant={operation === "edit" ? "success" : "primary"} type="submit">
-                              {operation === "edit" ? "Modifica" : "Salva"}
+                            <Button variant={operation === 'edit' ? 'success' : 'primary'} type="submit">
+                              {operation === 'edit' ? 'Modifica' : 'Salva'}
                             </Button>
                           </Modal.Footer>
                         </Form>
@@ -544,7 +544,7 @@ const MyProfile = () => {
                                 <p className="my-0 fw-bold"> {experience.role}</p>
                                 <p className="my-0 ">{experience.company}</p>
                                 <p className="my-0 mb-1 text-secondary">
-                                  <span>{formatDate(experience.startDate)}</span> /{" "}
+                                  <span>{formatDate(experience.startDate)}</span> /{' '}
                                   <span>{formatDate(experience.endDate)}</span>
                                   {/* {formatDate(experience.startDate)} / 
                                    {formatDate(experience.endDate)} */}
@@ -559,7 +559,7 @@ const MyProfile = () => {
                                 <Button
                                   variant="success"
                                   className="ms-2"
-                                  onClick={() => handleShowModal("edit", experience)}
+                                  onClick={() => handleShowModal('edit', experience)}
                                 >
                                   <i className="bi bi-pen"></i>
                                 </Button>
@@ -568,7 +568,7 @@ const MyProfile = () => {
                           </div>
                         </div>
                       ))
-                    : "vuoto"}
+                    : 'vuoto'}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">
                   Mostra tutte le competenze (8)
@@ -853,7 +853,7 @@ const MyProfile = () => {
                   <Nav defaultActiveKey="#first">
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={isClicked ? 'text-success border-bottom border-success' : 'text-secondary'}
                         onClick={handleClick}
                         href="#aziende"
                       >
@@ -862,7 +862,7 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked2 ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={isClicked2 ? 'text-success border-bottom border-success' : 'text-secondary'}
                         onClick={handleClick2}
                         href="#gruppi"
                       >
@@ -871,7 +871,7 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked3 ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={isClicked3 ? 'text-success border-bottom border-success' : 'text-secondary'}
                         onClick={handleClick3}
                         href="#Scuole"
                       >
@@ -979,7 +979,7 @@ const MyProfile = () => {
               {/* FINE CARD LINGUA E URL */}
               <img
                 src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"
-                width={"100%"}
+                width={'100%'}
                 className="mb-2 rounded"
                 alt=""
               />
@@ -992,17 +992,17 @@ const MyProfile = () => {
                       return (
                         <div key={profilo._id} className="d-flex mt-2 border-bottom">
                           <div
-                            style={{ maxWidth: "70px", maxHeight: "70px", aspectRatio: "1/1" }}
+                            style={{ maxWidth: '70px', maxHeight: '70px', aspectRatio: '1/1' }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
                             <img
                               src={profilo.image}
                               alt="profile"
                               style={{
-                                width: "100%",
-                                objectFit: "cover",
-                                height: "100%",
-                                aspectRatio: "1 / 1",
+                                width: '100%',
+                                objectFit: 'cover',
+                                height: '100%',
+                                aspectRatio: '1 / 1',
                               }}
                             />
                           </div>
@@ -1028,7 +1028,7 @@ const MyProfile = () => {
                             </div>
                           </div>
                         </div>
-                      );
+                      )
                     })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
@@ -1044,17 +1044,17 @@ const MyProfile = () => {
                       return (
                         <div key={profilo._id} className="d-flex mt-2 border-bottom">
                           <div
-                            style={{ maxWidth: "70px", maxHeight: "70px", aspectRatio: "1/1" }}
+                            style={{ maxWidth: '70px', maxHeight: '70px', aspectRatio: '1/1' }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
                             <img
                               src={profilo.image}
                               alt="profile"
                               style={{
-                                width: "100%",
-                                objectFit: "cover",
-                                height: "100%",
-                                aspectRatio: "1 / 1",
+                                width: '100%',
+                                objectFit: 'cover',
+                                height: '100%',
+                                aspectRatio: '1 / 1',
                               }}
                             />
                           </div>
@@ -1079,7 +1079,7 @@ const MyProfile = () => {
                             </div>
                           </div>
                         </div>
-                      );
+                      )
                     })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
@@ -1087,7 +1087,7 @@ const MyProfile = () => {
               {/* FINE PERSONE CHE POTRESTI CONOSCERE */}
               <img
                 src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"
-                width={"100%"}
+                width={'100%'}
                 className="mb-2 rounded"
                 alt=""
               />
@@ -1095,10 +1095,10 @@ const MyProfile = () => {
             {/* FINE SECONDA COLONNA */}
           </Row>
           <MyFooter />
-        </div>
+        </Container>
       </>
     )
-  );
-};
+  )
+}
 
-export default MyProfile;
+export default MyProfile

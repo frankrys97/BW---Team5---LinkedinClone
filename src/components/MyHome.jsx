@@ -76,7 +76,7 @@ const MyHome = () => {
       })
       if (response.ok) {
         const data = await response.json()
-        const result = data.slice(4, 14)
+        const result = data.reverse().slice(0, 20)
         setPosts(result)
         // setAwaitFetch(true) // da rivedere
 
