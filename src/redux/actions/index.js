@@ -32,21 +32,3 @@ export const getMyProfile = () => {
       });
   };
 };
-
-export const SHOW_MODAL_IMAGE_UPLOAD = "SHOW_MODAL_IMAGE_UPLOAD";
-
-export const setShowModalImageUpload = (payload) => {
-  return {
-    type: SHOW_MODAL_IMAGE_UPLOAD,
-    payload,
-  };
-};
-
-export const SHOW_MODAL_CREATE_POST = "SHOW_MODAL_CREATE_POST";
-
-export const setShowModalCreatePost = (payload) => {
-  return {
-    type: SHOW_MODAL_CREATE_POST,
-    payload,
-  };
-};

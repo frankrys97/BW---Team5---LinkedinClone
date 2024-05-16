@@ -16,11 +16,9 @@ import '../style/myHome.css'
 import { useSelector } from 'react-redux'
 import { Modal } from 'react-bootstrap';
 import "../style/modalInvioButton.css"
-import LoadingPost from './LoadingPost'
-
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
-  const [consigliaClicked, setConsigliaClicked] = useState({})
+  const [consigliaClicked, setConsigliaClicked] = useState({});
   const [open, setOpen] = useState(false)
   const [posts, setPosts] = useState([])
   const [showCommentInputs, setShowCommentInputs] = useState({});
@@ -36,11 +34,11 @@ const MyHome = () => {
   // const [awaitFetch, setAwaitFetch] = useState(false)
   // const Array = []
   const handleConsigliaClick = (postId) => {
-    setConsigliaClicked((prevState) => ({
+    setConsigliaClicked(prevState => ({
       ...prevState,
-      [postId]: !prevState[postId],
-    }))
-  }
+      [postId]: !prevState[postId]
+    }));
+  };
   const focusCommentInput = (inputId) => {
     document.getElementById(inputId).focus();
   };
@@ -49,8 +47,6 @@ const MyHome = () => {
     const updatedShowCommentInputs = { ...showCommentInputs };
  
     updatedShowCommentInputs[postId] = true;
-    document.getElementById(inputId).focus()
-  }
 
     setShowCommentInputs(updatedShowCommentInputs);
 
@@ -85,6 +81,9 @@ const MyHome = () => {
         const data = await response.json()
         const result = data.slice(4, 14)
         setPosts(result)
+        // setAwaitFetch(true) // da rivedere
+
+        // console.log('posts: ', posts)
       } else {
         alert('Errore nella fetch')
       }
@@ -123,7 +122,7 @@ const MyHome = () => {
           <Col xs={12} className="p-0 first-column ">
             <ListGroup className="mb-1">
               <ListGroup.Item className="text-center">
-                <div className="rounded-top position-absolute end-0 start-0 top-0 overflow-hidden imgContainer">
+                <div className="rounded-top position-absolute start-0 top-0 overflow-hidden imgContainer">
                   <Image
                     src="https://media.licdn.com/dms/image/D4D16AQGdLXRnSjl7bQ/profile-displaybackgroundimage-shrink_350_1400/0/1713442065268?e=1721260800&v=beta&t=t-XxVkrYJWOMbzSDmeCUsoY-SVin550O1VB7x7tBfqk"
                     className="imgBackground"
@@ -271,9 +270,8 @@ const MyHome = () => {
             </div>
 
             {/* Post */}
-            {posts.length > 0
-              ? posts.map((post) => {
-                  const isConsigliaClicked = consigliaClicked[post._id]
+            {posts.map((post) => {
+        const isConsigliaClicked = consigliaClicked[post._id];
 
         return (
           <ListGroup className="mb-2" key={post._id}>
@@ -404,7 +402,7 @@ const MyHome = () => {
             </ListGroupItem>
           </ListGroup>
         );
-      }):[...Array(10).keys()].map((_, i) => <LoadingPost key={i} />)}
+      })}
  
           </Col>
           {/*  */}
