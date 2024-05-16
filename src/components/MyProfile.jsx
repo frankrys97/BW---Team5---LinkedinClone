@@ -1,15 +1,44 @@
 import { useEffect, useState } from "react";
-import { CardText, Col, Dropdown, Form, Modal, Nav, Row } from "react-bootstrap";
+import {
+  CardText,
+  Col,
+  Container,
+  Dropdown,
+  Form,
+  Modal,
+  Nav,
+  Row,
+} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import MyFooter from "./MyFooter";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import MyModalUploadImage from "./MyModalUploadImage";
+import {
+  setShowModalCreatePost,
+  setShowModalImageUpload,
+} from "../redux/actions";
+import defaultImage from "../assets/default-image.png";
+import MyModalCreatePost from "./MyModalCreatePost";
 
 const MyProfile = () => {
   const myProfile = useSelector((state) => state.myProfile.content);
   const [showModal, setShowModal] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [operation, setOperation] = useState("add");
+  const [editMode, setEditMode] = useState(false);
+  const [postId, setPostId] = useState("");
+
+  const handlePutPost = (id) => {
+    setEditMode(true);
+    dispatch(setShowModalCreatePost(true));
+    setPostId(id);
+  };
+
+  const handleCreatePost = () => {
+    setEditMode(false);
+    dispatch(setShowModalCreatePost(true));
+  };
 
   const [newExp, setNewExp] = useState({
     role: "",
@@ -19,11 +48,19 @@ const MyProfile = () => {
     description: "",
     area: "",
   });
+
+  const [experienceImage, setExperienceImage] = useState(null);
+
+  const handleImageChange = (event) => {
+    setExperienceImage(event.target.files[0]);
+  };
+
   const handleFieldChange = (propertyName, propertyValue) => {
     setNewExp({ ...newExp, [propertyName]: propertyValue });
   };
 
   const handleCloseModal = () => setShowModal(false);
+  const dispatch = useDispatch();
 
   const handleShowModal = (operation, experience) => {
     setShowModal(true);
@@ -31,6 +68,10 @@ const MyProfile = () => {
     if (operation === "edit") {
       setNewExp(experience);
     }
+  };
+
+  const handleShowModalImageUpload = () => {
+    dispatch(setShowModalImageUpload(true));
   };
 
   const myKey2 =
@@ -57,6 +98,8 @@ const MyProfile = () => {
       console.log(error);
     }
   };
+
+  const [penOfPosts, setPenOfPosts] = useState(false);
 
   const [exp, setExp] = useState([]);
   useEffect(() => {
@@ -106,6 +149,30 @@ const MyProfile = () => {
       }
 
       if (resp.ok) {
+        console.log(experienceImage);
+        const responseData = await resp.json();
+        const experienceId = responseData._id;
+
+        const formData = new FormData();
+        formData.append("experience", experienceImage);
+
+        const imageResp = await fetch(
+          `https://striveschool-api.herokuapp.com/api/profile/${myProfile._id}/experiences/${experienceId}/picture`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${myKey2}`,
+            },
+            body: formData,
+          }
+        );
+
+        if (imageResp.ok) {
+          console.log("image uploaded");
+        } else {
+          console.log("image not uploaded");
+        }
+
         handleCloseModal();
         getExperinence(`${myProfile._id}/experiences`);
       }
@@ -143,7 +210,7 @@ const MyProfile = () => {
     const date = dateString.slice(0, 7);
     return date;
   };
-  // INIZIO FETCH PROFILI SIMILI
+  // INIZIO FETCH PROFILI SIMILI E AMICI CONSIGLIATI
 
   const URL2 = "https://striveschool-api.herokuapp.com/api/profile/";
   const shuffleArray = (array) => {
@@ -160,9 +227,9 @@ const MyProfile = () => {
       if (response.ok) {
         const data = await response.json();
 
-        console.log(data);
+        // console.log(data);
         const shuffle = shuffleArray(data);
-        console.log(shuffle);
+        // console.log(shuffle);
         setProfili(shuffle);
       } else {
         alert("Errore nella fetch");
@@ -174,12 +241,74 @@ const MyProfile = () => {
   const [profili, setProfili] = useState([]);
   useEffect(() => {
     similarProfiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // FINE FETCH PROFILI SIMILI
+  // FINE FETCH PROFILI SIMILI E AMICI CONSIGLIATI
+  // INIZIO FETCH ATTIVITA POST PERSONALI
+  const URLPost = "https://striveschool-api.herokuapp.com/api/posts/";
+
+  const personalPost = async () => {
+    try {
+      const response = await fetch(URLPost, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${myKey}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        setPostPersonal(data);
+      } else {
+        alert("Errore nella fetch");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [postPersonal, setPostPersonal] = useState([]);
+
+  const postPersonalFilter = postPersonal.filter(
+    (post) => post.user._id === myProfile._id
+  );
+  console.log(postPersonalFilter);
+  useEffect(() => {
+    personalPost();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // FINE FETCH ATTIVITA POST PERSONALI
+
+  const handlePostDelete = (id) => {
+    fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${myKey2}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("post deleted");
+        } else {
+          console.log("post not deleted");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        personalPost();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     myProfile && (
       <>
-        <div className="contBody " style={{ paddingTop: "65px" }}>
+        <Container style={{ paddingTop: "65px", maxWidth: "1128px" }}>
           <Row>
             <Col xs={12} lg={9}>
               {/* CARD PROFILO */}
@@ -194,7 +323,10 @@ const MyProfile = () => {
                       className="rounded-circle profileImg border border-light border-5"
                       src={myProfile.image}
                     /> */}
-                    <div className="profileImg border border-light border-5 rounded-circle overflow-hidden">
+                    <div
+                      className="profileImg border border-light border-5 rounded-circle overflow-hidden"
+                      onClick={handleShowModalImageUpload}
+                    >
                       <img
                         src={myProfile.image}
                         alt="profile"
@@ -206,12 +338,21 @@ const MyProfile = () => {
                         }}
                       />
                     </div>
+
+                    <MyModalUploadImage />
+
                     <p className="name fs-4">
                       {myProfile.name} {myProfile.surname}
                     </p>
-                    {myProfile.bio ? <p className="name fs-4">{myProfile.bio}</p> : "qui dentro ci va la bio"}
+                    {myProfile.bio ? (
+                      <p className="name fs-4">{myProfile.bio}</p>
+                    ) : (
+                      "Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business Management 📈"
+                    )}
                     <p className="my-0">
-                      <span className="text-secondary">{myProfile.area} &middot;</span>{" "}
+                      <span className="text-secondary">
+                        {myProfile.area} &middot;
+                      </span>{" "}
                       <a href="">Informazioni di contatto</a>
                     </p>
                     <p style={{ fontSize: "0.8rem" }} className="text-primary ">
@@ -222,10 +363,16 @@ const MyProfile = () => {
                     <Button className="mx-1 rounded-pill" variant="primary">
                       Disponibile per
                     </Button>
-                    <Button className="mx-1 text-primary border border-primary rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 text-primary border border-primary rounded-pill"
+                      variant="ligth"
+                    >
                       Aggiungi sezione del profilo
                     </Button>
-                    <Button className="mx-1 border border-black rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 border border-black rounded-pill"
+                      variant="ligth"
+                    >
                       Altro
                     </Button>
                   </div>
@@ -285,7 +432,9 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>28 Visualizzazioni del profilo</span>
-                      <p className="text-muted">Scopri chi ha visitato il tuo profilo</p>
+                      <p className="text-muted">
+                        Scopri chi ha visitato il tuo profilo
+                      </p>
                     </div>
                     <div className="ms-5">
                       <svg
@@ -301,8 +450,12 @@ const MyProfile = () => {
                         <path d="M23 20v1H1v-1zM8 9H2v10h6zm7-6H9v16h6zm7 11h-6v5h6z"></path>
                       </svg>
                       <span>113 Impressioni del post</span>
-                      <p className="text-muted">Scopri chi sta interagendo con i tuoi post</p>
-                      <span className="text-secondary my-0">Ultimi 7 giorni</span>
+                      <p className="text-muted">
+                        Scopri chi sta interagendo con i tuoi post
+                      </p>
+                      <span className="text-secondary my-0">
+                        Ultimi 7 giorni
+                      </span>
                     </div>
                   </div>
                 </Card.Body>
@@ -357,7 +510,9 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>La mia rete</span>
-                      <p className="text-muted">Salva e gestisci i tuoi collegamenti e interessi</p>
+                      <p className="text-muted">
+                        Salva e gestisci i tuoi collegamenti e interessi
+                      </p>
                     </div>
                     <div className="">
                       <svg
@@ -373,7 +528,10 @@ const MyProfile = () => {
                         <path d="M19 5a3 3 0 00-3-3H5v20l7-6.29L19 22z"></path>
                       </svg>
                       <span>Elementi salvati</span>
-                      <p className="text-muted">Monitora le tue offerte di lavoro, i corsi e gli articoli</p>
+                      <p className="text-muted">
+                        Monitora le tue offerte di lavoro, i corsi e gli
+                        articoli
+                      </p>
                     </div>
                   </div>
                 </Card.Body>
@@ -402,7 +560,11 @@ const MyProfile = () => {
 
                     <div className="d-flex">
                       <Dropdown data-bs-theme="light" className="">
-                        <Dropdown.Toggle variant="transparent" className="noToggle border-0" align={"end"}>
+                        <Dropdown.Toggle
+                          variant="transparent"
+                          className="noToggle border-0"
+                          align={"end"}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="27"
@@ -439,9 +601,16 @@ const MyProfile = () => {
 
                       {/* MODALE PER AGGIUNTA ESPERIENZE */}
 
-                      <Modal show={showModal} onHide={handleCloseModal} backdrop="static" keyboard={false}>
+                      <Modal
+                        show={showModal}
+                        onHide={handleCloseModal}
+                        backdrop="static"
+                        keyboard={false}
+                      >
                         <Modal.Header closeButton>
-                          <Modal.Title>Aggiungi posizione lavorativa</Modal.Title>
+                          <Modal.Title>
+                            Aggiungi posizione lavorativa
+                          </Modal.Title>
                         </Modal.Header>
                         <Form onSubmit={handleSubmit}>
                           <Modal.Body>
@@ -451,7 +620,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Retail Sales Manager"
                                 value={newExp.role}
-                                onChange={(e) => handleFieldChange("role", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("role", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -461,7 +632,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Microsoft"
                                 value={newExp.company}
-                                onChange={(e) => handleFieldChange("company", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("company", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -471,7 +644,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Milano, Italia"
                                 value={newExp.area}
-                                onChange={(e) => handleFieldChange("area", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("area", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -480,7 +655,9 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.startDate)}
-                                onChange={(e) => handleFieldChange("startDate", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("startDate", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -489,7 +666,9 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.endDate)}
-                                onChange={(e) => handleFieldChange("endDate", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("endDate", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -499,13 +678,31 @@ const MyProfile = () => {
                                 as="textarea"
                                 rows={4}
                                 value={newExp.description}
-                                onChange={(e) => handleFieldChange("description", e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange(
+                                    "description",
+                                    e.target.value
+                                  )
+                                }
                                 required
+                              />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                              <Form.Label>Aggiungi un&apos;immagine</Form.Label>
+                              <Form.Control
+                                type="file"
+                                accept="jpg, jpeg, png"
+                                onChange={handleImageChange}
                               />
                             </Form.Group>
                           </Modal.Body>
                           <Modal.Footer>
-                            <Button variant={operation === "edit" ? "success" : "primary"} type="submit">
+                            <Button
+                              variant={
+                                operation === "edit" ? "success" : "primary"
+                              }
+                              type="submit"
+                            >
                               {operation === "edit" ? "Modifica" : "Salva"}
                             </Button>
                           </Modal.Footer>
@@ -531,20 +728,25 @@ const MyProfile = () => {
                         <div key={experience._id} className="px-3 my-2 ">
                           <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex ">
-                              <img
-                                width="48"
-                                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                loading="lazy"
-                                height="48"
-                                alt="Logo di EPICODE"
-                                id="ember1798"
-                                className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
-                              />
+                              <div style={{ width: "50px", height: "50px" }}>
+                                <img
+                                  src={experience.image || defaultImage}
+                                  alt="Logo di EPICODE"
+                                  id="ember1798"
+                                  className="w-100 h-100"
+                                />
+                              </div>
                               <div className="ms-2">
-                                <p className="my-0 fw-bold"> {experience.role}</p>
+                                <p className="my-0 fw-bold">
+                                  {" "}
+                                  {experience.role}
+                                </p>
                                 <p className="my-0 ">{experience.company}</p>
                                 <p className="my-0 mb-1 text-secondary">
-                                  <span>{formatDate(experience.startDate)}</span> /{" "}
+                                  <span>
+                                    {formatDate(experience.startDate)}
+                                  </span>{" "}
+                                  /{" "}
                                   <span>{formatDate(experience.endDate)}</span>
                                   {/* {formatDate(experience.startDate)} / 
                                    {formatDate(experience.endDate)} */}
@@ -553,13 +755,18 @@ const MyProfile = () => {
                             </div>
                             {isDelete && (
                               <div>
-                                <Button variant="danger" onClick={() => handleDelete(experience._id)}>
+                                <Button
+                                  variant="danger"
+                                  onClick={() => handleDelete(experience._id)}
+                                >
                                   <i className="bi bi-trash3-fill"></i>
                                 </Button>
                                 <Button
                                   variant="success"
                                   className="ms-2"
-                                  onClick={() => handleShowModal("edit", experience)}
+                                  onClick={() =>
+                                    handleShowModal("edit", experience)
+                                  }
                                 >
                                   <i className="bi bi-pen"></i>
                                 </Button>
@@ -603,7 +810,10 @@ const MyProfile = () => {
                     </svg>
                   </div>
 
-                  <div className="px-3">qui dentro ci va la bio utente che prenderemo da data.bio</div>
+                  <div className="px-3">
+                    {" "}
+                    👋 Ciao! Sono Francesco Cristiano, 26 anni da Napoli.{" "}
+                  </div>
                 </Card.Body>
               </Card>
 
@@ -616,22 +826,42 @@ const MyProfile = () => {
                       <Card.Title>Attività</Card.Title>
                       <p className="text-primary">17 follower</p>
                       <div>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Post</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Commenti</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Immagini</span>
                         </Button>
                       </div>
                     </div>
 
                     <div>
-                      <Button className="border mb-3 border-primary p-0 px-3  rounded-pill" variant="ligth">
+                      <Button
+                        className="border mb-3 border-primary p-0 px-3  rounded-pill"
+                        variant="ligth"
+                        onClick={() => handleCreatePost()}
+                      >
                         <span className="mx-1 text-primary">Crea un post</span>
                       </Button>
+
+                      <MyModalCreatePost
+                        personalPost={personalPost}
+                        editMode={editMode}
+                        postId={postId}
+                      />
+
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="23"
@@ -639,69 +869,60 @@ const MyProfile = () => {
                         fill="currentColor"
                         className="bi bi-eyedropper mx-3 mb-4"
                         viewBox="0 0 16 16"
+                        onClick={() => setPenOfPosts(!penOfPosts)}
                       >
                         <path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708zM2 12.707l7-7L10.293 7l-7 7H2z" />
                       </svg>
                     </div>
                   </div>
-
-                  <div className="px-3">
-                    <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
-                      <img
-                        className="rounded"
-                        src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
-                        alt=""
-                      />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
-                    </div>
-                    <img
-                      className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
-                      src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
-                      alt="like"
-                      data-test-reactions-icon-type="LIKE"
-                      data-test-reactions-icon-theme="light"
-                    />
-                    <span className="text-muted ms-1">5</span>
-                  </div>
-                  <div className="px-3">
-                    <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
-                      <img
-                        className="rounded"
-                        src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
-                        alt=""
-                      />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
-                    </div>
-                    <img
-                      className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
-                      src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
-                      alt="like"
-                      data-test-reactions-icon-type="LIKE"
-                      data-test-reactions-icon-theme="light"
-                    />
-                    <span className="text-muted ms-1">5</span>
-                  </div>
-                  <div className="px-3">
-                    <div>
-                      <p>{myProfile.name} ha pubblicato questo post &middot; 3s</p>
-                      <img
-                        className="rounded"
-                        src="https://www.solonotizie24.it/wp-content/uploads/2021/02/gerry-scotti-2-solonotizie24-150x92.jpg"
-                        alt=""
-                      />
-                      <span className="mx-3">qui dentro ci va le descrizione del post</span>
-                    </div>
-                    <img
-                      className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
-                      src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
-                      alt="like"
-                      data-test-reactions-icon-type="LIKE"
-                      data-test-reactions-icon-theme="light"
-                    />
-                    <span className="text-muted ms-1">5</span>
-                  </div>
+                  {postPersonal &&
+                    postPersonalFilter.map((post) => {
+                      return (
+                        <div key={post._id} className="px-3">
+                          <p>
+                            {post.username} ha pubblicato questo post &middot;
+                            3s
+                          </p>
+                          <div className="d-flex align-items-center justify-content-between">
+                            <div className="d-flex align-items-center">
+                              <div style={{ width: "70px", height: "70px" }}>
+                                <img
+                                  src={post.image || defaultImage}
+                                  alt=""
+                                  className="w-100 h-100"
+                                />
+                              </div>
+                              <span className="mx-3">{post.text}</span>
+                            </div>
+                            {penOfPosts && (
+                              <div>
+                                <Button
+                                  variant="danger"
+                                  onClick={() => handlePostDelete(post._id)}
+                                >
+                                  <i className="bi bi-trash3-fill"></i>
+                                </Button>
+                                <Button
+                                  variant="success"
+                                  className="ms-2"
+                                  onClick={() => handlePutPost(post._id)}
+                                >
+                                  <i className="bi bi-pen"></i>
+                                </Button>
+                              </div>
+                            )}
+                          </div>
+                          <img
+                            className="reactions-icon social-detail-social-counts__count-icon social-detail-social-counts__count-icon--0 reactions-icon__consumption--small data-test-reactions-icon-type-LIKE data-test-reactions-icon-theme-light"
+                            src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
+                            alt="like"
+                            data-test-reactions-icon-type="LIKE"
+                            data-test-reactions-icon-theme="light"
+                          />
+                          <span className="text-muted ms-1">5</span>
+                        </div>
+                      );
+                    })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
               </Card>
@@ -750,7 +971,9 @@ const MyProfile = () => {
                       </div>
                       <div>
                         <p className="my-0">EPICODE</p>
-                        <p className="text-secondary mt-0">feb 2024 - ago 2024</p>
+                        <p className="text-secondary mt-0">
+                          feb 2024 - ago 2024
+                        </p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -853,7 +1076,11 @@ const MyProfile = () => {
                   <Nav defaultActiveKey="#first">
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={
+                          isClicked
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick}
                         href="#aziende"
                       >
@@ -862,7 +1089,11 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked2 ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={
+                          isClicked2
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick2}
                         href="#gruppi"
                       >
@@ -871,7 +1102,11 @@ const MyProfile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        className={isClicked3 ? "text-success border-bottom border-success" : "text-secondary"}
+                        className={
+                          isClicked3
+                            ? "text-success border-bottom border-success"
+                            : "text-secondary"
+                        }
                         onClick={handleClick3}
                         href="#Scuole"
                       >
@@ -893,8 +1128,13 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">15.000 follower </div>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                      <div className="my-0 text-secondary">
+                        15.000 follower{" "}
+                      </div>
+                      <Button
+                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                        variant="ligth"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -921,8 +1161,13 @@ const MyProfile = () => {
                     />
                     <div>
                       <div className="my-0 fw-bold">Epicode</div>
-                      <div className="my-0 text-secondary">15.000 follower </div>
-                      <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                      <div className="my-0 text-secondary">
+                        15.000 follower{" "}
+                      </div>
+                      <Button
+                        className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                        variant="ligth"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -986,13 +1231,22 @@ const MyProfile = () => {
               {/* INIZIO CARD PROFILI SIMILI */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Altri profili simili</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Altri profili simili
+                  </Card.Subtitle>
                   {profili &&
                     profili.slice(0, 5).map((profilo) => {
                       return (
-                        <div key={profilo._id} className="d-flex mt-2 border-bottom">
+                        <div
+                          key={profilo._id}
+                          className="d-flex mt-2 border-bottom"
+                        >
                           <div
-                            style={{ maxWidth: "70px", maxHeight: "70px", aspectRatio: "1/1" }}
+                            style={{
+                              maxWidth: "70px",
+                              maxHeight: "70px",
+                              aspectRatio: "1/1",
+                            }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
                             <img
@@ -1012,7 +1266,10 @@ const MyProfile = () => {
                                 {profilo.name} {profilo.surname}
                               </p>
                               <p className="my-0">{profilo.title} </p>
-                              <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                              <Button
+                                className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                                variant="ligth"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="16"
@@ -1037,14 +1294,23 @@ const MyProfile = () => {
               {/* INIZIO PERSONE CHE POTRESTI CONOSCERE */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Persone che potresti conoscere</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Persone che potresti conoscere
+                  </Card.Subtitle>
                   <span className="text-muted">Del tuo settore</span>
                   {profili &&
                     profili.slice(6, 10).map((profilo) => {
                       return (
-                        <div key={profilo._id} className="d-flex mt-2 border-bottom">
+                        <div
+                          key={profilo._id}
+                          className="d-flex mt-2 border-bottom"
+                        >
                           <div
-                            style={{ maxWidth: "70px", maxHeight: "70px", aspectRatio: "1/1" }}
+                            style={{
+                              maxWidth: "70px",
+                              maxHeight: "70px",
+                              aspectRatio: "1/1",
+                            }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
                             <img
@@ -1062,7 +1328,10 @@ const MyProfile = () => {
                             <div>
                               <p className="my-0">{profilo.name}</p>
                               <p className="my-0">{profilo.title} </p>
-                              <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                              <Button
+                                className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                                variant="ligth"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="16"
@@ -1095,7 +1364,7 @@ const MyProfile = () => {
             {/* FINE SECONDA COLONNA */}
           </Row>
           <MyFooter />
-        </div>
+        </Container>
       </>
     )
   );
