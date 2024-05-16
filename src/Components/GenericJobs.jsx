@@ -1,6 +1,41 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
 const GenericJobs = () => {
+  const myKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE";
+
+  const URL = "https://strive-benchmark.herokuapp.com/api/jobs";
+  //   const shuffleArray = (array) => {
+  //     return array.sort(() => Math.random() - 0.5);
+  //   };
+  const companyFetch = async () => {
+    try {
+      const response = await fetch(URL, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${myKey}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+
+        // console.log(data);
+        // const shuffle = shuffleArray(data);
+        // console.log(shuffle);
+        setCompany(data);
+      } else {
+        alert("Errore nella fetch");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const [company, setCompany] = useState(null);
+  useEffect(() => {
+    companyFetch();
+  }, []);
+  console.log(company);
   return (
     <>
       <Container style={{ paddingTop: "65px" }}>
@@ -9,7 +44,7 @@ const GenericJobs = () => {
           <Col xs={12} className="p-0 first-column ">
             <Card style={{ marginTop: "6%" }} className=" contBody">
               <Card.Body>
-                <div className="d-flex">
+                <div className="d-flex my-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="23"
@@ -24,7 +59,7 @@ const GenericJobs = () => {
                     Le mie offerte di lavoro
                   </p>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex my-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="23"
@@ -39,7 +74,7 @@ const GenericJobs = () => {
                     Preferenze
                   </p>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex my-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="23"
@@ -56,7 +91,7 @@ const GenericJobs = () => {
                     Valutazioni delle competenze
                   </p>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex my-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="23"
@@ -73,6 +108,21 @@ const GenericJobs = () => {
                 </div>
               </Card.Body>
             </Card>
+            <Button className=" d-flex p-2 my-3 rounded-pill border border-primary" variant="">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="23"
+                height="23"
+                fill="currentColor"
+                className="bi bi-pencil-square m-2 text-primary "
+                viewBox="0 0 16 16"
+              >
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+              <p className="text-primary px-3 m-0">Pubblica offerta gratuita</p>
+            </Button>
+            <div></div>
           </Col>
           <Col xs={12} className="p-0 second-column mt-md-0 mt-4 ">
             <Card style={{ marginTop: "6%" }} className=" contBody">
@@ -82,65 +132,73 @@ const GenericJobs = () => {
                     <Card.Title>Trova il tuo prossimo ruolo</Card.Title>
                     <p>Sulla base del tuo profilo e della tua cronologia delle ricerche</p>
                   </div>
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="27"
-                      height="27"
-                      fill="currentColor"
-                      className="bi bi-plus-lg me-3"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="23"
-                      height="23"
-                      fill="currentColor"
-                      className="bi bi-eyedropper"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708zM2 12.707l7-7L10.293 7l-7 7H2z" />
-                    </svg>
-                  </div>
                 </div>
-
-                <div className="px-3">
-                  <div className="d-flex">
-                    <div>
-                      <img
-                        width="48"
-                        src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
-                        loading="lazy"
-                        height="48"
-                        alt="Logo di EPICODE"
-                        id="ember1798"
-                        className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
-                      />
-                    </div>
-                    <div>
-                      <p className="my-0">EPICODE</p>
-                      <p className="text-secondary mt-0">feb 2024 - ago 2024</p>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        className="bi bi-gem mx-1"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6zm11.386 3.785-1.806-2.41-.776 2.413zm-3.633.004.961-2.989H4.186l.963 2.995zM5.47 5.495 8 13.366l2.532-7.876zm-1.371-.999-.78-2.422-1.818 2.425zM1.499 5.5l5.113 6.817-2.192-6.82zm7.889 6.817 5.123-6.83-2.928.002z" />
-                      </svg>
-                      <span>HTML, CSS + 5 competenze</span>
-                    </div>
-                  </div>
-                </div>
+                {company &&
+                  company.data.slice(0, 8).map((compagnie) => {
+                    return (
+                      <div key={compagnie._id} className="px-3 border-bottom">
+                        <div className="d-flex">
+                          <div>
+                            <img
+                              width="48"
+                              src="https://media.licdn.com/dms/image/C4E0BAQHYgix-Ynux1A/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1723680000&amp;v=beta&amp;t=zg1tmhGtXpbPBAmTL_24SZvTaU27NltAj4R2tzePhg4"
+                              loading="lazy"
+                              height="48"
+                              alt="Logo di EPICODE"
+                              id="ember1798"
+                              className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
+                            />
+                          </div>
+                          <div>
+                            <p className="my-0 text-primary">{compagnie.title} </p>
+                            <p className="my-0">{compagnie.company_name}</p>
+                            <p className="my-0 text-secondary">{compagnie.candidate_required_location}</p>
+                            <p className="text-secondary mt-0">
+                              Solitamente le candidature vengono esaminate entro 3 giorni
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
               </Card.Body>
             </Card>
-            ;
           </Col>
-          <Col xs={12} className="p-0 third-column d-none d-lg-block" style={{ width: "300px" }}></Col>
+          <Col xs={12} className="p-0 third-column d-none d-lg-block" style={{ width: "300px" }}>
+            <div className="d-flex flex-wrap text-secondary justify-content-center column-gap-4 mt-3">
+              <small>
+                <p className="my-0">Informazioni</p>
+              </small>
+              <small>
+                <p>Accessibilità</p>
+              </small>
+              <small>
+                <p>Centro assistenza</p>
+              </small>
+              <small>
+                <p>Privacy e condizioni</p>
+              </small>
+              <small>
+                <p>Opzioni per gli annunci pubblicitari</p>
+              </small>
+              <small>
+                <p>Pubblicità</p>
+              </small>
+              <small>
+                <p>Servizi alle aziende</p>
+              </small>
+              <small>
+                <p>Scarica l&apos;app LinkedIn</p>
+              </small>
+              <small>
+                <p>Altro</p>
+              </small>
+              <div>
+                <img src="https://static.licdn.com/aero-v1/sc/h/aahlc8ivbnmk0t3eyz8as5gvr" alt="" />
+                <small className="text-center text-dark "> Corporation &copy; 2024</small>
+              </div>
+            </div>
+          </Col>
         </Row>
       </Container>
     </>

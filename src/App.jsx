@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyProfile from "./components/MyProfile";
 import MyHome from "./components/MyHome";
 import GenericJobs from "./components/GenericJobs";
+import SearchJobs from "./components/SearchJobs";
 function App() {
   return (
     <div className="App">
@@ -14,6 +15,7 @@ function App() {
         <MyNavbar />
         <MyComponent />
         <Routes>
+          <Route path="/SearchJobs" element={<SearchJobs />} />
           <Route path="/GenericJobs" element={<GenericJobs />} />
           <Route path="/" element={<MyHome />} />
           <Route path="/profile_my" element={<MyProfile />} />
