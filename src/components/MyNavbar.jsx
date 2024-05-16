@@ -1,55 +1,43 @@
-import {
-  Container,
-  Nav,
-  NavDropdown,
-  Navbar,
-  Form,
-  Button,
-  Col,
-  Badge,
-} from "react-bootstrap";
-import logo from "../assets/linkedIn-logo.png";
-import { FaSearch } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import premium from "../assets/linkedin-premium.png";
-import MyOffcanvas from "./NavbarOffcanvas";
-import { getMyProfile } from "../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { Container, Nav, NavDropdown, Navbar, Form, Button, Col, Badge } from 'react-bootstrap'
+import logo from '../assets/linkedIn-logo.png'
+import { FaSearch } from 'react-icons/fa'
+import { Link, useNavigate } from 'react-router-dom'
+import premium from '../assets/linkedin-premium.png'
+import MyOffcanvas from './NavbarOffcanvas'
+import { getMyProfile } from '../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 
 const MyNavbar = () => {
   // const [isOverlay, setIsOverlay] = useState(false);
-  const myProfile = useSelector((state) => state.myProfile.content);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [showToolbar, setShowToolbar] = useState(false);
+  const myProfile = useSelector((state) => state.myProfile.content)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [showToolbar, setShowToolbar] = useState(false)
 
   useEffect(() => {
-    dispatch(getMyProfile());
+    dispatch(getMyProfile())
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
+      const scrollPosition = window.scrollY
       // Imposta la visibilità della toolbar in base alla posizione dello scroll
-      setShowToolbar(scrollPosition > 500); // Cambia 100 con l'altezza desiderata
-    };
+      setShowToolbar(scrollPosition > 500) // Cambia 100 con l'altezza desiderata
+    }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+      window.removeEventListener('scroll', handleScroll)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <>
       {myProfile && (
-        <Container
-          fluid
-          className="header z-3 p-0 position-fixed w-100 mb-1 top-0"
-        >
-          <section className={`toolbar ${showToolbar ? "show-toolbar" : ""}`}>
+        <Container fluid className="header z-3 p-0 position-fixed w-100 mb-1 top-0">
+          <section className={`toolbar d-none d-md-block ${showToolbar ? 'show-toolbar' : ''}`}>
             <Container className="navbar-container mt-1">
               <div className="d-flex align-items-center justify-content-between">
                 <div className="d-flex align-items-center gap-3">
@@ -73,16 +61,10 @@ const MyNavbar = () => {
                 </div>
 
                 <div className="d-flex align-items-center gap-3">
-                  <Button
-                    variant="outline-dark"
-                    className="rounded rounded-pill"
-                  >
+                  <Button variant="outline-dark" className="rounded rounded-pill">
                     Altro
                   </Button>
-                  <Button
-                    variant="outline-primary"
-                    className="rounded rounded-pill"
-                  >
+                  <Button variant="outline-primary" className="rounded rounded-pill">
                     Aggiungi sezione al profilo
                   </Button>
                   <Button variant="primary" className="rounded rounded-pill">
@@ -107,31 +89,31 @@ const MyNavbar = () => {
               ></div>
             )} */}
 
-            <Container className="navbar-container d-flex gap-5">
+            <Container className="navbar-container d-flex gap-2">
               <div className="d-flex">
                 <Navbar.Brand href="#home" className="p-0">
                   <img src={logo} alt="logo" width={34} height={34} />
                 </Navbar.Brand>
-                <Form className="position-relative w-100">
-                  <Form.Control
-                    type="search"
-                    placeholder="Cerca"
-                    className="px-5 rounded rounded-2 border border-0 custom-placeholder w-100 "
-                    aria-label="Search"
-                    // onFocus={() => setIsOverlay(true)}
-                    // onBlur={() => setIsOverlay(false)}
-                  />
-                  <FaSearch className="position-absolute top-50 translate-middle-y ms-3" />
-                </Form>
               </div>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav
-                  className="d-flex flex-column w-100 justify-content-start flex-md-row justify-content-md-between align-items-start"
+                  className="d-flex flex-column w-100 justify-content-start flex-md-row justify-content-md-between align-items-start align-items-md-center"
                   id="navMain"
                 >
+                  <Form className="position-relative me-auto mb-2 mb-md-0">
+                    <Form.Control
+                      type="search"
+                      placeholder="Cerca"
+                      className="px-5 rounded rounded-2 border border-0 custom-placeholder w-100 "
+                      aria-label="Search"
+                      // onFocus={() => setIsOverlay(true)}
+                      // onBlur={() => setIsOverlay(false)}
+                    />
+                    <FaSearch className="position-absolute top-50 translate-middle-y ms-3" />
+                  </Form>
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
                   >
                     <div className="position-relative">
@@ -148,18 +130,18 @@ const MyNavbar = () => {
                       <Badge
                         bg="danger"
                         className="position-absolute top-0 start-100 translate-middle rounded-circle mt-1"
-                        style={{ fontSize: "10px" }}
+                        style={{ fontSize: '10px' }}
                       >
                         1
                       </Badge>
                     </div>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Home
                     </p>
                   </Link>
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0 "
                   >
                     <div className="position-relative">
@@ -176,18 +158,18 @@ const MyNavbar = () => {
                       <Badge
                         bg="danger"
                         className="position-absolute top-0 start-100 translate-middle rounded-circle mt-1"
-                        style={{ fontSize: "10px" }}
+                        style={{ fontSize: '10px' }}
                       >
                         2
                       </Badge>
                     </div>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Rete
                     </p>
                   </Link>
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
                   >
                     <svg
@@ -202,12 +184,12 @@ const MyNavbar = () => {
                       <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z" />
                     </svg>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Lavoro
                     </p>
                   </Link>
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
                   >
                     <svg
@@ -222,12 +204,12 @@ const MyNavbar = () => {
                       <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
                     </svg>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Messaggistica
                     </p>
                   </Link>
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
                   >
                     <div className="position-relative">
@@ -244,13 +226,13 @@ const MyNavbar = () => {
                       <Badge
                         bg="danger"
                         className="position-absolute top-0 start-100 translate-middle rounded-circle mt-1"
-                        style={{ fontSize: "10px" }}
+                        style={{ fontSize: '10px' }}
                       >
                         20
                       </Badge>
                     </div>
 
-                    <p className="mb-0" style={{ fontSize: "12px" }}>
+                    <p className="mb-0" style={{ fontSize: '12px' }}>
                       Notifiche
                     </p>
                   </Link>
@@ -259,30 +241,13 @@ const MyNavbar = () => {
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0 
                border border-bottom-0 border-top-0 border-start-0"
                   >
-                    <img
-                      src={logo}
-                      alt="logo"
-                      className="rounded-circle"
-                      width={25}
-                      height={25}
-                    />
+                    <img src={logo} alt="logo" className="rounded-circle" width={25} height={25} />
 
-                    <NavDropdown
-                      title="Tu"
-                      id="basic-nav-dropdown"
-                      align={"end"}
-                      className="m-0"
-                    >
-                      <NavDropdown.Item onClick={() => navigate("/profile_my")}>
+                    <NavDropdown title="Tu" id="basic-nav-dropdown" align={'end'} className="m-0">
+                      <NavDropdown.Item onClick={() => navigate('/profile_my')}>
                         <div className="d-flex gap-2">
                           <Col>
-                            <img
-                              src={myProfile.image}
-                              alt="  logo"
-                              width={40}
-                              height={40}
-                              className="rounded-circle"
-                            />
+                            <img src={myProfile.image} alt="  logo" width={40} height={40} className="rounded-circle" />
                           </Col>
                           <Col>
                             <div>
@@ -292,16 +257,16 @@ const MyNavbar = () => {
                               <p
                                 className="mb-0"
                                 style={{
-                                  color: "gray",
-                                  fontSize: "12px",
-                                  maxWidth: "200px",
+                                  color: 'gray',
+                                  fontSize: '12px',
+                                  maxWidth: '200px',
                                   //   textOverflow: "ellipsis",
                                   //   overflow: "hidden",
-                                  whiteSpace: "initial",
+                                  whiteSpace: 'initial',
                                 }}
                               >
-                                Junior Full-Stack Developer 💻 I Web Marketing
-                                🚀 I Local Marketing 🗣 I Business Management 📈
+                                Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business
+                                Management 📈
                               </p>
                             </div>
                           </Col>
@@ -309,7 +274,7 @@ const MyNavbar = () => {
                         <Button
                           variant="outline-primary"
                           className="w-100 mt-3 rounded rounded-5"
-                          onClick={() => navigate("/profile_my")}
+                          onClick={() => navigate('/profile_my')}
                         >
                           Visualizza profilo
                         </Button>
@@ -319,51 +284,37 @@ const MyNavbar = () => {
                       <NavDropdown.Item href="#action/3.4">
                         <div className="d-flex align-items-center">
                           <img src={premium} alt="" width={15} height={15} />
-                          <p
-                            className="mb-0 ms-2 fw-semibold"
-                            style={{ color: "gray", fontSize: "16px" }}
-                          >
+                          <p className="mb-0 ms-2 fw-semibold" style={{ color: 'gray', fontSize: '16px' }}>
                             Passa a Premium con 0 EUR
                           </p>
                         </div>
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.4">
-                        Impostazioni e privacy{" "}
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.4">
-                        Guida{" "}
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.4">
-                        Lingua{" "}
-                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Impostazioni e privacy </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Guida </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Lingua </NavDropdown.Item>
                       <NavDropdown.Divider />
                       <h5 className="ms-3">Gestisci</h5>
-                      <NavDropdown.Item href="#action/3.4">
-                        Post e attività{" "}
-                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Post e attività </NavDropdown.Item>
                       <NavDropdown.Item
                         href="#action/3.4"
                         style={{
-                          maxWidth: "250px",
-                          wordBreak: "break-word",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
+                          maxWidth: '250px',
+                          wordBreak: 'break-word',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
                         }}
                       >
-                        Account per la pubblicazione di contenuti ufficiali per
-                        la tua sezione profilo{" "}
+                        Account per la pubblicazione di contenuti ufficiali per la tua sezione profilo{' '}
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item href="#action/3.4">
-                        Esci{" "}
-                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.4">Esci </NavDropdown.Item>
                     </NavDropdown>
                   </div>
                   <MyOffcanvas />
                   <Link
-                    to={"/"}
+                    to={'/'}
                     className="nav-link d-flex flex-column align-items-center premiumLink"
-                    style={{ fontSize: "12px" }}
+                    style={{ fontSize: '12px' }}
                   >
                     <p className="mb-0">Passa a Premium</p>
                     <span>gratis</span>
@@ -375,7 +326,7 @@ const MyNavbar = () => {
         </Container>
       )}
     </>
-  );
-};
+  )
+}
 
-export default MyNavbar;
+export default MyNavbar
