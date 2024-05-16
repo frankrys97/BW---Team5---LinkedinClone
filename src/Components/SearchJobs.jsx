@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Nav, Row, Tab } from 'react-bootstrap'
 import LoadingSearch from './LoadingSearch'
 import { useDispatch, useSelector } from 'react-redux'
-import { addSavedJob, removeSavedJob, selectJob } from '../redux/actions'
+import { addSavedJob, removeSavedJob } from '../redux/actions'
 
 const SearchJobs = () => {
   const selectedJob = useSelector((state) => state.job.selectedJob)
