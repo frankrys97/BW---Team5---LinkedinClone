@@ -14,14 +14,24 @@ import { NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import '../style/myHome.css'
 import { useSelector } from 'react-redux'
+import { Modal } from 'react-bootstrap'
+import '../style/modalInvioButton.css'
 import LoadingPost from './LoadingPost'
-
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
   const [consigliaClicked, setConsigliaClicked] = useState({})
   const [open, setOpen] = useState(false)
   const [posts, setPosts] = useState([])
+  const [showCommentInputs, setShowCommentInputs] = useState({})
+  const [showModal, setShowModal] = useState(false)
 
+  const [spreadCardId, setSpreadCardId] = useState(null)
+  const handleSendClick = () => {
+    setShowModal(true)
+  }
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
   const handleConsigliaClick = (postId) => {
     setConsigliaClicked((prevState) => ({
       ...prevState,
@@ -30,6 +40,25 @@ const MyHome = () => {
   }
   const focusCommentInput = (inputId) => {
     document.getElementById(inputId).focus()
+  }
+  const handleCommentButtonClick = (postId) => {
+    const updatedShowCommentInputs = { ...showCommentInputs }
+
+    updatedShowCommentInputs[postId] = true
+
+    setShowCommentInputs(updatedShowCommentInputs)
+
+    focusCommentInput(`commentInput-${postId}`)
+  }
+  const showSpreadOptionsForCard = (postId) => {
+    return spreadCardId === postId
+  }
+  const handleSpreadButtonClick = (postId) => {
+    if (spreadCardId === postId) {
+      setSpreadCardId(null)
+    } else {
+      setSpreadCardId(postId)
+    }
   }
 
   const myKey =
@@ -45,7 +74,7 @@ const MyHome = () => {
       })
       if (response.ok) {
         const data = await response.json()
-        const result = data.slice(4, 14)
+        const result = data.reverse().slice(0, 20)
         setPosts(result)
       } else {
         alert('Errore nella fetch')
@@ -85,7 +114,7 @@ const MyHome = () => {
           <Col xs={12} className="p-0 first-column ">
             <ListGroup className="mb-1">
               <ListGroup.Item className="text-center">
-                <div className="rounded-top position-absolute end-0 start-0 top-0 overflow-hidden imgContainer">
+                <div className="rounded-top position-absolute start-0 top-0 overflow-hidden imgContainer">
                   <Image
                     src="https://media.licdn.com/dms/image/D4D16AQGdLXRnSjl7bQ/profile-displaybackgroundimage-shrink_350_1400/0/1713442065268?e=1721260800&v=beta&t=t-XxVkrYJWOMbzSDmeCUsoY-SVin550O1VB7x7tBfqk"
                     className="imgBackground"
@@ -263,8 +292,8 @@ const MyHome = () => {
                       <ListGroupItem>
                         <ButtonGroup className="d-flex justify-content-between">
                           <Button
-                            variant={isConsigliaClicked ? 'primary' : 'outline-light'}
-                            className={`border-0 text-${isConsigliaClicked ? 'light' : 'dark'}`}
+                            variant="outline-light"
+                            className={`border-0 text-${isConsigliaClicked ? 'primary' : 'dark'}`}
                             onClick={() => handleConsigliaClick(post._id)}
                           >
                             <i className={`bi bi-hand-thumbs-up${isConsigliaClicked ? '-fill' : ''}`}></i> Consiglia
@@ -272,52 +301,105 @@ const MyHome = () => {
                           <Button
                             variant="outline-light"
                             className="border-0 text-dark"
-                            onClick={() => focusCommentInput(`commentInput-${post._id}`)}
+                            onClick={() => handleCommentButtonClick(post._id)}
                           >
                             <i className="bi bi-chat-dots"></i> Commenta
                           </Button>
-                          <Button variant="outline-light" className="border-0 text-dark">
-                            <i className="bi bi-repeat"></i> Diffondi il post
+                          <Button
+                            variant="outline-light"
+                            className="border-0 text-dark"
+                            onClick={() => handleSpreadButtonClick(post._id)}
+                            style={{ position: 'relative' }}
+                          >
+                            <i className="bi bi-repeat" style={{ position: 'relative', marginRight: '5px' }}></i>{' '}
+                            Diffondi il post
                           </Button>
-                          <Button variant="outline-light" className="border-0 text-dark">
+                          <Button variant="outline-light" className="border-0 text-dark" onClick={handleSendClick}>
                             <i className="bi bi-send-fill "></i> Invia
                           </Button>
+                          <Modal
+                            show={showModal}
+                            onHide={handleCloseModal}
+                            size="lg"
+                            backdropClassName="custom-backdrop"
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title>Invia il post</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body style={{ height: '40rem' }}>
+                              <input type="text" placeholder="Cerca un amico qui..." style={{ width: '100%' }} />
+                            </Modal.Body>
+                          </Modal>
                         </ButtonGroup>
-                        <div className="mt-2" style={{ display: 'flex', alignItems: 'center' }}>
-                          <Image
-                            src={myProfile.image}
-                            className="rounded-circle z-3 border border-white"
-                            alt="profile-img"
-                            style={{ width: 48, height: 48, marginRight: '10px' }}
-                          />
-                          <div style={{ position: 'relative', width: '100%' }}>
-                            <input
-                              id={`commentInput-${post._id}`}
-                              type="text"
-                              className=""
-                              placeholder="Aggiungi un commento..."
-                              style={{
-                                width: '100%',
-                                padding: '4px',
-                                border: '1px solid #f0f0f0',
-                                borderRadius: '20px',
-                              }}
+                        {showCommentInputs[post._id] && (
+                          <div className="mt-2" style={{ display: 'flex', alignItems: 'center' }}>
+                            <Image
+                              src={myProfile.image}
+                              className="rounded-circle z-3 border border-white"
+                              alt="profile-img"
+                              style={{ width: 48, height: 48, marginRight: '10px' }}
                             />
-                            <div
-                              style={{
-                                position: 'absolute',
-                                right: '10px',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                display: 'flex',
-                                alignItems: 'center',
-                              }}
-                            >
-                              <i className="bi bi-emoji-smile" style={{ marginRight: '7px', fontSize: '20px' }}></i>
-                              <i className="bi bi-card-image" style={{ marginRight: '7px', fontSize: '20px' }}></i>
+                            <div style={{ position: 'relative', width: '100%' }}>
+                              <input
+                                id={`commentInput-${post._id}`}
+                                type="text"
+                                className=""
+                                placeholder="Aggiungi un commento..."
+                                style={{
+                                  width: '100%',
+                                  padding: '4px',
+                                  border: '1px solid #f0f0f0',
+                                  borderRadius: '20px',
+                                }}
+                              />
+                              <div
+                                style={{
+                                  position: 'absolute',
+                                  right: '10px',
+                                  top: '50%',
+                                  transform: 'translateY(-50%)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                }}
+                              >
+                                <i className="bi bi-emoji-smile" style={{ marginRight: '7px', fontSize: '20px' }}></i>
+                                <i className="bi bi-card-image" style={{ marginRight: '7px', fontSize: '20px' }}></i>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        )}
+
+                        {showSpreadOptionsForCard(post._id) && (
+                          <div
+                            style={{
+                              width: '60%',
+                              position: 'absolute',
+                              top: 'calc(100% - 15px)',
+                              left: '50%',
+                              transform: 'translateX(-50%)',
+                              zIndex: '1',
+                              padding: '5px',
+                              borderRadius: '15px',
+                              border: '1px solid #ccc',
+                              background: '#fff',
+                            }}
+                          >
+                            <div>
+                              <h6>
+                                <i className="bi bi-pencil-square" style={{ marginRight: '5px' }}></i>
+                                Diffondi il post con le tue idee
+                              </h6>
+                              <span style={{ fontSize: '14px', color: '#777' }}>Crea un nuovo posto come allegato</span>
+                            </div>
+                            <div>
+                              <h6>
+                                <i className="bi bi-repeat" style={{ marginRight: '5px' }}></i>
+                                Diffondi il Post
+                              </h6>
+                              <span style={{ fontSize: '14px', color: '#777' }}>Pubblica al istante questo post</span>
+                            </div>
+                          </div>
+                        )}
                       </ListGroupItem>
                     </ListGroup>
                   )
