@@ -7,7 +7,7 @@ import { IoCalendarOutline } from "react-icons/io5";
 import { BiParty } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // eslint-disable-next-line react/prop-types
 const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
@@ -15,6 +15,17 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
   const showModalCreatePost = useSelector(
     (state) => state.ModalCreatePost.showModalCreatePost
   );
+
+  const [uploadedFile, setUploadedFile] = useState(null);
+
+  const fileInputRef = useRef(null);
+  const handleUploadedFileChange = (event) => {
+    setUploadedFile(event.target.files[0]);
+  };
+  const handleInputClick = (e) => {
+    e.preventDefault();
+    fileInputRef.current.click();
+  };
 
   const dispatch = useDispatch();
 
@@ -24,13 +35,13 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
 
   const [post, setPost] = useState({
     text: "",
-    image: null,
   });
 
   useEffect(() => {
     if (editMode) {
       fetchPostDetails(postId);
     }
+    personalPost();
   }, [editMode, postId]);
 
   const fetchPostDetails = (postId) => {
@@ -53,7 +64,6 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
       .then((data) => {
         setPost({
           text: data.text,
-          image: data.image,
         });
       })
       .catch((error) => {
@@ -92,6 +102,32 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
         }
       })
       .then((data) => {
+        const postId = data._id;
+        const formData = new FormData();
+        formData.append("post", uploadedFile);
+
+        fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${myKey}`,
+          },
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Something went wrong");
+            }
+          })
+          .then((data) => {
+            console.log("image uploaded", data);
+            personalPost();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
         console.log("data", data);
         handleClose();
         personalPost();
@@ -144,16 +180,23 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
               value={post.text}
             />
           </Form.Group>
-          <CiFaceSmile />
+          <CiFaceSmile className="fs-5" />
           <div className="d-flex justify-content-start align-items-center gap-2 mt-2">
-            <AiOutlinePicture />
-            <IoCalendarOutline />
-            <BiParty />
-            <FaPlus />
+            <AiOutlinePicture onClick={handleInputClick} className="fs-5" />
+            <input
+              type="file"
+              onChange={handleUploadedFileChange}
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              accept="jpg, jpeg, png"
+            />
+            <IoCalendarOutline className="fs-5" />
+            <BiParty className="fs-5" />
+            <FaPlus className="fs-5" />
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <IoMdTime />
+          <IoMdTime className="fs-5" />
           <Button
             variant="primary"
             className="rounded-pill px-3 py-1"
