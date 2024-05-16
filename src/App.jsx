@@ -15,8 +15,8 @@ function App() {
         <MyNavbar />
         <MyComponent />
         <Routes>
-          <Route path="/SearchJobs" element={<SearchJobs />} />
-          <Route path="/GenericJobs" element={<GenericJobs />} />
+          <Route path="/searchjobs" element={<SearchJobs />} />
+          <Route path="/genericjobs" element={<GenericJobs />} />
           <Route path="/" element={<MyHome />} />
           <Route path="/profile_my" element={<MyProfile />} />
         </Routes>

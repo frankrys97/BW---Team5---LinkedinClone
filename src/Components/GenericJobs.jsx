@@ -42,7 +42,7 @@ const GenericJobs = () => {
         <Row className="justify-content-center">
           {/* Prima Colonna */}
           <Col xs={12} className="p-0 first-column ">
-            <Card style={{ marginTop: "6%" }} className=" contBody">
+            <Card className=" contBody">
               <Card.Body>
                 <div className="d-flex my-2">
                   <svg
@@ -124,8 +124,8 @@ const GenericJobs = () => {
             </Button>
             <div></div>
           </Col>
-          <Col xs={12} className="p-0 second-column mt-md-0 mt-4 ">
-            <Card style={{ marginTop: "6%" }} className=" contBody">
+          <Col xs={12} className="p-0 second-column  md-0  ">
+            <Card className=" contBody">
               <Card.Body>
                 <div className="d-flex justify-content-between p-2">
                   <div>
@@ -164,7 +164,7 @@ const GenericJobs = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={12} className="p-0 third-column d-none d-lg-block" style={{ width: "300px" }}>
+          <Col xs={12} className="p-0 third-column  d-none d-lg-block" style={{ width: "300px" }}>
             <div className="d-flex flex-wrap text-secondary justify-content-center column-gap-4 mt-3">
               <small>
                 <p className="my-0">Informazioni</p>

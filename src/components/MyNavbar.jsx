@@ -169,7 +169,7 @@ const MyNavbar = () => {
                     </p>
                   </Link>
                   <Link
-                    to={"/GenericJobs"}
+                    to={"/genericjobs"}
                     className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0"
                   >
                     <svg
