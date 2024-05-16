@@ -14,16 +14,23 @@ import { NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import '../style/myHome.css'
 import { useSelector } from 'react-redux'
-
+import { Modal } from 'react-bootstrap';
+import "../style/modalInvioButton.css"
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
   const [consigliaClicked, setConsigliaClicked] = useState({});
   const [open, setOpen] = useState(false)
   const [posts, setPosts] = useState([])
   const [showCommentInputs, setShowCommentInputs] = useState({});
-  const [showSpreadOptions, setShowSpreadOptions] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  
+  const [spreadCardId, setSpreadCardId] = useState(null);
+  const handleSendClick = () => {
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   // const [awaitFetch, setAwaitFetch] = useState(false)
   // const Array = []
   const handleConsigliaClick = (postId) => {
@@ -45,9 +52,20 @@ const MyHome = () => {
 
     focusCommentInput(`commentInput-${postId}`);
   };
-  const handleSpreadButtonClick = () => {
-    setShowSpreadOptions(!showSpreadOptions);
+  const showSpreadOptionsForCard = (postId) => {
+    return spreadCardId === postId;
   };
+  const handleSpreadButtonClick = (postId) => {
+    if (spreadCardId === postId) {
+   
+      setSpreadCardId(null);
+    } else {
+      
+      setSpreadCardId(postId);
+    }
+  };
+  
+  
   const myKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
   const URL = 'https://striveschool-api.herokuapp.com/api/posts'
@@ -281,8 +299,8 @@ const MyHome = () => {
             <ListGroupItem>
               <ButtonGroup className="d-flex justify-content-between">
                 <Button
-                  variant={isConsigliaClicked ? "primary" : "outline-light"}
-                  className={`border-0 text-${isConsigliaClicked ? "light" : "dark"}`}
+                  variant= "outline-light"
+                  className={`border-0 text-${isConsigliaClicked ? "primary" : "dark"}`}
                   onClick={() => handleConsigliaClick(post._id)}
                 >
                   <i className={`bi bi-hand-thumbs-up${isConsigliaClicked ? "-fill" : ""}`}></i> Consiglia
@@ -297,14 +315,28 @@ const MyHome = () => {
           <Button
   variant="outline-light"
   className="border-0 text-dark"
-  onClick={handleSpreadButtonClick}
+  onClick={() => handleSpreadButtonClick(post._id)} 
   style={{ position: 'relative' }} 
 >
   <i className="bi bi-repeat" style={{ position: 'relative', marginRight: '5px' }}></i> Diffondi il post
 </Button>
-                <Button variant="outline-light" className="border-0 text-dark">
-                  <i className="bi bi-send-fill "></i> Invia
-                </Button>
+<Button variant="outline-light" className="border-0 text-dark" onClick={handleSendClick}>
+        <i className="bi bi-send-fill "></i> Invia
+      </Button>
+      <Modal
+  show={showModal}
+  onHide={handleCloseModal}
+  size="lg"
+  backdropClassName="custom-backdrop"
+
+>
+  <Modal.Header closeButton>
+    <Modal.Title>Invia il post</Modal.Title>
+  </Modal.Header>
+  <Modal.Body style={{height:"40rem"}}>
+    <input type="text" placeholder="Cerca un amico qui..." style={{ width: "100%" }} />
+  </Modal.Body>
+</Modal>
               </ButtonGroup>
               {showCommentInputs[post._id] && (
             <div className='mt-2' style={{ display: 'flex', alignItems: 'center' }}>
@@ -330,7 +362,9 @@ const MyHome = () => {
             </div>
             
           )}
- {showSpreadOptions && (
+          
+ {showSpreadOptionsForCard(post._id) && (
+  
   <div
     style={{
       width:"60%",
@@ -345,7 +379,7 @@ const MyHome = () => {
       background: '#fff', 
     }}
   >
-<div>
+    <div>
       <h6>
         <i className="bi bi-pencil-square" style={{ marginRight: '5px' }}></i>
         Diffondi il post con le tue idee
