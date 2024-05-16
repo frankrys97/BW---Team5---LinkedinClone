@@ -17,7 +17,6 @@ import { useSelector } from 'react-redux'
 import { Modal } from 'react-bootstrap'
 import '../style/modalInvioButton.css'
 import LoadingPost from './LoadingPost'
-import "../style/DropDowmAnimation.css"
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
   const [consigliaClicked, setConsigliaClicked] = useState({})
@@ -28,7 +27,6 @@ const MyHome = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [spreadCardId, setSpreadCardId] = useState(null)
   const [servicesDropdownOpen, ] = useState(false);
-
   const handleSendClick = () => {
     setShowModal(true)
   }
@@ -252,7 +250,7 @@ const MyHome = () => {
             <div className="d-flex align-items-center">
               <div className="my-3 bg-dark-subtle me-2 flex-grow-1" style={{ height: '2px' }}></div>
               <small className="d-inline-block">Seleziona la visualizzazione del feed:</small>
-              <Dropdown data-bs-theme="light" >
+              <Dropdown data-bs-theme="light" className="">
                 <Dropdown.Toggle id="dropdown-button-dark-example1" variant="transparent" className="">
                   <small>Dropdown Button</small>
                 </Dropdown.Toggle>
@@ -467,16 +465,12 @@ const MyHome = () => {
             </ListGroup.Item>
           </>
         )}
- <Dropdown
-      show={dropdownOpen}
-      onToggle={toggleDropdown}
-      className={dropdownOpen ? 'dropdown-show' : ''}
-    >
-      <Dropdown.Toggle variant="light" id="dropdown-basic">
-        {dropdownOpen ? 'Mostra meno' : 'Vedi altro'}
-      </Dropdown.Toggle>
-     
-    </Dropdown>
+
+        <Dropdown show={dropdownOpen} onToggle={toggleDropdown}>
+          <Dropdown.Toggle variant="light" id="dropdown-basic">
+            {dropdownOpen ? 'Mostra meno' : 'Vedi altro'}
+          </Dropdown.Toggle>
+        </Dropdown>
       <div className='mt-2'>
       <img
                 src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"
@@ -583,7 +577,7 @@ const MyHome = () => {
       </a>
       <Dropdown>
         <Dropdown.Toggle variant="link" className="dropdown-trigger">
-          <small >Servizi alle aziende</small>
+          <small style={{fontSize:"10px"}}>Servizi alle aziende</small>
         </Dropdown.Toggle>
         <Dropdown.Menu show={servicesDropdownOpen}>
           <Dropdown.Item>
