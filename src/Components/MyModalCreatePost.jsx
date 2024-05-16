@@ -72,6 +72,8 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
   };
 
   const handleSumbit = (event) => {
+    setUploadedFile(null);
+
     event.preventDefault();
     console.log(post);
 
@@ -133,7 +135,6 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
         personalPost();
         setPost({
           text: "",
-          image: null,
         });
       })
       .catch((error) => {
