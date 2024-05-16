@@ -148,3 +148,14 @@ body {
   border-bottom: solid 4px green !important;
   color: green !important;
 }
+
+.navbar .nav-link.active {
+  svg {
+    fill: black !important;
+  }
+  p {
+    color: black !important;
+  }
+
+  border-bottom: solid 2px black !important;
+}
