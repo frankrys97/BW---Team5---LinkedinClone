@@ -30,6 +30,10 @@ const MyHome = () => {
   const [spreadCardId, setSpreadCardId] = useState(null)
   const [servicesDropdownOpen] = useState(false)
   const [profiles, setProfiles] = useState([]);
+  const handleInviaClick = () => {
+   
+    handleCloseModal();
+  };
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -329,7 +333,7 @@ const MyHome = () => {
                       </ListGroupItem>
                       {post.image && (
                         <ListGroupItem
-                          // style={{ width: "100%", height: "300px" }}
+                
                           className="overflow-hidden p-0"
                         >
                           <Image src={post.image} className="w-100" />
@@ -378,21 +382,26 @@ const MyHome = () => {
   <Modal.Header closeButton>
     <Modal.Title>Invia il post</Modal.Title>
   </Modal.Header>
-  <Modal.Body style={{ maxHeight: '40rem', overflowY: 'auto' }}>
-  <input type="text" placeholder="Cerca un amico qui..." style={{ width: '100%', marginBottom: '1rem' }} />
-  {profiles.map(profile => (
-    <div key={profile._id}>
-      <div className="profile" style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-        <img src={profile.image} alt={profile.name} style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '1rem' }} />
-        <div>
-          <h4 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{profile.name} {profile.surname}</h4>
-          <p style={{ fontSize: '0.8rem', marginBottom: '0.5rem' }}>{profile.bio}</p>
+  <Modal.Body style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+    <input type="text" placeholder="Cerca un amico qui..." style={{ width: '100%', marginBottom: '1rem' }} />
+    {profiles.map(profile => (
+      <div key={profile._id}>
+        <div className="profile" style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+          <img src={profile.image} alt={profile.name} style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '1rem' }} />
+          <div>
+            <h4 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{profile.name} {profile.surname}</h4>
+            <p style={{ fontSize: '0.8rem', marginBottom: '0.5rem' }}>{profile.bio}</p>
+          </div>
         </div>
+        <hr style={{ border: 'none', borderTop: '1px solid #ccc' }} />
       </div>
-      <hr style={{ border: 'none', borderTop: '1px solid #ccc' }} />
-    </div>
-  ))}
-</Modal.Body>
+    ))}
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="success" onClick={handleInviaClick}>
+      Invia
+    </Button>
+  </Modal.Footer>
 </Modal>
                         </ButtonGroup>
                         {showCommentInputs[post._id] && (
