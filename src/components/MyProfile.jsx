@@ -1,101 +1,114 @@
-import { useEffect, useState } from 'react'
-import { CardText, Col, Container, Dropdown, Form, Modal, Row, Tab, Tabs } from 'react-bootstrap'
-import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
-import MyFooter from './MyFooter'
-import { useDispatch, useSelector } from 'react-redux'
-import MyModalUploadImage from './MyModalUploadImage'
-import { setShowModalCreatePost, setShowModalImageUpload } from '../redux/actions'
-import defaultImage from '../assets/default-image.png'
-import MyModalCreatePost from './MyModalCreatePost'
+import { useEffect, useState } from "react";
+import {
+  CardText,
+  Col,
+  Container,
+  Dropdown,
+  Form,
+  Modal,
+  Row,
+  Tab,
+  Tabs,
+} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import MyFooter from "./MyFooter";
+import { useDispatch, useSelector } from "react-redux";
+import MyModalUploadImage from "./MyModalUploadImage";
+import {
+  setShowModalCreatePost,
+  setShowModalImageUpload,
+} from "../redux/actions";
+import defaultImage from "../assets/default-image.png";
+import MyModalCreatePost from "./MyModalCreatePost";
 
 const MyProfile = () => {
-  const myProfile = useSelector((state) => state.myProfile.content)
-  const [showModal, setShowModal] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
-  const [operation, setOperation] = useState('add')
-  const [editMode, setEditMode] = useState(false)
-  const [postId, setPostId] = useState('')
-  const [key, setKey] = useState('aziende')
+  const myProfile = useSelector((state) => state.myProfile.content);
+  const [showModal, setShowModal] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
+  const [operation, setOperation] = useState("add");
+  const [editMode, setEditMode] = useState(false);
+  const [postId, setPostId] = useState("");
+  const [key, setKey] = useState("aziende");
 
   const handlePutPost = (id) => {
-    setEditMode(true)
-    dispatch(setShowModalCreatePost(true))
-    setPostId(id)
-  }
+    setEditMode(true);
+    dispatch(setShowModalCreatePost(true));
+    setPostId(id);
+  };
 
   const handleCreatePost = () => {
-    setEditMode(false)
-    dispatch(setShowModalCreatePost(true))
-  }
+    setEditMode(false);
+    dispatch(setShowModalCreatePost(true));
+  };
 
   const [newExp, setNewExp] = useState({
-    role: '',
-    company: '',
-    startDate: '',
-    endDate: '',
-    description: '',
-    area: '',
-  })
+    role: "",
+    company: "",
+    startDate: "",
+    endDate: "",
+    description: "",
+    area: "",
+  });
 
-  const [experienceImage, setExperienceImage] = useState(null)
+  const [experienceImage, setExperienceImage] = useState(null);
 
   const handleImageChange = (event) => {
-    setExperienceImage(event.target.files[0])
-  }
+    setExperienceImage(event.target.files[0]);
+  };
 
   const handleFieldChange = (propertyName, propertyValue) => {
-    setNewExp({ ...newExp, [propertyName]: propertyValue })
-  }
+    setNewExp({ ...newExp, [propertyName]: propertyValue });
+  };
 
-  const handleCloseModal = () => setShowModal(false)
-  const dispatch = useDispatch()
+  const handleCloseModal = () => setShowModal(false);
+  const dispatch = useDispatch();
 
   const handleShowModal = (operation, experience) => {
-    setShowModal(true)
-    setOperation(operation)
-    if (operation === 'edit') {
-      setNewExp(experience)
+    setShowModal(true);
+    setOperation(operation);
+    if (operation === "edit") {
+      setNewExp(experience);
     }
-  }
+  };
 
   const handleShowModalImageUpload = () => {
-    dispatch(setShowModalImageUpload(true))
-  }
+    dispatch(setShowModalImageUpload(true));
+  };
 
   const myKey2 =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE'
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE";
   const myKey =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o'
-  const URL = 'https://striveschool-api.herokuapp.com/api/profile/'
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzFlMjE2N2U1MzAwMTVmYTY5N2EiLCJpYXQiOjE3MTU1ODU1MDYsImV4cCI6MTcxNjc5NTEwNn0.oecTaz47mECzpHB7UYiFAMc5nr_2z96dIgXr_PhM62o";
+  const URL = "https://striveschool-api.herokuapp.com/api/profile/";
   const getExperinence = async (exp) => {
     try {
       const response = await fetch(URL + exp, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${myKey}`,
         },
-      })
+      });
       if (response.ok) {
-        const data = await response.json()
+        const data = await response.json();
 
-        setExp(data)
+        setExp(data);
       } else {
-        alert('Errore nella fetch')
+        alert("Errore nella fetch");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  const [penOfPosts, setPenOfPosts] = useState(false)
+  const [penOfPosts, setPenOfPosts] = useState(false);
 
-  const [exp, setExp] = useState([])
+  const [exp, setExp] = useState([]);
   useEffect(() => {
     if (myProfile) {
-      getExperinence(`${myProfile._id}/experiences`)
+      getExperinence(`${myProfile._id}/experiences`);
     }
-  }, [myProfile])
+  }, [myProfile]);
 
   // const [isClicked, setIsClicked] = useState(false)
   // const handleClick = () => {
@@ -111,195 +124,197 @@ const MyProfile = () => {
   // }
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    const url = `${URL}${myProfile._id}/experiences`
+    event.preventDefault();
+    const url = `${URL}${myProfile._id}/experiences`;
 
     try {
-      let resp
-      if (operation === 'add') {
+      let resp;
+      if (operation === "add") {
         resp = await fetch(url, {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify(newExp),
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${myKey2}`,
           },
-        })
-      } else if (operation === 'edit') {
-        const expId = newExp._id
+        });
+      } else if (operation === "edit") {
+        const expId = newExp._id;
         resp = await fetch(`${url}/${expId}`, {
-          method: 'PUT',
+          method: "PUT",
           body: JSON.stringify(newExp),
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${myKey2}`,
           },
-        })
+        });
       }
 
       if (resp.ok) {
-        console.log(experienceImage)
-        const responseData = await resp.json()
-        const experienceId = responseData._id
+        console.log(experienceImage);
+        const responseData = await resp.json();
+        const experienceId = responseData._id;
 
-        const formData = new FormData()
-        formData.append('experience', experienceImage)
+        const formData = new FormData();
+        formData.append("experience", experienceImage);
 
         const imageResp = await fetch(
           `https://striveschool-api.herokuapp.com/api/profile/${myProfile._id}/experiences/${experienceId}/picture`,
           {
-            method: 'POST',
+            method: "POST",
             headers: {
               Authorization: `Bearer ${myKey2}`,
             },
             body: formData,
           }
-        )
+        );
 
         if (imageResp.ok) {
-          console.log('image uploaded')
+          console.log("image uploaded");
         } else {
-          console.log('image not uploaded')
+          console.log("image not uploaded");
         }
 
-        handleCloseModal()
-        getExperinence(`${myProfile._id}/experiences`)
+        handleCloseModal();
+        getExperinence(`${myProfile._id}/experiences`);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const handleDelete = async (id) => {
     try {
-      const resp = await fetch(URL + myProfile._id + '/experiences/' + id, {
-        method: 'DELETE',
+      const resp = await fetch(URL + myProfile._id + "/experiences/" + id, {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${myKey2}`,
         },
-      })
+      });
 
       if (resp.ok) {
-        getExperinence(`${myProfile._id}/experiences`)
-        console.log('DELETE')
+        getExperinence(`${myProfile._id}/experiences`);
+        console.log("DELETE");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString)
-    const options = { month: 'long', year: 'numeric' }
-    return date.toLocaleDateString('it-IT', options)
-  }
+    const date = new Date(dateString);
+    const options = { month: "long", year: "numeric" };
+    return date.toLocaleDateString("it-IT", options);
+  };
 
   const formatInputDate = (dateString) => {
-    const date = dateString.slice(0, 7)
-    return date
-  }
+    const date = dateString.slice(0, 7);
+    return date;
+  };
   // INIZIO FETCH PROFILI SIMILI E AMICI CONSIGLIATI
 
-  const URL2 = 'https://striveschool-api.herokuapp.com/api/profile/'
+  const URL2 = "https://striveschool-api.herokuapp.com/api/profile/";
   const shuffleArray = (array) => {
-    return array.sort(() => Math.random() - 0.5)
-  }
+    return array.sort(() => Math.random() - 0.5);
+  };
   const similarProfiles = async () => {
     try {
       const response = await fetch(URL2, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${myKey}`,
         },
-      })
+      });
       if (response.ok) {
-        const data = await response.json()
+        const data = await response.json();
 
         // console.log(data);
-        const shuffle = shuffleArray(data)
+        const shuffle = shuffleArray(data);
         // console.log(shuffle);
-        setProfili(shuffle)
+        setProfili(shuffle);
       } else {
-        alert('Errore nella fetch')
+        alert("Errore nella fetch");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  const [profili, setProfili] = useState([])
+  };
+  const [profili, setProfili] = useState([]);
   useEffect(() => {
-    similarProfiles()
+    similarProfiles();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
   // FINE FETCH PROFILI SIMILI E AMICI CONSIGLIATI
   // INIZIO FETCH ATTIVITA POST PERSONALI
-  const URLPost = 'https://striveschool-api.herokuapp.com/api/posts/'
+  const URLPost = "https://striveschool-api.herokuapp.com/api/posts/";
 
   const personalPost = async () => {
     try {
       const response = await fetch(URLPost, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${myKey}`,
         },
-      })
+      });
       if (response.ok) {
-        const data = await response.json()
-        console.log(data)
+        const data = await response.json();
+        console.log(data);
 
-        setPostPersonal(data)
+        setPostPersonal(data);
       } else {
-        alert('Errore nella fetch')
+        alert("Errore nella fetch");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  const [postPersonal, setPostPersonal] = useState([])
+  const [postPersonal, setPostPersonal] = useState([]);
 
-  const postPersonalFilter = postPersonal.filter((post) => post.user._id === myProfile._id)
-  console.log(postPersonalFilter)
+  const postPersonalFilter = postPersonal.filter(
+    (post) => post.user._id === myProfile._id
+  );
+  console.log(postPersonalFilter);
   useEffect(() => {
-    personalPost()
+    personalPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   // FINE FETCH ATTIVITA POST PERSONALI
 
   const handlePostDelete = (id) => {
     fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${myKey2}`,
       },
     })
       .then((response) => {
         if (response.ok) {
-          console.log('post deleted')
+          console.log("post deleted");
         } else {
-          console.log('post not deleted')
+          console.log("post not deleted");
         }
       })
       .then((data) => {
-        console.log(data)
-        personalPost()
+        console.log(data);
+        personalPost();
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   return (
     myProfile && (
       <>
-        <Container style={{ paddingTop: '65px', maxWidth: '1128px' }}>
+        <Container style={{ paddingTop: "65px", maxWidth: "1128px" }}>
           <Row>
             <Col xs={12} lg={9}>
               {/* CARD PROFILO */}
-              <Card style={{ maxWidth: '100%' }}>
+              <Card style={{ maxWidth: "100%" }}>
                 <Card.Img
                   variant="top"
                   src="https://media.licdn.com/dms/image/D4D16AQGdLXRnSjl7bQ/profile-displaybackgroundimage-shrink_350_1400/0/1713442065268?e=1721260800&v=beta&t=t-XxVkrYJWOMbzSDmeCUsoY-SVin550O1VB7x7tBfqk"
@@ -318,10 +333,10 @@ const MyProfile = () => {
                         src={myProfile.image}
                         alt="profile"
                         style={{
-                          width: '100%',
-                          objectFit: 'cover',
-                          height: '100%',
-                          aspectRatio: '1 / 1',
+                          width: "100%",
+                          objectFit: "cover",
+                          height: "100%",
+                          aspectRatio: "1 / 1",
                         }}
                       />
                     </div>
@@ -334,13 +349,15 @@ const MyProfile = () => {
                     {myProfile.bio ? (
                       <p className="name fs-4">{myProfile.bio}</p>
                     ) : (
-                      'Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business Management 📈'
+                      "Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business Management 📈"
                     )}
                     <p className="my-0">
-                      <span className="text-secondary">{myProfile.area} &middot;</span>{' '}
+                      <span className="text-secondary">
+                        {myProfile.area} &middot;
+                      </span>{" "}
                       <a href="">Informazioni di contatto</a>
                     </p>
-                    <p style={{ fontSize: '0.8rem' }} className="text-primary ">
+                    <p style={{ fontSize: "0.8rem" }} className="text-primary ">
                       17 collegamenti
                     </p>
                   </div>
@@ -348,10 +365,16 @@ const MyProfile = () => {
                     <Button className="mx-1 rounded-pill" variant="primary">
                       Disponibile per
                     </Button>
-                    <Button className="mx-1 text-primary border border-primary rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 text-primary border border-primary rounded-pill"
+                      variant="ligth"
+                    >
                       Aggiungi sezione del profilo
                     </Button>
-                    <Button className="mx-1 border border-black rounded-pill" variant="ligth">
+                    <Button
+                      className="mx-1 border border-black rounded-pill"
+                      variant="ligth"
+                    >
                       Altro
                     </Button>
                   </div>
@@ -411,7 +434,9 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>28 Visualizzazioni del profilo</span>
-                      <p className="text-muted">Scopri chi ha visitato il tuo profilo</p>
+                      <p className="text-muted">
+                        Scopri chi ha visitato il tuo profilo
+                      </p>
                     </div>
                     <div className="ms-5">
                       <svg
@@ -427,8 +452,12 @@ const MyProfile = () => {
                         <path d="M23 20v1H1v-1zM8 9H2v10h6zm7-6H9v16h6zm7 11h-6v5h6z"></path>
                       </svg>
                       <span>113 Impressioni del post</span>
-                      <p className="text-muted">Scopri chi sta interagendo con i tuoi post</p>
-                      <span className="text-secondary my-0">Ultimi 7 giorni</span>
+                      <p className="text-muted">
+                        Scopri chi sta interagendo con i tuoi post
+                      </p>
+                      <span className="text-secondary my-0">
+                        Ultimi 7 giorni
+                      </span>
                     </div>
                   </div>
                 </Card.Body>
@@ -483,7 +512,9 @@ const MyProfile = () => {
                         <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
                       </svg>
                       <span>La mia rete</span>
-                      <p className="text-muted">Salva e gestisci i tuoi collegamenti e interessi</p>
+                      <p className="text-muted">
+                        Salva e gestisci i tuoi collegamenti e interessi
+                      </p>
                     </div>
                     <div className="">
                       <svg
@@ -499,7 +530,10 @@ const MyProfile = () => {
                         <path d="M19 5a3 3 0 00-3-3H5v20l7-6.29L19 22z"></path>
                       </svg>
                       <span>Elementi salvati</span>
-                      <p className="text-muted">Monitora le tue offerte di lavoro, i corsi e gli articoli</p>
+                      <p className="text-muted">
+                        Monitora le tue offerte di lavoro, i corsi e gli
+                        articoli
+                      </p>
                     </div>
                   </div>
                 </Card.Body>
@@ -528,7 +562,11 @@ const MyProfile = () => {
 
                     <div className="d-flex">
                       <Dropdown data-bs-theme="light" className="">
-                        <Dropdown.Toggle variant="transparent" className="noToggle border-0" align={'end'}>
+                        <Dropdown.Toggle
+                          variant="transparent"
+                          className="noToggle border-0"
+                          align={"end"}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="27"
@@ -545,14 +583,14 @@ const MyProfile = () => {
                             href="#/action-1"
                             onClick={() => {
                               setNewExp({
-                                role: '',
-                                company: '',
-                                startDate: '',
-                                endDate: '',
-                                description: '',
-                                area: '',
-                              })
-                              handleShowModal('add')
+                                role: "",
+                                company: "",
+                                startDate: "",
+                                endDate: "",
+                                description: "",
+                                area: "",
+                              });
+                              handleShowModal("add");
                             }}
                           >
                             <small>Aggiungi posizione lavorativa</small>
@@ -565,9 +603,16 @@ const MyProfile = () => {
 
                       {/* MODALE PER AGGIUNTA ESPERIENZE */}
 
-                      <Modal show={showModal} onHide={handleCloseModal} backdrop="static" keyboard={false}>
+                      <Modal
+                        show={showModal}
+                        onHide={handleCloseModal}
+                        backdrop="static"
+                        keyboard={false}
+                      >
                         <Modal.Header closeButton>
-                          <Modal.Title>Aggiungi posizione lavorativa</Modal.Title>
+                          <Modal.Title>
+                            Aggiungi posizione lavorativa
+                          </Modal.Title>
                         </Modal.Header>
                         <Form onSubmit={handleSubmit}>
                           <Modal.Body>
@@ -577,7 +622,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Retail Sales Manager"
                                 value={newExp.role}
-                                onChange={(e) => handleFieldChange('role', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("role", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -587,7 +634,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Microsoft"
                                 value={newExp.company}
-                                onChange={(e) => handleFieldChange('company', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("company", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -597,7 +646,9 @@ const MyProfile = () => {
                                 type="text"
                                 placeholder="Esempio: Milano, Italia"
                                 value={newExp.area}
-                                onChange={(e) => handleFieldChange('area', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("area", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -606,7 +657,9 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.startDate)}
-                                onChange={(e) => handleFieldChange('startDate', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("startDate", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -615,7 +668,9 @@ const MyProfile = () => {
                               <Form.Control
                                 type="month"
                                 value={formatInputDate(newExp.endDate)}
-                                onChange={(e) => handleFieldChange('endDate', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange("endDate", e.target.value)
+                                }
                                 required
                               />
                             </Form.Group>
@@ -625,18 +680,32 @@ const MyProfile = () => {
                                 as="textarea"
                                 rows={4}
                                 value={newExp.description}
-                                onChange={(e) => handleFieldChange('description', e.target.value)}
+                                onChange={(e) =>
+                                  handleFieldChange(
+                                    "description",
+                                    e.target.value
+                                  )
+                                }
                                 required
                               />
                             </Form.Group>
                             <Form.Group className="mb-3">
                               <Form.Label>Aggiungi un&apos;immagine</Form.Label>
-                              <Form.Control type="file" accept="jpg, jpeg, png" onChange={handleImageChange} />
+                              <Form.Control
+                                type="file"
+                                accept="jpg, jpeg, png"
+                                onChange={handleImageChange}
+                              />
                             </Form.Group>
                           </Modal.Body>
                           <Modal.Footer>
-                            <Button variant={operation === 'edit' ? 'success' : 'primary'} type="submit">
-                              {operation === 'edit' ? 'Modifica' : 'Salva'}
+                            <Button
+                              variant={
+                                operation === "edit" ? "success" : "primary"
+                              }
+                              type="submit"
+                            >
+                              {operation === "edit" ? "Modifica" : "Salva"}
                             </Button>
                           </Modal.Footer>
                         </Form>
@@ -661,7 +730,7 @@ const MyProfile = () => {
                         <div key={experience._id} className="px-3 my-2 ">
                           <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex ">
-                              <div style={{ width: '50px', height: '50px' }}>
+                              <div style={{ width: "50px", height: "50px" }}>
                                 <img
                                   src={experience.image || defaultImage}
                                   alt="Logo di EPICODE"
@@ -670,10 +739,16 @@ const MyProfile = () => {
                                 />
                               </div>
                               <div className="ms-2">
-                                <p className="my-0 fw-bold"> {experience.role}</p>
+                                <p className="my-0 fw-bold">
+                                  {" "}
+                                  {experience.role}
+                                </p>
                                 <p className="my-0 ">{experience.company}</p>
                                 <p className="my-0 mb-1 text-secondary">
-                                  <span>{formatDate(experience.startDate)}</span> /{' '}
+                                  <span>
+                                    {formatDate(experience.startDate)}
+                                  </span>{" "}
+                                  /{" "}
                                   <span>{formatDate(experience.endDate)}</span>
                                   {/* {formatDate(experience.startDate)} / 
                                    {formatDate(experience.endDate)} */}
@@ -682,13 +757,18 @@ const MyProfile = () => {
                             </div>
                             {isDelete && (
                               <div>
-                                <Button variant="danger" onClick={() => handleDelete(experience._id)}>
+                                <Button
+                                  variant="danger"
+                                  onClick={() => handleDelete(experience._id)}
+                                >
                                   <i className="bi bi-trash3-fill"></i>
                                 </Button>
                                 <Button
                                   variant="success"
                                   className="ms-2"
-                                  onClick={() => handleShowModal('edit', experience)}
+                                  onClick={() =>
+                                    handleShowModal("edit", experience)
+                                  }
                                 >
                                   <i className="bi bi-pen"></i>
                                 </Button>
@@ -697,7 +777,7 @@ const MyProfile = () => {
                           </div>
                         </div>
                       ))
-                    : 'vuoto'}
+                    : "vuoto"}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">
                   Mostra tutte le competenze (8)
@@ -732,7 +812,10 @@ const MyProfile = () => {
                     </svg>
                   </div>
 
-                  <div className="px-3"> 👋 Ciao! Sono Francesco Cristiano, 26 anni da Napoli. </div>
+                  <div className="px-3">
+                    {" "}
+                    👋 Ciao! Sono Francesco Cristiano, 26 anni da Napoli.{" "}
+                  </div>
                 </Card.Body>
               </Card>
 
@@ -745,13 +828,22 @@ const MyProfile = () => {
                       <Card.Title>Attività</Card.Title>
                       <p className="text-primary">17 follower</p>
                       <div>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2  rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Post</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Commenti</span>
                         </Button>
-                        <Button className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill" variant="ligth">
+                        <Button
+                          className="border mb-3 border-primary p-0 px-3 mx-2 rounded-pill"
+                          variant="ligth"
+                        >
                           <span className="mx-1 text-primary">Immagini</span>
                         </Button>
                       </div>
@@ -766,7 +858,11 @@ const MyProfile = () => {
                         <span className="mx-1 text-primary">Crea un post</span>
                       </Button>
 
-                      <MyModalCreatePost personalPost={personalPost} editMode={editMode} postId={postId} />
+                      <MyModalCreatePost
+                        personalPost={personalPost}
+                        editMode={editMode}
+                        postId={postId}
+                      />
 
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -785,20 +881,34 @@ const MyProfile = () => {
                     postPersonalFilter.map((post) => {
                       return (
                         <div key={post._id} className="px-3">
-                          <p>{post.username} ha pubblicato questo post &middot; 3s</p>
+                          <p>
+                            {post.username} ha pubblicato questo post &middot;
+                            3s
+                          </p>
                           <div className="d-flex align-items-center justify-content-between">
                             <div className="d-flex align-items-center">
-                              <div style={{ width: '70px', height: '70px' }}>
-                                <img src={post.image || defaultImage} alt="" className="w-100 h-100" />
+                              <div style={{ width: "70px", height: "70px" }}>
+                                <img
+                                  src={post.image || defaultImage}
+                                  alt=""
+                                  className="w-100 h-100"
+                                />
                               </div>
                               <span className="mx-3">{post.text}</span>
                             </div>
                             {penOfPosts && (
                               <div>
-                                <Button variant="danger" onClick={() => handlePostDelete(post._id)}>
+                                <Button
+                                  variant="danger"
+                                  onClick={() => handlePostDelete(post._id)}
+                                >
                                   <i className="bi bi-trash3-fill"></i>
                                 </Button>
-                                <Button variant="success" className="ms-2" onClick={() => handlePutPost(post._id)}>
+                                <Button
+                                  variant="success"
+                                  className="ms-2"
+                                  onClick={() => handlePutPost(post._id)}
+                                >
                                   <i className="bi bi-pen"></i>
                                 </Button>
                               </div>
@@ -813,7 +923,7 @@ const MyProfile = () => {
                           />
                           <span className="text-muted ms-1">5</span>
                         </div>
-                      )
+                      );
                     })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
@@ -863,7 +973,9 @@ const MyProfile = () => {
                       </div>
                       <div>
                         <p className="my-0">EPICODE</p>
-                        <p className="text-secondary mt-0">feb 2024 - ago 2024</p>
+                        <p className="text-secondary mt-0">
+                          feb 2024 - ago 2024
+                        </p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -964,7 +1076,12 @@ const MyProfile = () => {
               <Card>
                 <Card.Body>
                   <Card.Title className="p-2">INTERESSI</Card.Title>
-                  <Tabs id="controlled-tab-example" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
+                  <Tabs
+                    id="controlled-tab-example"
+                    activeKey={key}
+                    onSelect={(k) => setKey(k)}
+                    className="mb-3"
+                  >
                     <Tab eventKey="aziende" title="Aziende">
                       <div className="d-flex">
                         <div className="d-flex mx-1 me-5">
@@ -979,8 +1096,13 @@ const MyProfile = () => {
                           />
                           <div>
                             <div className="my-0 fw-bold">W3Schools.com</div>
-                            <div className="my-0 text-secondary">1.448.730 follower </div>
-                            <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                            <div className="my-0 text-secondary">
+                              1.448.730 follower{" "}
+                            </div>
+                            <Button
+                              className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                              variant="ligth"
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -1007,8 +1129,13 @@ const MyProfile = () => {
                           />
                           <div>
                             <div className="my-0 fw-bold">Stack Overflow</div>
-                            <div className="my-0 text-secondary">1.529.856 follower </div>
-                            <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                            <div className="my-0 text-secondary">
+                              1.529.856 follower{" "}
+                            </div>
+                            <Button
+                              className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                              variant="ligth"
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -1038,9 +1165,16 @@ const MyProfile = () => {
                             className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
                           />
                           <div>
-                            <div className="my-0 fw-bold">JavaScript & CSS Snippets</div>
-                            <div className="my-0 text-secondary">21 utenti </div>
-                            <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                            <div className="my-0 fw-bold">
+                              JavaScript & CSS Snippets
+                            </div>
+                            <div className="my-0 text-secondary">
+                              21 utenti{" "}
+                            </div>
+                            <Button
+                              className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                              variant="ligth"
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -1066,9 +1200,16 @@ const MyProfile = () => {
                             className="ivm-view-attr__img--centered EntityPhoto-square-3   evi-image lazy-image ember-view"
                           />
                           <div>
-                            <div className="my-0 fw-bold">Full Stack Developer</div>
-                            <div className="my-0 text-secondary">28.309 utenti </div>
-                            <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                            <div className="my-0 fw-bold">
+                              Full Stack Developer
+                            </div>
+                            <div className="my-0 text-secondary">
+                              28.309 utenti{" "}
+                            </div>
+                            <Button
+                              className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                              variant="ligth"
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -1098,8 +1239,13 @@ const MyProfile = () => {
                         />
                         <div>
                           <div className="my-0 fw-bold">Epicode</div>
-                          <div className="my-0 text-secondary">15.000 follower </div>
-                          <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                          <div className="my-0 text-secondary">
+                            15.000 follower{" "}
+                          </div>
+                          <Button
+                            className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                            variant="ligth"
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="20"
@@ -1158,23 +1304,28 @@ const MyProfile = () => {
               {/* FINE CARD LINGUA E URL */}
               <img
                 src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"
-                width={'100%'}
+                width={"100%"}
                 className="mb-2 rounded"
                 alt=""
               />
               {/* INIZIO CARD PROFILI SIMILI */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Altri profili simili</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Altri profili simili
+                  </Card.Subtitle>
                   {profili &&
                     profili.slice(0, 5).map((profilo) => {
                       return (
-                        <div key={profilo._id} className="d-flex mt-2 border-bottom">
+                        <div
+                          key={profilo._id}
+                          className="d-flex mt-2 border-bottom"
+                        >
                           <div
                             style={{
-                              maxWidth: '70px',
-                              maxHeight: '70px',
-                              aspectRatio: '1/1',
+                              maxWidth: "70px",
+                              maxHeight: "70px",
+                              aspectRatio: "1/1",
                             }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
@@ -1182,10 +1333,10 @@ const MyProfile = () => {
                               src={profilo.image}
                               alt="profile"
                               style={{
-                                width: '100%',
-                                objectFit: 'cover',
-                                height: '100%',
-                                aspectRatio: '1 / 1',
+                                width: "100%",
+                                objectFit: "cover",
+                                height: "100%",
+                                aspectRatio: "1 / 1",
                               }}
                             />
                           </div>
@@ -1195,7 +1346,10 @@ const MyProfile = () => {
                                 {profilo.name} {profilo.surname}
                               </p>
                               <p className="my-0">{profilo.title} </p>
-                              <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                              <Button
+                                className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                                variant="ligth"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="16"
@@ -1211,7 +1365,7 @@ const MyProfile = () => {
                             </div>
                           </div>
                         </div>
-                      )
+                      );
                     })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
@@ -1220,17 +1374,22 @@ const MyProfile = () => {
               {/* INIZIO PERSONE CHE POTRESTI CONOSCERE */}
               <Card className="mb-2">
                 <Card.Body>
-                  <Card.Subtitle className="mb-2 ">Persone che potresti conoscere</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 ">
+                    Persone che potresti conoscere
+                  </Card.Subtitle>
                   <span className="text-muted">Del tuo settore</span>
                   {profili &&
                     profili.slice(6, 10).map((profilo) => {
                       return (
-                        <div key={profilo._id} className="d-flex mt-2 border-bottom">
+                        <div
+                          key={profilo._id}
+                          className="d-flex mt-2 border-bottom"
+                        >
                           <div
                             style={{
-                              maxWidth: '70px',
-                              maxHeight: '70px',
-                              aspectRatio: '1/1',
+                              maxWidth: "70px",
+                              maxHeight: "70px",
+                              aspectRatio: "1/1",
                             }}
                             className=" border border-light border-5 rounded-circle overflow-hidden"
                           >
@@ -1238,10 +1397,10 @@ const MyProfile = () => {
                               src={profilo.image}
                               alt="profile"
                               style={{
-                                width: '100%',
-                                objectFit: 'cover',
-                                height: '100%',
-                                aspectRatio: '1 / 1',
+                                width: "100%",
+                                objectFit: "cover",
+                                height: "100%",
+                                aspectRatio: "1 / 1",
                               }}
                             />
                           </div>
@@ -1249,7 +1408,10 @@ const MyProfile = () => {
                             <div>
                               <p className="my-0">{profilo.name}</p>
                               <p className="my-0">{profilo.title} </p>
-                              <Button className="border mb-3 border-black p-0 px-3 py-1 rounded-pill" variant="ligth">
+                              <Button
+                                className="border mb-3 border-black p-0 px-3 py-1 rounded-pill"
+                                variant="ligth"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="16"
@@ -1266,7 +1428,7 @@ const MyProfile = () => {
                             </div>
                           </div>
                         </div>
-                      )
+                      );
                     })}
                 </Card.Body>
                 <p className="border-top p-2 mb-0 text-center">Mostra tutto</p>
@@ -1274,7 +1436,7 @@ const MyProfile = () => {
               {/* FINE PERSONE CHE POTRESTI CONOSCERE */}
               <img
                 src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"
-                width={'100%'}
+                width={"100%"}
                 className="mb-2 rounded"
                 alt=""
               />
@@ -1285,7 +1447,7 @@ const MyProfile = () => {
         </Container>
       </>
     )
-  )
-}
+  );
+};
 
-export default MyProfile
+export default MyProfile;

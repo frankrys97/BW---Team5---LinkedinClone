@@ -5,6 +5,7 @@ import {
   Collapse,
   Container,
   Dropdown,
+  Form,
   Image,
   ListGroup,
   ListGroupItem,
@@ -19,12 +20,13 @@ import "../style/modalInvioButton.css";
 import LoadingPost from "./LoadingPost";
 import "../style/DropDowmAnimation.css";
 import { HiDotsHorizontal } from "react-icons/hi";
+import defaultCommentImage from "../assets/avatar-1577909_960_720.webp";
+
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content);
   const [consigliaClicked, setConsigliaClicked] = useState({});
   const [open, setOpen] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [showCommentInputs, setShowCommentInputs] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [spreadCardId, setSpreadCardId] = useState(null);
@@ -82,12 +84,18 @@ const MyHome = () => {
     }));
   };
 
+  const [showCommentInputs, setShowCommentInputs] = useState(false);
+
   const handleCommentButtonClick = (postId) => {
     const updatedShowCommentInputs = { ...showCommentInputs };
 
-    updatedShowCommentInputs[postId] = true;
+    updatedShowCommentInputs[postId] = !showCommentInputs[postId];
 
     setShowCommentInputs(updatedShowCommentInputs);
+
+    if (updatedShowCommentInputs[postId]) {
+      fetchComments();
+    }
   };
   const showSpreadOptionsForCard = (postId) => {
     return spreadCardId === postId;
@@ -116,7 +124,7 @@ const MyHome = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        const result = data.reverse().slice(0, 20);
+        const result = data.reverse().slice(0, 50);
         setPosts(result);
       } else {
         alert("Errore nella fetch");
@@ -128,7 +136,6 @@ const MyHome = () => {
 
   useEffect(() => {
     getPosts();
-    fetchComments();
   }, []);
 
   function subDate(dataString) {
@@ -152,6 +159,7 @@ const MyHome = () => {
 
   const [comments, setComments] = useState([]);
   const fetchComments = async () => {
+    setComments([]);
     try {
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/comments/",
@@ -162,6 +170,7 @@ const MyHome = () => {
         }
       );
       if (response.ok) {
+        console.log("fetching comments");
         const data = await response.json();
         setComments(data);
       } else {
@@ -174,6 +183,116 @@ const MyHome = () => {
 
   const commentsFiltered = (current) =>
     comments.filter((commento) => commento.elementId === current);
+
+  const formatInputDate = (dateString) => {
+    const date = dateString.slice(0, 7);
+    return date;
+  };
+
+  // const [inputComment, setInputComment] = useState({
+  //   comment: "",
+  //   rate: "1",
+  //   elementId: "",
+  // });
+
+  // const handleFieldChange = (propertyName, propertyValue) => {
+  //   setInputComment({ ...inputComment, [propertyName]: propertyValue });
+  // };
+
+  const [editMode, setEditMode] = useState(false);
+
+  const submitComment = async (event, id) => {
+    event.preventDefault();
+    // handleFieldChange("elementId", id);
+    console.dir(event.target[0].value);
+    try {
+      let resp;
+
+      resp = await fetch(
+        "https://striveschool-api.herokuapp.com/api/comments/",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            comment: event.target[0].value,
+            rate: "1",
+            elementId: id,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE`,
+          },
+        }
+      );
+      if (resp.ok) {
+        console.log("Post");
+        console.log(comments);
+
+        fetchComments();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const editComment = async (event, commentId, elementId) => {
+    event.preventDefault();
+    // handleFieldChange("elementId", id);
+    console.dir(event.target[0].value);
+    try {
+      let resp;
+
+      resp = await fetch(
+        "https://striveschool-api.herokuapp.com/api/comments/" + commentId,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            comment: event.target[0].value,
+            rate: "1",
+            elementId: elementId,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE`,
+          },
+        }
+      );
+      if (resp.ok) {
+        console.log("Put");
+        console.log(comments);
+
+        fetchComments();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkDelete = (profileId, idComment) => {
+    return profileId === idComment;
+  };
+
+  const deleteComment = async (id) => {
+    try {
+      let resp;
+
+      resp = await fetch(
+        "https://striveschool-api.herokuapp.com/api/comments/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE`,
+          },
+        }
+      );
+      if (resp.ok) {
+        console.log("Post");
+
+        fetchComments();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     myProfile && (
@@ -511,7 +630,7 @@ const MyHome = () => {
                         {showCommentInputs[post._id] && (
                           <>
                             <div
-                              className="mt-2"
+                              className="mt-2 mb-2"
                               style={{ display: "flex", alignItems: "center" }}
                             >
                               <Image
@@ -527,18 +646,27 @@ const MyHome = () => {
                               <div
                                 style={{ position: "relative", width: "100%" }}
                               >
-                                <input
-                                  id={`commentInput-${post._id}`}
-                                  type="text"
-                                  className=""
-                                  placeholder="Aggiungi un commento..."
-                                  style={{
-                                    width: "100%",
-                                    padding: "4px",
-                                    border: "1px solid #f0f0f0",
-                                    borderRadius: "20px",
+                                <Form
+                                  onSubmit={(e) => {
+                                    submitComment(e, post._id);
+
+                                    e.target[0].value = "";
                                   }}
-                                />
+                                >
+                                  <Form.Control
+                                    id={`commentInput-${post._id}`}
+                                    type="text"
+                                    className="mb-1"
+                                    placeholder="Aggiungi un commento..."
+                                    style={{
+                                      width: "100%",
+                                      padding: "4px",
+                                      border: "1px solid #f0f0f0",
+                                      borderRadius: "20px",
+                                    }}
+                                  ></Form.Control>
+                                </Form>
+
                                 <div
                                   style={{
                                     position: "absolute",
@@ -568,42 +696,104 @@ const MyHome = () => {
                             </div>
 
                             <ListGroup>
-                              {commentsFiltered(post._id).map((commento) => {
-                                return (
-                                  <>
-                                    <ListGroup.Item key={commento.elementId}>
-                                      <div
-                                        className="mt-2"
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                        }}
-                                      >
-                                        <Image
-                                          src={myProfile.image}
-                                          className="rounded-circle z-3 border border-white"
-                                          alt="profile-img"
-                                          style={{
-                                            width: 48,
-                                            height: 48,
-                                            marginRight: "10px",
-                                          }}
-                                        />
-                                        <div className="d-flex flex-column">
-                                          <div className="d-flex justify-content-between align-items-center">
-                                            <h5>{commento.author}</h5>
-                                            <div className="d-flex align-items-center">
-                                              <p>{commento.createdAt}</p>
-                                              <HiDotsHorizontal />
+                              {comments &&
+                                commentsFiltered(post._id).map((commento) => {
+                                  return (
+                                    <>
+                                      <ListGroup.Item key={commento.elementId}>
+                                        <div className="mt-2 d-flex gap-1">
+                                          <Image
+                                            src={defaultCommentImage}
+                                            className="rounded-circle z-3 border border-white"
+                                            alt="profile-img"
+                                            style={{
+                                              width: 48,
+                                              height: 48,
+                                              marginRight: "10px",
+                                            }}
+                                          />
+                                          <div className="d-flex flex-column w-100 gap-3 rounded-bottom bg-body-secondary rounded-end p-2">
+                                            <div className="d-flex justify-content-between align-items-center">
+                                              <h5 className="m-0">
+                                                {commento.author}
+                                              </h5>
+                                              <div className="d-flex align-items-center gap-2">
+                                                <p className="m-0">
+                                                  {formatInputDate(
+                                                    commento.createdAt
+                                                  )}
+                                                </p>
+                                                <HiDotsHorizontal />
+                                              </div>
+                                            </div>
+                                            <div className="d-flex justify-content-between">
+                                              {editMode &&
+                                              checkDelete(
+                                                myProfile.username,
+                                                commento.author
+                                              ) ? (
+                                                <Form
+                                                  onSubmit={(e) => {
+                                                    editComment(
+                                                      e,
+                                                      commento._id,
+                                                      commento.elementId
+                                                    );
+
+                                                    e.target[0].value = "";
+                                                    setEditMode(false);
+                                                  }}
+                                                >
+                                                  <Form.Control
+                                                    type="text"
+                                                    className="mb-1"
+                                                    style={{
+                                                      width: "100%",
+                                                      padding: "4px",
+                                                      border:
+                                                        "1px solid #f0f0f0",
+                                                      borderRadius: "20px",
+                                                    }}
+                                                  ></Form.Control>
+                                                </Form>
+                                              ) : (
+                                                <p className="m-0">
+                                                  {commento.comment}
+                                                </p>
+                                              )}
+
+                                              {checkDelete(
+                                                myProfile.username,
+                                                commento.author
+                                              ) && (
+                                                <div className="d-flex gap-3">
+                                                  <i
+                                                    className="bi bi-pen-fill"
+                                                    onClick={() => {
+                                                      setEditMode(true);
+                                                    }}
+                                                  ></i>
+
+                                                  <i
+                                                    style={{
+                                                      cursor: "pointer",
+                                                    }}
+                                                    className="bi bi-x-lg"
+                                                    onClick={() =>
+                                                      deleteComment(
+                                                        commento._id
+                                                      )
+                                                    }
+                                                  ></i>
+                                                </div>
+                                              )}
                                             </div>
                                           </div>
-                                          <div></div>
                                         </div>
-                                      </div>
-                                    </ListGroup.Item>
-                                  </>
-                                );
-                              })}
+                                      </ListGroup.Item>
+                                    </>
+                                  );
+                                })}
                             </ListGroup>
                           </>
                         )}
