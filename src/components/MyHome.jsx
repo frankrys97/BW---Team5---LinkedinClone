@@ -62,7 +62,7 @@ const MyHome = () => {
     } else {
       setSpreadCardId(postId)
     }
-  }
+  };
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen)
   }
@@ -95,16 +95,17 @@ const MyHome = () => {
   }, [])
 
   function subDate(dataString) {
-    const dataPost = new Date(dataString)
-    const today = new Date()
-    const diffMill = today - dataPost
-    const millDay = 1000 * 60 * 60 * 24
-    const days = Math.floor(diffMill / millDay)
-    const weeks = Math.floor(days / 7)
-    const months = Math.floor(days / 30)
-
-    if (days <= 6) {
-      return days === 1 ? '1 giorno' : `${days} giorni`
+    const dataPost = new Date(dataString);
+    const today = new Date();
+    const diffMill = today - dataPost;
+    const millDay = 1000 * 60 * 60 * 24;
+    const days = Math.floor(diffMill / millDay);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+    if (days === 0) {
+      return "Oggi";
+    } else if (days <= 6) {
+      return days === 1 ? "1 giorno" : `${days} giorni`;
     } else if (days <= 28) {
       return weeks === 1 ? '1 settimana' : `${weeks} settimane`
     } else {
@@ -440,52 +441,94 @@ const MyHome = () => {
 
           {/*  */}
           {/* Terza Colonna */}
-          <Col xs={12} className="p-0 third-column d-none d-lg-block" style={{ width: '300px' }}>
+          <Col
+            xs={12}
+            className="p-0 third-column d-none d-lg-block"
+            style={{ width: "300px" }}
+          >
             <ListGroup>
               <ListGroup.Item variant="light">
                 <h5>Linkedin notizie</h5>
                 <p>Storie principali</p>
               </ListGroup.Item>
               <ListGroup.Item action variant="light">
-                <h6 className="m-0 fw-semibold">Medicina aereospaziale in fase di decollo</h6>
+                <h6 className="m-0 fw-semibold">
+                  Medicina aereospaziale in fase di decollo
+                </h6>
                 <small>16 ore fa · 765 lettori</small>
               </ListGroup.Item>
               <ListGroup.Item action variant="light">
-                <h6 className="m-0 fw-semibold">Quali saranno le lauree più richieste?</h6>
+                <h6 className="m-0 fw-semibold">
+                  Quali saranno le lauree più richieste?
+                </h6>
                 <small>16 ore fa · 154 lettori</small>
               </ListGroup.Item>
               <ListGroup.Item action variant="light">
-                <h6 className="m-0 fw-semibold">Dove Sventolano le bandiere Blu?</h6>
+                <h6 className="m-0 fw-semibold">
+                  Dove Sventolano le bandiere Blu?
+                </h6>
                 <small>1 giorno fa · 300 lettori</small>
               </ListGroup.Item>
               <ListGroup.Item action variant="light">
-                <h6 className="m-0 fw-semibold">Dazn fa squadra con Discovery</h6>
+                <h6 className="m-0 fw-semibold">
+                  Dazn fa squadra con Discovery
+                </h6>
                 <small>1 ora fa · 63 lettori</small>
               </ListGroup.Item>
               <ListGroup.Item action variant="light">
-                <h6 className="m-0 fw-semibold">Come nasce un punto vendita automatizzato?</h6>
+                <h6 className="m-0 fw-semibold">
+                  Come nasce un punto vendita automatizzato?
+                </h6>
                 <small>7 ore fa · 876 lettori</small>
               </ListGroup.Item>
 
               {dropdownOpen && (
                 <div className="animated-content">
-                  <ListGroup.Item action variant="light" className="fadeInAnimation">
-                    <h6 className="m-0 fw-semibold">Alle Smart city mancano Tecnici</h6>
+                  <ListGroup.Item
+                    action
+                    variant="light"
+                    className="fadeInAnimation"
+                  >
+                    <h6 className="m-0 fw-semibold">
+                      Alle Smart city mancano Tecnici
+                    </h6>
                     <small> 3 ore fa · 163 lettori</small>
                   </ListGroup.Item>
-                  <ListGroup.Item action variant="light" className="fadeInAnimation">
-                    <h6 className="m-0 fw-semibold">Italia in vetta per congressi ospitati</h6>
+                  <ListGroup.Item
+                    action
+                    variant="light"
+                    className="fadeInAnimation"
+                  >
+                    <h6 className="m-0 fw-semibold">
+                      Italia in vetta per congressi ospitati
+                    </h6>
                     <small>17 ore fa · 1633 lettori</small>
                   </ListGroup.Item>
-                  <ListGroup.Item action variant="light" className="fadeInAnimation">
-                    <h6 className="m-0 fw-semibold">Se il paragone non aiuta</h6>
+                  <ListGroup.Item
+                    action
+                    variant="light"
+                    className="fadeInAnimation"
+                  >
+                    <h6 className="m-0 fw-semibold">
+                      Se il paragone non aiuta
+                    </h6>
                     <small>23 ore fa · 233 lettori</small>
                   </ListGroup.Item>
-                  <ListGroup.Item action variant="light" className="fadeInAnimation">
-                    <h6 className="m-0 fw-semibold">INetflix e Nuovo Imae rinnovano l&apos;accordo</h6>
+                  <ListGroup.Item
+                    action
+                    variant="light"
+                    className="fadeInAnimation"
+                  >
+                    <h6 className="m-0 fw-semibold">
+                      INetflix e Nuovo Imae rinnovano l&apos;accordo
+                    </h6>
                     <small>7 ore fa · 683 lettori</small>
                   </ListGroup.Item>
-                  <ListGroup.Item action variant="light" className="fadeInAnimation">
+                  <ListGroup.Item
+                    action
+                    variant="light"
+                    className="fadeInAnimation"
+                  >
                     <h6 className="m-0 fw-semibold">OpenAI svela GPT -4o</h6>
                     <small>19 ore fa · 730 lettori</small>
                   </ListGroup.Item>
@@ -495,14 +538,14 @@ const MyHome = () => {
               <div className="dropdown-wrapper">
                 <Dropdown show={dropdownOpen} onToggle={toggleDropdown}>
                   <Dropdown.Toggle variant="light" id="dropdown-basic">
-                    {dropdownOpen ? 'Mostra meno' : 'Vedi altro'}
+                    {dropdownOpen ? "Mostra meno" : "Vedi altro"}
                   </Dropdown.Toggle>
                 </Dropdown>
               </div>
               <div className="mt-2">
                 <img
                   src="https://media.licdn.com/media/AAYQAgTPAAgAAQAAAAAAADVuOvKzTF-3RD6j-qFPqhubBQ.png"
-                  width={'100%'}
+                  width={"100%"}
                   className="mb-2 rounded"
                   alt=""
                 />
@@ -607,7 +650,9 @@ const MyHome = () => {
                 </a>
                 <Dropdown>
                   <Dropdown.Toggle variant="link" className="dropdown-trigger">
-                    <small style={{ fontSize: '10px' }}>Servizi alle aziende</small>
+                    <small style={{ fontSize: "10px" }}>
+                      Servizi alle aziende
+                    </small>
                   </Dropdown.Toggle>
                   <Dropdown.Menu show={servicesDropdownOpen}>
                     <Dropdown.Item>
@@ -624,7 +669,9 @@ const MyHome = () => {
                     </Dropdown.Item>
                     <Dropdown.Item>
                       <h6>Fai pubblicità su Linkedin</h6>
-                      <small>Acquisisci clienti e fai crescere la tua Azienda</small>
+                      <small>
+                        Acquisisci clienti e fai crescere la tua Azienda
+                      </small>
                     </Dropdown.Item>
                     <Dropdown.Item>
                       <h6>Inizia con Premium</h6>
@@ -632,7 +679,9 @@ const MyHome = () => {
                     </Dropdown.Item>
                     <Dropdown.Item>
                       <h6>Centro Amministrazione</h6>
-                      <small>Gestisci i dettagli di fatturazione e account</small>
+                      <small>
+                        Gestisci i dettagli di fatturazione e account
+                      </small>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

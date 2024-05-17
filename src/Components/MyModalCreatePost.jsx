@@ -42,6 +42,7 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
       fetchPostDetails(postId);
     }
     personalPost();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode, postId]);
 
   const fetchPostDetails = (postId) => {
@@ -72,6 +73,8 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
   };
 
   const handleSumbit = (event) => {
+    setUploadedFile(null);
+
     event.preventDefault();
     console.log(post);
 
@@ -133,7 +136,6 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
         personalPost();
         setPost({
           text: "",
-          image: null,
         });
       })
       .catch((error) => {
