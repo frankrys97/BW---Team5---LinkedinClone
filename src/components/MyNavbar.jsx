@@ -14,44 +14,44 @@ import { FaSearch } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import premium from "../assets/linkedin-premium.png";
 import MyOffcanvas from "./NavbarOffcanvas";
-import { getMyProfile } from "../redux/actions";
+import { getJob, getMyProfile, selectJob } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 const MyNavbar = () => {
   // const [isOverlay, setIsOverlay] = useState(false);
-  const myProfile = useSelector((state) => state.myProfile.content)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const [showToolbar, setShowToolbar] = useState(false)
+  const myProfile = useSelector((state) => state.myProfile.content);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [showToolbar, setShowToolbar] = useState(false);
 
   useEffect(() => {
-    dispatch(getMyProfile())
+    dispatch(getMyProfile());
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY
+      const scrollPosition = window.scrollY;
       // Imposta la visibilità della toolbar in base alla posizione dello scroll
-      setShowToolbar(scrollPosition > 500) // Cambia 100 con l'altezza desiderata
-    }
+      setShowToolbar(scrollPosition > 500); // Cambia 100 con l'altezza desiderata
+    };
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
+      window.removeEventListener("scroll", handleScroll);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
   const handleSubmit = (event) => {
-    event.preventDefault()
-    dispatch(getJob(search))
-    dispatch(selectJob(''))
-    setSearch('')
+    event.preventDefault();
+    dispatch(getJob(search));
+    dispatch(selectJob(""));
+    setSearch("");
     // setSearch(null)
-    navigate('/searchjobs')
-  }
+    navigate("/searchjobs");
+  };
 
   return (
     <>
@@ -134,7 +134,10 @@ const MyNavbar = () => {
                   className="d-flex flex-column w-100 justify-content-start flex-md-row justify-content-md-between align-items-start align-items-md-center"
                   id="navMain"
                 >
-                  <Form className="position-relative me-auto mb-2 mb-md-0" onSubmit={handleSubmit}>
+                  <Form
+                    className="position-relative me-auto mb-2 mb-md-0"
+                    onSubmit={handleSubmit}
+                  >
                     <Form.Control
                       type="search"
                       placeholder="Cerca"
@@ -404,7 +407,7 @@ const MyNavbar = () => {
                   <NavLink
                     to={"/"}
                     className="nav-link d-flex flex-column align-items-center premiumLink"
-                    style={{ fontSize: '12px' }}
+                    style={{ fontSize: "12px" }}
                   >
                     <p className="mb-0">Passa a Premium</p>
                     <span>gratis</span>
@@ -416,7 +419,7 @@ const MyNavbar = () => {
         </Container>
       )}
     </>
-  )
-}
+  );
+};
 
-export default MyNavbar
+export default MyNavbar;
