@@ -405,7 +405,7 @@ const MyNavbar = () => {
 
                   <MyOffcanvas />
                   <NavLink
-                    to={"/"}
+                    to={"/premium"}
                     className="nav-link d-flex flex-column align-items-center premiumLink"
                     style={{ fontSize: "12px" }}
                   >
