@@ -18,7 +18,6 @@ import { Modal } from 'react-bootstrap'
 import '../style/modalInvioButton.css'
 import LoadingPost from './LoadingPost'
 import '../style/DropDowmAnimation.css'
-import "../style/HoverOnModal.css"
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content)
   const [consigliaClicked, setConsigliaClicked] = useState({})
@@ -29,42 +28,6 @@ const MyHome = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [spreadCardId, setSpreadCardId] = useState(null)
   const [servicesDropdownOpen] = useState(false)
-  const [profiles, setProfiles] = useState([]);
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
-  const fetchProfiles = async () => {
-    try {
-      const response = await fetch('https://striveschool-api.herokuapp.com/api/profile/', {
-        headers: {
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYzI0NTE2N2U1MzAwMTVmYTY5N2IiLCJpYXQiOjE3MTU1ODU4NjAsImV4cCI6MTcxNjc5NTQ2MH0.cEKb2krnNiZwilYZItlDUMreBrz6t-HFPnjBGJ3WWC0`,
-        }
-      });
-      if (response.ok) {
-        const data = await response.json();
-        // Shuffle the array to get random profiles
-        const shuffledProfiles = shuffleArray(data);
-        // Select the first 10 profiles
-        const randomProfiles = shuffledProfiles.slice(0, 10);
-        setProfiles(randomProfiles);
-      } else {
-        console.error('Failed to fetch profiles');
-      }
-    } catch (error) {
-      console.error('Error fetching profiles:', error);
-    }
-  };
-  
-  useEffect(() => {
-    if (showModal) {
-      fetchProfiles();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showModal]);
 
   const handleSendClick = () => {
     setShowModal(true)
@@ -367,33 +330,21 @@ const MyHome = () => {
                             Diffondi il post
                           </Button>
                           <Button variant="outline-light" className="border-0 text-dark" onClick={handleSendClick}>
-      <i className="bi bi-send-fill"></i> Invia
-    </Button>
-    <Modal
-  show={showModal}
-  onHide={handleCloseModal}
-  size="lg"
-  backdropClassName="custom-backdrop"
->
-  <Modal.Header closeButton>
-    <Modal.Title>Invia il post</Modal.Title>
-  </Modal.Header>
-  <Modal.Body style={{ maxHeight: '40rem', overflowY: 'auto' }}>
-  <input type="text" placeholder="Cerca un amico qui..." style={{ width: '100%', marginBottom: '1rem' }} />
-  {profiles.map(profile => (
-    <div key={profile._id}>
-      <div className="profile" style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-        <img src={profile.image} alt={profile.name} style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '1rem' }} />
-        <div>
-          <h4 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{profile.name} {profile.surname}</h4>
-          <p style={{ fontSize: '0.8rem', marginBottom: '0.5rem' }}>{profile.bio}</p>
-        </div>
-      </div>
-      <hr style={{ border: 'none', borderTop: '1px solid #ccc' }} />
-    </div>
-  ))}
-</Modal.Body>
-</Modal>
+                            <i className="bi bi-send-fill "></i> Invia
+                          </Button>
+                          <Modal
+                            show={showModal}
+                            onHide={handleCloseModal}
+                            size="lg"
+                            backdropClassName="custom-backdrop"
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title>Invia il post</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body style={{ height: '40rem' }}>
+                              <input type="text" placeholder="Cerca un amico qui..." style={{ width: '100%' }} />
+                            </Modal.Body>
+                          </Modal>
                         </ButtonGroup>
                         {showCommentInputs[post._id] && (
                           <div className="mt-2" style={{ display: 'flex', alignItems: 'center' }}>
