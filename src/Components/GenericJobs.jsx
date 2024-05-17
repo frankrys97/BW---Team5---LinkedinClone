@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Card, CardBody, Col, Container, Dropdown, Row } from 'react-bootstrap'
+import { Button, Card, CardBody, Col, Container, Dropdown, ListGroup, Row } from 'react-bootstrap'
 import LoadingJobs from './LoadingJob'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -50,72 +50,72 @@ const GenericJobs = () => {
         <Row className="justify-content-center">
           {/* Prima Colonna */}
           <Col xs={12} className="p-0 first-column ">
-            <Card className=" contBody">
-              <Card.Body>
-                <div className="d-flex my-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="23"
-                    height="23"
-                    fill="currentColor"
-                    className="bi bi-bookmark-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
-                  </svg>
-                  <p className="fw-bold ms-1" style={{ fontSize: '0.8rem' }}>
-                    Le mie offerte di lavoro
-                  </p>
-                </div>
-                <div className="d-flex my-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="23"
-                    height="23"
-                    fill="currentColor"
-                    className="bi bi-list-ul"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
-                  </svg>
-                  <p className="fw-bold ms-1" style={{ fontSize: '0.8rem' }}>
-                    Preferenze
-                  </p>
-                </div>
-                <div className="d-flex my-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="23"
-                    height="23"
-                    fill="currentColor"
-                    className="bi bi-clipboard-check"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0" />
-                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z" />
-                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z" />
-                  </svg>
-                  <p className="fw-bold ms-1" style={{ fontSize: '0.8rem' }}>
-                    Valutazioni delle competenze
-                  </p>
-                </div>
-                <div className="d-flex my-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="23"
-                    height="23"
-                    fill="currentColor"
-                    className="bi bi-youtube"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z" />
-                  </svg>
-                  <p className="fw-bold ms-1" style={{ fontSize: '0.8rem' }}>
-                    Indicazioni per chi cerca lavoro
-                  </p>
-                </div>
-              </Card.Body>
-            </Card>
+            {/* <Card className=" contBody"> */}
+            <ListGroup className="">
+              <ListGroup.Item action className="d-flex py-4 customPJobs">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="23"
+                  height="23"
+                  fill="currentColor"
+                  className="bi bi-bookmark-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
+                </svg>
+                <p className="fw-bold ms-1 mb-0 text-body-secondary" style={{ fontSize: '0.8rem' }}>
+                  Le mie offerte di lavoro
+                </p>
+              </ListGroup.Item>
+              <ListGroup.Item action className="d-flex py-4 customPJobs">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="23"
+                  height="23"
+                  fill="currentColor"
+                  className="bi bi-list-ul"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                </svg>
+                <p className="fw-bold ms-1 mb-0 text-body-secondary" style={{ fontSize: '0.8rem' }}>
+                  Preferenze
+                </p>
+              </ListGroup.Item>
+              <ListGroup.Item action className="d-flex py-4 customPJobs">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="23"
+                  height="23"
+                  fill="currentColor"
+                  className="bi bi-clipboard-check"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z" />
+                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z" />
+                </svg>
+                <p className="fw-bold ms-1 mb-0 text-body-secondary" style={{ fontSize: '0.8rem' }}>
+                  Valutazioni delle competenze
+                </p>
+              </ListGroup.Item>
+              <ListGroup.Item action className="d-flex py-4 customPJobs">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="23"
+                  height="23"
+                  fill="currentColor"
+                  className="bi bi-youtube"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z" />
+                </svg>
+                <p className="fw-bold ms-1 mb-0 text-body-secondary" style={{ fontSize: '0.8rem' }}>
+                  Indicazioni per chi cerca lavoro
+                </p>
+              </ListGroup.Item>
+            </ListGroup>
+            {/* </Card> */}
             <Button className=" d-flex p-2 my-3 rounded-pill border border-primary" variant="">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -140,10 +140,10 @@ const GenericJobs = () => {
                   {savedJob.map((compagnie) => (
                     <div
                       key={compagnie._id}
-                      className="px-3 border-bottom"
+                      className="px-3 border-bottom  customJobCard"
                       onClick={() => {
                         dispatch(selectJob(compagnie))
-                        dispatch(getJob(null))
+                        dispatch(getJob(compagnie.title))
                         navigate('/searchjobs')
                       }}
                     >
@@ -186,10 +186,11 @@ const GenericJobs = () => {
                     return (
                       <div
                         key={compagnie._id}
-                        className="px-3 border-bottom"
+                        className="px-3 border-bottom  customJobCard"
                         onClick={() => {
                           dispatch(selectJob(compagnie))
                           dispatch(getJob(null))
+                          // dispatch(getJob(compagnie.title))
                           navigate('/searchjobs')
                         }}
                       >
