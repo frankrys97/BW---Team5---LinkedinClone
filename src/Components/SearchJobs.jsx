@@ -63,6 +63,7 @@ const SearchJobs = () => {
     } else {
       companyFetch()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
   return (
     <>
