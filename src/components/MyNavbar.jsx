@@ -1,14 +1,4 @@
-import {
-  Container,
-  Nav,
-  NavDropdown,
-  Navbar,
-  Form,
-  Button,
-  Col,
-  Badge,
-  Row,
-} from "react-bootstrap";
+import { Container, Nav, NavDropdown, Navbar, Form, Button, Col, Badge, Row } from "react-bootstrap";
 import logo from "../assets/linkedIn-logo.png";
 import { FaSearch } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -56,15 +46,8 @@ const MyNavbar = () => {
   return (
     <>
       {myProfile && (
-        <Container
-          fluid
-          className="header z-3 p-0 position-fixed w-100 mb-1 top-0"
-        >
-          <section
-            className={`toolbar d-none d-md-block ${
-              showToolbar ? "show-toolbar" : ""
-            }`}
-          >
+        <Container fluid className="header z-3 p-0 position-fixed w-100 mb-1 top-0">
+          <section className={`toolbar d-none d-md-block ${showToolbar ? "show-toolbar" : ""}`}>
             <Container className="navbar-container mt-1">
               <div className="d-flex align-items-center justify-content-between">
                 <div className="d-flex align-items-center gap-3">
@@ -88,16 +71,10 @@ const MyNavbar = () => {
                 </div>
 
                 <div className="d-flex align-items-center gap-3">
-                  <Button
-                    variant="outline-dark"
-                    className="rounded rounded-pill"
-                  >
+                  <Button variant="outline-dark" className="rounded rounded-pill">
                     Altro
                   </Button>
-                  <Button
-                    variant="outline-primary"
-                    className="rounded rounded-pill"
-                  >
+                  <Button variant="outline-primary" className="rounded rounded-pill">
                     Aggiungi sezione al profilo
                   </Button>
                   <Button variant="primary" className="rounded rounded-pill">
@@ -134,14 +111,11 @@ const MyNavbar = () => {
                   className="d-flex flex-column w-100 justify-content-start flex-md-row justify-content-md-between align-items-start align-items-md-center"
                   id="navMain"
                 >
-                  <Form
-                    className="position-relative me-auto mb-2 mb-md-0"
-                    onSubmit={handleSubmit}
-                  >
+                  <Form className="position-relative me-auto mb-2 mb-md-0" onSubmit={handleSubmit}>
                     <Form.Control
                       type="search"
                       placeholder="Cerca"
-                      className="px-5 rounded rounded-2 border border-0 custom-placeholder w-100 "
+                      className="ps-5 rounded  rounded-2 border  border-0 custom-placeholder w-100 "
                       aria-label="Search"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
@@ -292,23 +266,10 @@ const MyNavbar = () => {
                         className="nav-link d-flex flex-column align-items-md-center align-items-start gap-1 gap-md-0 
                border border-bottom-0 border-top-0 border-start-0"
                       >
-                        <img
-                          src={logo}
-                          alt="logo"
-                          className="rounded-circle"
-                          width={25}
-                          height={25}
-                        />
+                        <img src={logo} alt="logo" className="rounded-circle" width={25} height={25} />
 
-                        <NavDropdown
-                          title="Tu"
-                          id="basic-nav-dropdown"
-                          align={"end"}
-                          className="m-0"
-                        >
-                          <NavDropdown.Item
-                            onClick={() => navigate("/profile_my")}
-                          >
+                        <NavDropdown title="Tu" id="basic-nav-dropdown" align={"end"} className="m-0">
+                          <NavDropdown.Item onClick={() => navigate("/profile_my")}>
                             <div className="d-flex gap-2">
                               <Col>
                                 <img
@@ -335,8 +296,7 @@ const MyNavbar = () => {
                                       whiteSpace: "initial",
                                     }}
                                   >
-                                    Junior Full-Stack Developer 💻 I Web
-                                    Marketing 🚀 I Local Marketing 🗣 I Business
+                                    Junior Full-Stack Developer 💻 I Web Marketing 🚀 I Local Marketing 🗣 I Business
                                     Management 📈
                                   </p>
                                 </div>
@@ -354,34 +314,18 @@ const MyNavbar = () => {
                           <h5 className="ms-3">Account</h5>
                           <NavDropdown.Item href="#action/3.4">
                             <div className="d-flex align-items-center">
-                              <img
-                                src={premium}
-                                alt=""
-                                width={15}
-                                height={15}
-                              />
-                              <p
-                                className="mb-0 ms-2 fw-semibold"
-                                style={{ color: "gray", fontSize: "16px" }}
-                              >
+                              <img src={premium} alt="" width={15} height={15} />
+                              <p className="mb-0 ms-2 fw-semibold" style={{ color: "gray", fontSize: "16px" }}>
                                 Passa a Premium con 0 EUR
                               </p>
                             </div>
                           </NavDropdown.Item>
-                          <NavDropdown.Item href="#action/3.4">
-                            Impostazioni e privacy{" "}
-                          </NavDropdown.Item>
-                          <NavDropdown.Item href="#action/3.4">
-                            Guida{" "}
-                          </NavDropdown.Item>
-                          <NavDropdown.Item href="#action/3.4">
-                            Lingua{" "}
-                          </NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.4">Impostazioni e privacy </NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.4">Guida </NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.4">Lingua </NavDropdown.Item>
                           <NavDropdown.Divider />
                           <h5 className="ms-3">Gestisci</h5>
-                          <NavDropdown.Item href="#action/3.4">
-                            Post e attività{" "}
-                          </NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.4">Post e attività </NavDropdown.Item>
                           <NavDropdown.Item
                             href="#action/3.4"
                             style={{
@@ -391,13 +335,10 @@ const MyNavbar = () => {
                               textOverflow: "ellipsis",
                             }}
                           >
-                            Account per la pubblicazione di contenuti ufficiali
-                            per la tua sezione profilo{" "}
+                            Account per la pubblicazione di contenuti ufficiali per la tua sezione profilo{" "}
                           </NavDropdown.Item>
                           <NavDropdown.Divider />
-                          <NavDropdown.Item href="#action/3.4">
-                            Esci{" "}
-                          </NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.4">Esci </NavDropdown.Item>
                         </NavDropdown>
                       </div>
                     </Col>
