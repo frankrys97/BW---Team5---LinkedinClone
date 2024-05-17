@@ -457,16 +457,17 @@ const MyHome = () => {
                 className="my-3 bg-dark-subtle me-2 flex-grow-1"
                 style={{ height: "2px" }}
               ></div>
+              <div className="d-flex align-items-center">
               <small className="d-inline-block">
                 Seleziona la visualizzazione del feed:
               </small>
-              <Dropdown data-bs-theme="light" className="">
+              <Dropdown data-bs-theme="light" className="mb-1">
                 <Dropdown.Toggle
                   id="dropdown-button-dark-example1"
                   variant="transparent"
                   className=""
                 >
-                  <small>Dropdown Button</small>
+                  <small className="fw-bold">Più rilevante per i primi</small>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item href="#/action-1" active>
@@ -477,6 +478,7 @@ const MyHome = () => {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
+              </div>
             </div>
 
             {/* Post */}
