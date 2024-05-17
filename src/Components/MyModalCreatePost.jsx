@@ -42,7 +42,7 @@ const MyModalCreatePost = ({ editMode, postId, personalPost }) => {
       fetchPostDetails(postId);
     }
     personalPost();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode, postId]);
 
   const fetchPostDetails = (postId) => {

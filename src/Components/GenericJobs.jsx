@@ -140,7 +140,7 @@ const GenericJobs = () => {
                   {savedJob.map((compagnie) => (
                     <div
                       key={compagnie._id}
-                      className="px-3 border-bottom  customJobCard"
+                      className="px-3 border-bottom customJobCard"
                       onClick={() => {
                         dispatch(selectJob(compagnie))
                         dispatch(getJob(compagnie.title))
