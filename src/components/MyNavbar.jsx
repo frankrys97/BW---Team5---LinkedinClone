@@ -141,7 +141,7 @@ const MyNavbar = () => {
                     <Form.Control
                       type="search"
                       placeholder="Cerca"
-                      className="px-5 rounded rounded-2 border border-0 custom-placeholder w-100 "
+                      className="ps-5 rounded rounded-2 border border-0 custom-placeholder w-100 "
                       aria-label="Search"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
