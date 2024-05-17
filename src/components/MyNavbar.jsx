@@ -4,7 +4,7 @@ import { FaSearch } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import premium from '../assets/linkedin-premium.png'
 import MyOffcanvas from './NavbarOffcanvas'
-import { getJob, getMyProfile } from '../redux/actions'
+import { getJob, getMyProfile, selectJob } from '../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
@@ -37,7 +37,9 @@ const MyNavbar = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     dispatch(getJob(search))
+    dispatch(selectJob(''))
     setSearch('')
+    // setSearch(null)
     navigate('/searchjobs')
   }
 

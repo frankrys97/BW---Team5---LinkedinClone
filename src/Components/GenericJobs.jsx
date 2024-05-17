@@ -3,7 +3,7 @@ import { Button, Card, CardBody, Col, Container, Dropdown, Row } from 'react-boo
 import LoadingJobs from './LoadingJob'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectJob } from '../redux/actions'
+import { getJob, selectJob } from '../redux/actions'
 
 const GenericJobs = () => {
   const navigate = useNavigate()
@@ -143,6 +143,7 @@ const GenericJobs = () => {
                       className="px-3 border-bottom"
                       onClick={() => {
                         dispatch(selectJob(compagnie))
+                        dispatch(getJob(null))
                         navigate('/searchjobs')
                       }}
                     >
@@ -188,6 +189,7 @@ const GenericJobs = () => {
                         className="px-3 border-bottom"
                         onClick={() => {
                           dispatch(selectJob(compagnie))
+                          dispatch(getJob(null))
                           navigate('/searchjobs')
                         }}
                       >

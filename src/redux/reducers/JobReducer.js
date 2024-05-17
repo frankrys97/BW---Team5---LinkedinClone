@@ -2,7 +2,7 @@ import { ADD_JOB, GET_JOB, REMOVE_JOB, SELECT_JOB } from '../actions'
 
 const initialState = {
   savedJob: [],
-  selectedJob: null,
+  selectedJob: '',
   searchJob: null,
 }
 
@@ -23,7 +23,7 @@ export default function (state = initialState, action) {
     case REMOVE_JOB:
       return {
         ...state,
-        savedJob: state.savedJob.filter((job) => job.id !== action.payload),
+        savedJob: state.savedJob.filter((job) => job._id !== action.payload),
       }
 
     case GET_JOB:
