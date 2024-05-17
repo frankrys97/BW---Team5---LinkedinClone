@@ -12,7 +12,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../style/myHome.css";
 import { useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
@@ -21,6 +21,12 @@ import LoadingPost from "./LoadingPost";
 import "../style/DropDowmAnimation.css";
 import { HiDotsHorizontal } from "react-icons/hi";
 import defaultCommentImage from "../assets/avatar-1577909_960_720.webp";
+import { CiFaceSmile } from "react-icons/ci";
+import { AiOutlinePicture } from "react-icons/ai";
+import { IoCalendarOutline } from "react-icons/io5";
+import { BiParty } from "react-icons/bi";
+import { FaPlus } from "react-icons/fa";
+import { IoMdTime } from "react-icons/io";
 
 const MyHome = () => {
   const myProfile = useSelector((state) => state.myProfile.content);
@@ -294,9 +300,158 @@ const MyHome = () => {
     }
   };
 
+  const [post, setPost] = useState({
+    text: "",
+  });
+
+  const createPost = (event) => {
+    event.preventDefault();
+    fetch("https://striveschool-api.herokuapp.com/api/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE`,
+      },
+      body: JSON.stringify(post),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        const postId = data._id;
+        const formData = new FormData();
+        formData.append("post", uploadedFile);
+
+        fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjQxYmQ5MjE2N2U1MzAwMTVmYTY5NmYiLCJpYXQiOjE3MTU1ODQ0MDIsImV4cCI6MTcxNjc5NDAwMn0.Ok0_vafY6vDobp0aoeNBS9RlvytHX3veJb6PlPGP7nE`,
+          },
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Something went wrong");
+            }
+          })
+          .then((data) => {
+            console.log("image uploaded", data);
+            getPosts();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        getPosts();
+        setShowModalCreatePost2(false);
+        setPost({
+          text: "",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const [showModalCreatePost2, setShowModalCreatePost2] = useState(false);
+
+  const handleClose = () => {
+    setShowModalCreatePost2(false);
+  };
+
+  const handleShow = () => {
+    setShowModalCreatePost2(true);
+  };
+
+  const [uploadedFile, setUploadedFile] = useState(null);
+
+  const fileInputRef = useRef(null);
+
+  const handleUploadedFileChange = (event) => {
+    setUploadedFile(event.target.files[0]);
+  };
+  const handleInputClick = (e) => {
+    e.preventDefault();
+    fileInputRef.current.click();
+  };
+
   return (
     myProfile && (
       <Container style={{ paddingTop: "65px" }}>
+        <Modal show={showModalCreatePost2} onHide={handleClose} size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title className=" border border-0">
+              <div className="d-flex gap-2">
+                <div style={{ width: "50px", height: "50px" }}>
+                  <img
+                    src={myProfile.image}
+                    alt=" profile"
+                    className="rounded-circle w-100 h-100"
+                  />
+                </div>
+                <div className="d-flex flex-column">
+                  <p className="m-0">
+                    {myProfile.name} {myProfile.surname}
+                  </p>
+                  <span
+                    className="text-secondary"
+                    style={{ fontSize: "0.8rem" }}
+                  >
+                    Pubblica: Chiunque
+                  </span>
+                </div>
+              </div>
+            </Modal.Title>
+          </Modal.Header>
+          <Form className="w-100 h-100" onSubmit={createPost}>
+            <Modal.Body>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Control
+                  as="textarea"
+                  rows={8}
+                  placeholder="Di cosa vuoi parlare?"
+                  className="border-0 p-0"
+                  onChange={(e) => setPost({ ...post, text: e.target.value })}
+                  value={post.text}
+                />
+              </Form.Group>
+              <CiFaceSmile className="fs-5" />
+              <div className="d-flex justify-content-start align-items-center gap-2 mt-2">
+                <AiOutlinePicture onClick={handleInputClick} className="fs-5" />
+                <input
+                  type="file"
+                  onChange={handleUploadedFileChange}
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  accept="jpg, jpeg, png"
+                />
+                <IoCalendarOutline className="fs-5" />
+                <BiParty className="fs-5" />
+                <FaPlus className="fs-5" />
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <IoMdTime className="fs-5" />
+              <Button
+                variant="primary"
+                className="rounded-pill px-3 py-1"
+                disabled={!post.text}
+                type="submit"
+              >
+                {editMode ? "Modifica" : "Pubblica"}
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal>
         <Row className="justify-content-center">
           {/* Prima Colonna */}
           <Col xs={12} className="p-0 first-column ">
@@ -421,6 +576,7 @@ const MyHome = () => {
                     <Button
                       className="w-100 py-2 rounded-5 text-start fw-semibold border border-dark-subtle btnPost"
                       variant="transparent"
+                      onClick={handleShow}
                     >
                       Avvia un post
                     </Button>
@@ -458,26 +614,26 @@ const MyHome = () => {
                 style={{ height: "2px" }}
               ></div>
               <div className="d-flex align-items-center">
-              <small className="d-inline-block">
-                Seleziona la visualizzazione del feed:
-              </small>
-              <Dropdown data-bs-theme="light" className="mb-1">
-                <Dropdown.Toggle
-                  id="dropdown-button-dark-example1"
-                  variant="transparent"
-                  className=""
-                >
-                  <small className="fw-bold">Più rilevante per i primi</small>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1" active>
-                    <small>Più rilevanti per primi</small>
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">
-                    <small>Più recenti per primi</small>
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                <small className="d-inline-block">
+                  Seleziona la visualizzazione del feed:
+                </small>
+                <Dropdown data-bs-theme="light" className="mb-1">
+                  <Dropdown.Toggle
+                    id="dropdown-button-dark-example1"
+                    variant="transparent"
+                    className=""
+                  >
+                    <small className="fw-bold">Più rilevante per i primi</small>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1" active>
+                      <small>Più rilevanti per primi</small>
+                    </Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">
+                      <small>Più recenti per primi</small>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </div>
             </div>
 
