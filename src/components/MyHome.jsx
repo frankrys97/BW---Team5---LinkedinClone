@@ -302,7 +302,7 @@ const MyHome = () => {
           <Col xs={12} className="p-0 first-column ">
             <ListGroup className="mb-1">
               <ListGroup.Item className="text-center">
-                <div className="rounded-top position-absolute start-0 top-0 overflow-hidden imgContainer">
+                <div className="rounded-top position-absolute start-0 top-0 end-0 overflow-hidden imgContainer">
                   <Image
                     src="https://media.licdn.com/dms/image/D4D16AQGdLXRnSjl7bQ/profile-displaybackgroundimage-shrink_350_1400/0/1713442065268?e=1721260800&v=beta&t=t-XxVkrYJWOMbzSDmeCUsoY-SVin550O1VB7x7tBfqk"
                     className="imgBackground"
